@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {getData} from "./IO.js";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,7 @@ class Timer extends React.Component {
     this.setState(state => ({
       seconds: state.seconds + 1
     }));
+    getData();
   }
 
   componentDidMount() {
