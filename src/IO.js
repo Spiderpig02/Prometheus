@@ -2,8 +2,6 @@ import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
 
-
-
 export function useInfoFromUser() {
 
   const [users, setUsers] = useState([]);
@@ -19,6 +17,23 @@ export function useInfoFromUser() {
   }, [usersCollectionRef]);
 
   return users;
+}
+
+export function useAddData() {
+
+  const [adds, setAdds] = useState([]);
+  const addsCollectinRef = collection(firestore, "Advertisement");
+
+  useEffect(() => {
+    const getAdds = async () => {
+      const adds = await getDocs(addsCollectinRef);
+      setAdds(adds.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
+
+    getAdds();
+  }, [addsCollectinRef]);
+
+  return adds;
 }
 
 
