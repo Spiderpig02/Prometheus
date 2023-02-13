@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
+import LagAnnonse from './LagAnnonse';
 
 function App() {
 
-  return (
-    <div className="App">
+  return(
+    <>
+      <LagAnnonse />
+    </>
 
-    </div>
-  );
+  )
 
 }
 

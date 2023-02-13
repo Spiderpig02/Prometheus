@@ -41,7 +41,11 @@ class Timer extends React.Component {
   }
 }
 
-root.render(<Timer />);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 //Test code over here by Daniel:)
 
 // If you want to start measuring performance in your app, pass a function
