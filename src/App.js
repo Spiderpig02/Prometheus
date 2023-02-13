@@ -1,14 +1,11 @@
-import React from 'react';
-import { Route, Routes } from 'react-router';
-import AllListings from './AllListings';
 import './App.css';
-import MyListings from './MyListings';
-import ResponsiveAppBar from './ResponsiveAppBar';
-
-
-
+import { useInfoFromUser } from './IO';
+import { getAdsFromUser } from './IO';
 
 function App() {
+
+  const user = useInfoFromUser();
+  const ad = getAdsFromUser("Askeladden"); 
 
   return (
     <div>
