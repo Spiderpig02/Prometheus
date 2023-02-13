@@ -1,6 +1,6 @@
 import './App.css';
 import { useInfoFromUser } from './IO';
-import { getAdsFromUser } from './IO';
+import { GetAdsFromUser } from './IO';
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import AllListings from './AllListings';
@@ -11,7 +11,7 @@ import ResponsiveAppBar from './ResponsiveAppBar';
 function App() {
 
     const user = useInfoFromUser();
-    const ad = getAdsFromUser("Askeladden");
+    const ad = GetAdsFromUser("Askeladden");
 
     return (
         <div>
