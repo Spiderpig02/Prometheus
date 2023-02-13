@@ -8,16 +8,24 @@ function App() {
   const ad = getAdsFromUser("Askeladden"); 
 
   return (
-    <div className="App">
-      {ad.map((ad) => {
-        return <div>
-          {" "}
-          <h1> UserID: {ad.userID} </h1>
-          <h1> Title: {ad.Title} </h1>
-          <h1> Beskrivelse: {ad.Beskrivelse} </h1>
-          </div>
-      })}
+    <div>
+      
+      <ResponsiveAppBar>
+      </ResponsiveAppBar>  
+      <Routes>
+        <Route path="/" element={<AllListings/>}/>
+        <Route path="/Mine Annonser" element={<MyListings/>}/>
+        <Route path="/Alle Annonser" element={<AllListings/>}/>
+      
+      </Routes>  
+
+    
+
+      
     </div>
+
+  
+    
   );
 
 }
