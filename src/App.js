@@ -18,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AllListings/>}/>
         <Route path="/Mine Annonser" element={<MyListings/>}/>
+        <Route path="/Alle Annonser" element={<AllListings/>}/>
       
       </Routes>  
 
