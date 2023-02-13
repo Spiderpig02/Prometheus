@@ -1,8 +1,9 @@
-import { collection, getDocs, addDoc, doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
+import { query, where } from "firebase/firestore";
 
-export function useGetUserData() {
+export function useInfoFromUser() {
 
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(firestore, "User");
@@ -17,9 +18,28 @@ export function useGetUserData() {
   }, [usersCollectionRef]);
 
   return users;
-};
+}
 
-export function useGetAddData() {
+export function getAdsFromUser(userID) {
+
+    const [ads, setAds] = useState([]);
+    const adsCollectionRef = collection(firestore, "Advertisement");
+    const q = query(adsCollectionRef, where("userID", "==", userID))
+  
+    useEffect(() => {
+      const getAds = async () => {
+        const data = await getDocs(q);
+        setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      }
+
+      getAds();
+    }, [adsCollectionRef]);
+  
+    return ads;
+  }
+
+
+export function useAddData() {
 
   const [adds, setAdds] = useState([]);
   const addsCollectinRef = collection(firestore, "Advertisement");
