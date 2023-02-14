@@ -10,30 +10,26 @@ import ResponsiveAppBar from './ResponsiveAppBar';
 
 function App() {
 
-    const user = useInfoFromUser();
-    const ad = GetAdsFromUser("Askeladden");
+  return (
+    <div>
+      
+      <ResponsiveAppBar>
+      </ResponsiveAppBar>  
+      <Routes>
+        <Route path="/" element={<AllListings/>}/>
+        <Route path="/Mine Annonser" element={<MyListings/>}/>
+        <Route path="/Alle Annonser" element={<AllListings/>}/>
+      
+      </Routes>  
 
-    return (
-        <div>
+    
 
-            <ResponsiveAppBar>
-            </ResponsiveAppBar>
+      
+    </div>
 
-            <Routes>
-                <Route path="/" element={<AllListings />} />
-                <Route path="/Mine Annonser" element={<MyListings />} />
-                <Route path="/Alle Annonser" element={<AllListings />} />
-
-            </Routes>
-
-
-
-
-        </div>
-
-
-
-    );
+  
+    
+  );
 
 }
 
