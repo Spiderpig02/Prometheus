@@ -8,14 +8,14 @@ export function useGetUserData() {
     const [users, setUsers] = useState([]);
     const usersCollectionRef = collection(firestore, "User");
 
-    useEffect(() => {
-        const getUsers = async () => {
-            const data = await getDocs(usersCollectionRef);
-            setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        }
+    const getUsers = async () => {
+        const data = await getDocs(usersCollectionRef);
+        setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
 
-        getUsers();
-    }, [usersCollectionRef]);
+    getUsers();
+    // useEffect(() => {
+    // }, [usersCollectionRef]);
 
     return users;
 };
@@ -25,14 +25,14 @@ export function useGetAllAds() {
     const [ads, setAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
 
-    useEffect(() => {
-        const getAds = async () => {
-            const data = await getDocs(adsCollectionRef);
-            setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        }
+    const getAds = async () => {
+        const data = await getDocs(adsCollectionRef);
+        setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
 
-        getAds();
-    }, [adsCollectionRef]);
+    getAds();
+    // useEffect(() => {
+    // }, [adsCollectionRef]);
 
     return ads;
 };
@@ -43,14 +43,14 @@ export function useGetAdsFromUser(userID) {
     const adsCollectionRef = collection(firestore, "Advertisement");
     const q = query(adsCollectionRef, where("userID", "==", userID))
 
-    useEffect(() => {
-        const getAds = async () => {
-            const data = await getDocs(q);
-            setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        }
+    const getAds = async () => {
+        const data = await getDocs(q);
+        setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
 
-        getAds();
-    }, [adsCollectionRef]);
+    getAds();
+    // useEffect(() => {
+    // }, [adsCollectionRef]);
 
     return ads;
 };
