@@ -2,6 +2,7 @@
 import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
+import { useAllAds } from "./IO";
 const AllListings = (props) => {
 
 
@@ -9,39 +10,7 @@ const AllListings = (props) => {
 const currentUser = 4;
 
 
-const listingItems = [
-  {
-    text: "placeholder",
-    id:1,
-    userID:1
-
-  },
-  {
-    text:"placeholder2",
-    id:2,
-    userID:2
-
-  },
-
-  {
-    text:"placeholder2",
-    id:3,
-    userID:3
-
-  },
-  {
-    text:"placeholder2",
-    id:4,
-    userID:4
-
-  },
-  {
-    text:"placeholder2",
-    id:5,
-    userID:4
-  }
-
-]
+const listingItems = useAllAds();
 // 
 
     return (
@@ -52,7 +21,7 @@ const listingItems = [
       </Typography>
     
       <List>
-        {listingItems.map(item => (  
+        {listingItems.map(ad => (  
         <Box sx={{
           
           //justifyContent: "space-between",
@@ -70,11 +39,14 @@ const listingItems = [
             textAlign: "center",
             verticalAlign: "middle"
           }}>
+            <h1>
+              Title: {ad.Title}
+            </h1>
             <h2>
-              Id: {item.id} 
+              Description: {ad.Description} 
             </h2>
             <h2>
-              Tekst: {item.text}
+              userID: {ad.userID}
             </h2>
             <AlertDialog buttonName="Book annonse" dialogueText="Vil du booke denne annonsen?" ></AlertDialog>
           </Paper>

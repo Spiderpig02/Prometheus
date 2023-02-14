@@ -2,49 +2,19 @@
 import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
+import { useAdsFromUser } from "./IO";
 const MyListings = (props) => {
 
 
 // Dette vil hentes i et json objekt fra firebase, trenger endepunkter
 const currentUser = 4;
 
+const listingItems = useAdsFromUser("Askeladden");
 
-const listingItems = [
-  {
-    text: "placeholder",
-    id:1,
-    userID:1
-
-  },
-  {
-    text:"placeholder2",
-    id:2,
-    userID:2
-
-  },
-
-  {
-    text:"placeholder2",
-    id:3,
-    userID:3
-
-  },
-  {
-    text:"placeholder2",
-    id:4,
-    userID:4
-
-  },
-  {
-    text:"placeholder2",
-    id:5,
-    userID:4
-  }
-
-]
 // 
 
     return (
+      
     <Container>
 
       <Typography variant='h3' sx={{ my:4, textAlign:'center', color: "primary.main"}}>
@@ -52,7 +22,7 @@ const listingItems = [
       </Typography>
     
       <List>
-        {listingItems.filter(item =>(item.userID===4)).map(item => (  
+        {listingItems.map(ad => (  
         <Box sx={{
           
           //justifyContent: "space-between",
@@ -70,11 +40,11 @@ const listingItems = [
             textAlign: "center",
             verticalAlign: "middle"
           }}>
+            <h1>
+              Title: {ad.Title} 
+            </h1>
             <h2>
-              Id: {item.id} 
-            </h2>
-            <h2>
-              Tekst: {item.text}
+              Description: {ad.Description}
             </h2>
             <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?" ></AlertDialog>
           </Paper>

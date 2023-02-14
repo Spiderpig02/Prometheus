@@ -20,7 +20,24 @@ export function useInfoFromUser() {
   return users;
 }
 
-export function getAdsFromUser(userID) {
+export function useAllAds() {
+
+  const [ads, setAds] = useState([]);
+  const adsCollectionRef = collection(firestore, "Advertisement");
+
+  useEffect(() => {
+    const getAds = async () => {
+      const data = await getDocs(adsCollectionRef);
+      setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
+
+    getAds();
+  }, [adsCollectionRef]);
+
+  return ads;
+}
+
+export function useAdsFromUser(userID) {
 
     const [ads, setAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
@@ -37,7 +54,6 @@ export function getAdsFromUser(userID) {
   
     return ads;
   }
-
 
 export function useAddData() {
 
