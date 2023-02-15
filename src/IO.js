@@ -1,4 +1,4 @@
-import { doc, setDoc, addDoc, collection, getDocs } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection, getDocs, deleteDoc } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import { useEffect, useState } from 'react';
 import { query, where } from "firebase/firestore";
@@ -61,10 +61,15 @@ export async function addUser(Username, Password, Email, Phonenumber) {
     await setDoc(usersDocRef, { Username: Username, Password: Password, Email: Email, Phonenumber: Number(Phonenumber) });
 };
 
-export async function addAdd(Title, Description, userID, Picture, Schedule) {
+export async function addAd(Title, Description, userID, Picture, Schedule) {
 
     const addsCollectinRef = collection(firestore, "Advertisement");
     await addDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule });
+};
+
+export async function deleteAd(id) {
+    const adDoc = doc(firestore, "Advertisement", id);
+    await deleteDoc(adDoc);
 };
 
 
