@@ -1,6 +1,4 @@
 import './App.css';
-import { useInfoFromUser } from './IO';
-import { GetAdsFromUser } from './IO';
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import AllListings from './AllListings';
@@ -12,23 +10,23 @@ function App() {
 
   return (
     <div>
-      
+
       <ResponsiveAppBar>
-      </ResponsiveAppBar>  
+      </ResponsiveAppBar>
       <Routes>
-        <Route path="/" element={<AllListings/>}/>
-        <Route path="/Mine Annonser" element={<MyListings/>}/>
-        <Route path="/Alle Annonser" element={<AllListings/>}/>
-      
-      </Routes>  
+        <Route path="/" element={<AllListings />} />
+        <Route path="/Mine Annonser" element={<MyListings />} />
+        <Route path="/Alle Annonser" element={<AllListings />} />
 
-    
+      </Routes>
 
-      
+
+
+
     </div>
 
-  
-    
+
+
   );
 
 }
