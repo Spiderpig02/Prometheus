@@ -18,12 +18,12 @@ function LagAnnonse(){
             <form onSubmit={submit}>
                 <div className='tittel inputElement flexboks'>
                     <label htmlFor="tittel">Tittel:</label>
-                    <input placeholder='Tittel' id='tittel' type="text" />
+                    <input className="testBox" placeholder='Tittel' id='tittel' type="text" />
                 </div>
                 
                 <div className='beskrivelse inputElement flexboks'>
                     <label htmlFor="beskrivelse">Beskrivelse:</label>
-                    <textarea placeholder='Beskrivelse' id="beskrivelse" rows={5}></textarea>
+                    <textarea className="testBox" placeholder='Beskrivelse' id="beskrivelse" rows={5}></textarea>
                 </div>
                 
 
