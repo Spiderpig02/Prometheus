@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import {Link} from "react-router-dom";
-const pages = ['Alle Annonser', 'Mine Annonser', "NOT_IN_USE"];
+const pages = ['Alle Annonser', 'Mine Annonser', "Lag Annonse"];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
