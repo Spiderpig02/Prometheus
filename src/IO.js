@@ -1,9 +1,11 @@
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
 import { query, where } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from "firebase/auth";
 
 export function useInfoFromUser() {
+  console.log("3");
 
     const [users, setUsers] = useState([]);
     const usersCollectionRef = collection(firestore, "User");
@@ -12,15 +14,15 @@ export function useInfoFromUser() {
         const getUsers = async () => {
             const data = await getDocs(usersCollectionRef);
             setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            console.log("4");
         }
-
         getUsers();
-    }, [usersCollectionRef]);
-
+    }, []);
     return users;
 }
 
 export function useAllAds() {
+  console.log("2");
 
   const [ads, setAds] = useState([]);
   const adsCollectionRef = collection(firestore, "Advertisement");
@@ -29,10 +31,10 @@ export function useAllAds() {
     const getAds = async () => {
       const data = await getDocs(adsCollectionRef);
       setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      console.log("1");
     }
-
     getAds();
-  }, [adsCollectionRef]);
+  }, []);
 
   return ads;
 }
@@ -41,16 +43,14 @@ export function useAdsFromUser(userID) {
 
     const [ads, setAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
-    const q = query(adsCollectionRef, where("userID", "==", userID))
 
     useEffect(() => {
         const getAds = async () => {
-            const data = await getDocs(q);
+            const data = await getDocs(adsCollectionRef, where("userID", "==", userID));
             setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         }
-
         getAds();
-    }, [adsCollectionRef]);
+    }, []);
 
     return ads;
 }
@@ -67,13 +67,12 @@ export function useAddData() {
         }
 
         getAdds();
-    }, [addsCollectinRef]);
+    }, []);
 
     return adds;
 };
 
 export async function addUser(Username, Password, Email, Phonenumber) {
-
     const usersDocRef = doc(firestore, "User", Username);
     await setDoc(usersDocRef, { Username: Username, Password: Password, Email: Email, Phonenumber: Number(Phonenumber) });
 };
@@ -84,4 +83,36 @@ export async function addAdd(Title, Description, userID, Picture, Schedule) {
     await addDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule });
 };
 
+// export function createUser(email, password) {
+//   createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+//     console.log(error.message)
+//   });
+// }
 
+// export function userSignOut() {
+//   signOut(auth).catch((error) => {
+//     console.log(error.message)
+//   })
+// }
+
+// export function userSignIn(email, password) {
+//   signInWithEmailAndPassword(auth, email, password).catch((error) => {
+//     console.log(error.message)
+//   })
+// }
+
+// export function checkIfUserLoggedIn() { //Ikke testet denne koden
+//   let user = firestore.auth().currentUser;
+//   if (user) {
+//     return true
+//   }
+//   return false
+// }
+
+// export const isLoggedIn = checkIfUserLoggedIn(); //Usikker på om dette fungerer
+
+//  export function getCurrentUserID() { //Ikke testet denne koden
+//   const userCollectionRef = collection(firestore, "User");
+//   let user = firestore.auth().currentUser;
+//   return userCollectionRef.doc(user.uid);
+// }
