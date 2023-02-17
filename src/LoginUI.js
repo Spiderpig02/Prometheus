@@ -1,8 +1,8 @@
 import { useState } from "react";
 import React from "react";
-import LoginUI from "./LoginUI.css"
+import './LoginUI.css';
 
-function UseLoginUI() {
+function LoginUI() {
     const[isSubmitted, setIsSubmitted] = useState(false);
     const[errorMessages, setErrorMessages] = useState({});
 
@@ -74,4 +74,4 @@ function UseLoginUI() {
     );
 }
 
-export default UseLoginUI;
+export default LoginUI;
