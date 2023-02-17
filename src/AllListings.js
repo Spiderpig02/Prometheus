@@ -9,7 +9,7 @@ const AllListings = (props) => {
   const currentUser = 4;
 
 
-  const listingItems = useGetAllAds();
+ const listingItems = useGetAllAds();
   // 
 
   return (
