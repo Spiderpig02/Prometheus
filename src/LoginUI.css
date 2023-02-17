@@ -35,15 +35,27 @@ input[type="submit"] {
     text-align: center;
 }
 
+input {
+    margin-bottom: 10%;
+}
+
 h1{
     text-align: center;
     
 }
 
-.loginForm {
+/* .loginForm {
     text-align: center;
-}
+} */
 
-.loginButton {
+/* .loginButton {
     align-items: center;
+} */
+
+label {
+    display: block;
+    width: 100px; 
+    text-align: left;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
