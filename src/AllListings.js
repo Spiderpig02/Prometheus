@@ -18,7 +18,6 @@ const AllListings = (props) => {
       <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
         Alle Annonser
       </Typography>
-
       <List>
         {listingItems.map(ad => (
           <Box sx={{
