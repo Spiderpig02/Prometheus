@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import React from "react";
 import './LoginUI.css';
 
@@ -49,12 +48,12 @@ function LoginUI() {
             <form onSubmit={handleSubmit}>
                 <div className="inputText">
                     <label htmlFor = "title">Brukernavn: </label>
-                    <input placeholder = "Username" type="text" name = "usernameLogin" required />
+                    <input placeholder = "Brukernavn" type="text" name = "usernameLogin" required />
                     {giveErrorMessage("usernameLogin")}
                 </div>
                 <div className="inputText">
                     <label>Passord: </label>
-                    <input placeholder = "Password" type="password" name="passwordLogin" required/>
+                    <input placeholder = "Passord" type="password" name="passwordLogin" required/>
                     {giveErrorMessage("passwordLogin")}
                 </div>
                 <div className = "loginButton">
