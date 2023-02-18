@@ -10,16 +10,21 @@ export function useInfoFromUser() {
     const [users, setUsers] = useState([]);
     const usersCollectionRef = collection(firestore, "User");
 
+    const getUsers = async () => {
+        await getDocs(usersCollectionRef).then((querySnapshot) => {
+          const usersData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+          setUsers(usersData);
+        });
+        console.log("4");
+    }
+
     useEffect(() => {
-        const getUsers = async () => {
-            const data = await getDocs(usersCollectionRef);
-            setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-            console.log("4");
-        }
-        getUsers();
+      getUsers();
+      console.log("5");
     }, []);
+
     return users;
-}
+  }
 
 export function useAllAds() {
   console.log("2");
@@ -27,42 +32,47 @@ export function useAllAds() {
   const [ads, setAds] = useState([]);
   const adsCollectionRef = collection(firestore, "Advertisement");
 
+  const getAds = async () => {
+    await getDocs(adsCollectionRef).then((querySnapshot) => {
+      const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setAds(adsData);
+    });
+    console.log("4");
+  }
+  
   useEffect(() => {
-    const getAds = async () => {
-      const data = await getDocs(adsCollectionRef);
-      setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      console.log("1");
-    }
     getAds();
+    console.log("6");
   }, []);
 
   return ads;
 }
 
-export function useAdsFromUser(userID) {
+// export function useAdsFromUser(userID) {
 
-    const [ads, setAds] = useState([]);
-    const adsCollectionRef = collection(firestore, "Advertisement");
+//     const [ads, setAds] = useState([]);
+//     const adsCollectionRef = collection(firestore, "Advertisement");
 
-    useEffect(() => {
-        const getAds = async () => {
-            const data = await getDocs(adsCollectionRef, where("userID", "==", userID));
-            setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        }
-        getAds();
-    }, []);
+//     const getAds = async () => {
+//         const data = await getDocs(adsCollectionRef, where("userID", "==", userID));
+//         setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+//     }
+    
+//     useEffect(() => {
+//       getAds()
+//     }, []);
 
-    return ads;
-}
+//     return ads;
+// }
 
 export function useAddData() {
 
     const [adds, setAdds] = useState([]);
-    const addsCollectinRef = collection(firestore, "Advertisement");
+    const adsCollectionRef = collection(firestore, "Advertisement");
 
     useEffect(() => {
         const getAdds = async () => {
-            const adds = await getDocs(addsCollectinRef);
+            const adds = await getDocs(adsCollectionRef);
             setAdds(adds.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         }
 
@@ -80,7 +90,7 @@ export async function addUser(Username, Password, Email, Phonenumber) {
 export async function addAdd(Title, Description, userID, Picture, Schedule) {
 
     const addsCollectinRef = collection(firestore, "Advertisement");
-    await addDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule });
+    await setDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule });
 };
 
 // export function createUser(email, password) {
