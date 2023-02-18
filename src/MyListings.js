@@ -2,18 +2,32 @@
 import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
-import { useAdsFromUser } from "./IO";
-const MyListings = (props) => {
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, query } from "firebase/firestore";
+import { firestore } from "./firebaseConfig.js";
+import { where } from "firebase/firestore";
 
+export const MyListings = (props) => {
+  console.log("mylistingSTART")
 
-// Dette vil hentes i et json objekt fra firebase, trenger endepunkter
-const currentUser = 4;
+  const [myAds, setAds] = useState([]);
+  const adsCollectionRef = collection(firestore, "Advertisement");
+  const q = query(adsCollectionRef, where("userID", "==", "Askeladden"));
 
-const listingItems = useAdsFromUser("Askeladden");
+  const getMyAds = async () => {
+    console.log("mylistinggetads")
+    await getDocs(q).then((querySnapshot) => {
+      const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setAds(myAdsData);
+    });
+  }
+  
+  useEffect(() => {
+    getMyAds()
+    console.log("mylistinguseeffect")
+  }, []);
 
-// 
-
-    return (
+  return (
       
     <Container>
 
@@ -22,7 +36,7 @@ const listingItems = useAdsFromUser("Askeladden");
       </Typography>
     
       <List>
-        {listingItems.map(ad => (  
+        {myAds.map(ad => (  
         <Box sx={{
           
           //justifyContent: "space-between",
@@ -46,6 +60,9 @@ const listingItems = useAdsFromUser("Askeladden");
             <h2>
               Description: {ad.Description}
             </h2>
+            <h2>
+              userID: {ad.userID}
+            </h2>
             <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?" ></AlertDialog>
           </Paper>
           
@@ -59,5 +76,5 @@ const listingItems = useAdsFromUser("Askeladden");
 
       );
 }
- 
+
 export default MyListings;
