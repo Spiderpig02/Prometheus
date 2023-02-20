@@ -1,6 +1,6 @@
 import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { query, where } from "firebase/firestore";
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -29,8 +29,8 @@ export function useInfoFromUser() {
 export function useAllAds() {
   console.log("2");
 
-  const [ads, setAds] = useState([]);
-  const adsCollectionRef = collection(firestore, "Advertisement");
+    const [ads, setAds] = useState([]);
+    const adsCollectionRef = collection(firestore, "Advertisement");
 
   const getAds = async () => {
     await getDocs(adsCollectionRef).then((querySnapshot) => {
@@ -45,8 +45,8 @@ export function useAllAds() {
     console.log("6");
   }, []);
 
-  return ads;
-}
+    return ads;
+};
 
 // export function useAdsFromUser(userID) {
 
@@ -87,7 +87,7 @@ export async function addUser(Username, Password, Email, Phonenumber) {
     await setDoc(usersDocRef, { Username: Username, Password: Password, Email: Email, Phonenumber: Number(Phonenumber) });
 };
 
-export async function addAdd(Title, Description, userID, Picture, Schedule) {
+export async function addAd(Title, Description, userID, Picture, Schedule) {
 
     const addsCollectinRef = collection(firestore, "Advertisement");
     await setDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule });

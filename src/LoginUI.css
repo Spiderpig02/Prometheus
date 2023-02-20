@@ -1,0 +1,61 @@
+.LoginUI {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: whitesmoke;
+}
+
+input[type="text"] {
+    text-align: center;
+    height: 30px;
+    width: 180px;
+    border: 0.5px solid;
+}
+
+input[type="password"] {
+    height: 30px;
+    width: 180px;
+    border: 0.5px solid;
+    text-align: center;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    cursor: auto;
+    font-size: 16px;
+    background: black;
+    border: 0.5px solid;
+    color: whitesmoke;
+    padding: 15px 15px;
+    text-align: center;
+}
+
+input {
+    margin-bottom: 10%;
+}
+
+h1{
+    text-align: center;
+    
+}
+
+/* .loginForm {
+    text-align: center;
+} */
+
+/* .loginButton {
+    align-items: center;
+} */
+
+label {
+    display: block;
+    width: 100px; 
+    text-align: left;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}

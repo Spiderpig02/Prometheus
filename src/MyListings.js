@@ -1,4 +1,3 @@
-
 import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
@@ -28,10 +27,10 @@ export const MyListings = (props) => {
       
     <Container>
 
-      <Typography variant='h3' sx={{ my:4, textAlign:'center', color: "primary.main"}}>
-      Mine Annonser!
+      <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+        Mine Annonser!
       </Typography>
-    
+
       <List>
         {myAds.map(ad => (  
         <Box sx={{
@@ -71,7 +70,7 @@ export const MyListings = (props) => {
       </List>
     </Container>
 
-      );
+  );
 }
 
 export default MyListings;

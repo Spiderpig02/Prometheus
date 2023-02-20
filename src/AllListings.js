@@ -1,4 +1,3 @@
-
 import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
@@ -25,10 +24,9 @@ export const AllListings = (props) => {
   return (
     <Container>
 
-      <Typography variant='h3' sx={{ my:4, textAlign:'center', color: "primary.main"}}>
-      Alle Annonser
+      <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+        Alle Annonser
       </Typography>
-    
       <List>
         {ads.map(ad => (  
         <Box sx={{
@@ -40,35 +38,37 @@ export const AllListings = (props) => {
           
         }}> 
 
-          <Paper elevation={3} style={{
-            padding: 8,
-            border: "1px solid black",
-            justifyContent:"center",
-            alignItems: "center",
-            textAlign: "center",
-            verticalAlign: "middle"
           }}>
-            <h1>
-              Title: {ad.Title}
-            </h1>
-            <h2>
-              Description: {ad.Description} 
-            </h2>
-            <h2>
-              userID: {ad.userID}
-            </h2>
-            <AlertDialog buttonName="Book annonse" dialogueText="Vil du booke denne annonsen?" ></AlertDialog>
-          </Paper>
-          
-        </Box>
-       
-          
-        ) ) }
-        
+
+            <Paper elevation={3} style={{
+              padding: 8,
+              border: "1px solid black",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              verticalAlign: "middle"
+            }}>
+              <h1>
+                Title: {ad.Title}
+              </h1>
+              <h2>
+                Description: {ad.Description}
+              </h2>
+              <h2>
+                userID: {ad.userID}
+              </h2>
+              <AlertDialog buttonName="Book annonse" dialogueText="Vil du booke denne annonsen?" ></AlertDialog>
+            </Paper>
+
+          </Box>
+
+
+        ))}
+
       </List>
     </Container>
 
-      );
+  );
 }
 
 export default AllListings;
