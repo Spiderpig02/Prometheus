@@ -1,4 +1,4 @@
-import { doc, setDoc, collection, getDocs } from "firebase/firestore";
+import { doc, setDoc,addDoc, collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import { useEffect, useState } from 'react';
 import { query, where } from "firebase/firestore";
@@ -90,7 +90,7 @@ export async function addUser(Username, Password, Email, Phonenumber) {
 export async function addAd(Title, Description, userID, Picture, Schedule) {
 
     const addsCollectinRef = collection(firestore, "Advertisement");
-    await setDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule });
+    await addDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule });
 };
 
 // export function createUser(email, password) {
