@@ -1,9 +1,13 @@
 import { Timestamp } from 'firebase/firestore';
 import React, { useState } from 'react'
+import { auth } from './firebaseConfig';
 import { addAd } from './IO'
 import './LagAnnonse.css'
 
 function LagAnnonse() {
+
+    const userData = auth.currentUser;
+
     const [submitting, setSubmitting] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -11,7 +15,7 @@ function LagAnnonse() {
     const submit = event => {
         event.preventDefault();
         setSubmitting(true);
-        addAd(title, description, null, null, null, null, type, null, Timestamp.now())
+        addAd(title, description, userData.uid, null, null, userData.phoneNumber, type, null, Timestamp.now())
             .then(alert("Annonsen er laget")).catch(error => {
                 alert("En feil har oppstått" + error)
             })
