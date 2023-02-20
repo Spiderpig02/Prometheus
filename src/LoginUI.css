@@ -33,17 +33,17 @@ input[type="submit"] {
     color: whitesmoke;
     padding: 15px 15px;
     text-align: center;
-    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0,0,0,.8);
+    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
     margin-left: 28%;
 }
 
-input {
+.loginForm input {
     margin-bottom: 10%;
 }
 
-h1{
+h1 {
     text-align: center;
-    
+
 }
 
 /* .loginForm {
@@ -60,7 +60,7 @@ button {
 
 label {
     display: block;
-    width: 100px; 
+    width: 100px;
     text-align: left;
     padding-top: 10%;
     padding-bottom: 10%;
