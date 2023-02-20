@@ -2,15 +2,29 @@ import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
-import { where } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 export const MyListings = (props) => {
 
+  const auth = getAuth();
+
+  function checkIfUserLoggedIn() {
+    const user = auth.currentUser;
+    if (user !== null) {
+      console.log("a user logged in")
+      return true
+    }
+    console.log("user not logged in")
+    return false
+  }
+  
+  const user = auth.currentUser;
+
   const [myAds, setAds] = useState([]);
   const adsCollectionRef = collection(firestore, "Advertisement");
-  const q = query(adsCollectionRef, where("userID", "==", "Askeladden"));
+  const q = query(adsCollectionRef, where("userID", "==", user.uid));
 
   const getMyAds = async () => {
     await getDocs(q).then((querySnapshot) => {
