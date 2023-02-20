@@ -8,13 +8,10 @@ import React, { useEffect, useState } from 'react';
 
 export const AllListings = (props) => {
 
-  console.log("allListingStart");
-
   const [ads, setAds] = useState([]);
   const adsCollectionRef = collection(firestore, "Advertisement");
 
   const getAds = async () => {
-    console.log("allListingGetAds");
     await getDocs(adsCollectionRef).then((querySnapshot) => {
       const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setAds(adsData);
@@ -23,7 +20,6 @@ export const AllListings = (props) => {
   
   useEffect(() => {
     getAds();
-    console.log("AlllistingUseEffect");
   }, []);
 
   return (

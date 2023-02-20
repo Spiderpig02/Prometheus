@@ -8,14 +8,12 @@ import { firestore } from "./firebaseConfig.js";
 import { where } from "firebase/firestore";
 
 export const MyListings = (props) => {
-  console.log("mylistingSTART")
 
   const [myAds, setAds] = useState([]);
   const adsCollectionRef = collection(firestore, "Advertisement");
   const q = query(adsCollectionRef, where("userID", "==", "Askeladden"));
 
   const getMyAds = async () => {
-    console.log("mylistinggetads")
     await getDocs(q).then((querySnapshot) => {
       const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setAds(myAdsData);
@@ -24,7 +22,6 @@ export const MyListings = (props) => {
   
   useEffect(() => {
     getMyAds()
-    console.log("mylistinguseeffect")
   }, []);
 
   return (
