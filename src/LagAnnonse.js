@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
-import IO, { addAd } from './IO'
+import { Timestamp } from 'firebase/firestore';
+import React, { useState } from 'react'
+import { addAd } from './IO'
 import './LagAnnonse.css'
 
-function LagAnnonse(){
+function LagAnnonse() {
     const [submitting, setSubmitting] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -10,10 +11,10 @@ function LagAnnonse(){
     const submit = event => {
         event.preventDefault();
         setSubmitting(true);
-        addAd(title, description, null, null, null)
-        .then(alert("Annonsen er laget")).catch(error => {
-            alert("En feil har oppstått" + error)
-        })
+        addAd(title, description, null, null, null, null, type, null, Timestamp.now())
+            .then(alert("Annonsen er laget")).catch(error => {
+                alert("En feil har oppstått" + error)
+            })
         setTitle("")
         setDescription("")
     }
@@ -24,25 +25,25 @@ function LagAnnonse(){
             <form onSubmit={submit}>
                 <div className='tittel inputElement flexboks'>
                     <label htmlFor="tittel">Tittel:</label>
-                    <input className="testBox" placeholder='Tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)}/>
+                    <input className="testBox" placeholder='Tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
                 </div>
-                
+
                 <div className='beskrivelse inputElement flexboks'>
                     <label htmlFor="beskrivelse">Beskrivelse:</label>
-                    <textarea className="testBox" placeholder='Beskrivelse' id="beskrivelse" rows={5} value={description}  onChange={(event) => setDescription(event.target.value)} ></textarea>
+                    <textarea className="testBox" placeholder='Beskrivelse' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} ></textarea>
                 </div>
-                
+
 
                 <label htmlFor="type"> Type:</label>
                 <div className='inputElement flexboks'>
                     <label htmlFor="type">
                         <input type="radio" value="Annonse" name="type" onClick={() => setType('Annonse')} /> Annonse
                     </label>
-                    
+
                     <label htmlFor="">
-                        <input type="radio" value="Etterspørsel" name="type" onClick={() => setType('Etterspørsel')}/> Etterspørsel
+                        <input type="radio" value="Etterspørsel" name="type" onClick={() => setType('Etterspørsel')} /> Etterspørsel
                     </label>
-                    
+
                 </div>
 
                 <button type='submit'>Lag annonse eller etterspørsel</button>
