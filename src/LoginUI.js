@@ -15,7 +15,6 @@ function LoginUI() {
         signInWithEmailAndPassword(auth, email, password)
             .then((cred) => {
                 console.log("user logged in", cred.user)
-                
             })
             .catch((e) => {
                 console.log(e.message)
@@ -48,11 +47,11 @@ function LoginUI() {
                     {/* <button onClick={NewUser}> Registrer deg </button> */}
                 </div>
                 <div>
-                <button class="linkNewUser">
+                {/* <button class="linkNewUser">
                     <Link to= {'/Ny Bruker Side'}>
                         {"Opprett Ny Bruker!"}
                     </Link>
-                </button>
+                </button> */}
                 </div>
             </form>
         <div className = "logoutButton">
