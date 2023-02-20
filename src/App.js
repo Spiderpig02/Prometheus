@@ -8,13 +8,13 @@ import LagAnnonse from './LagAnnonse'
 import ResponsiveAppBar from './ResponsiveAppBar';
 import LoginUI from './LoginUI';
 import MyPage from './MyPage';
+import RegisterNewUser from './NewUser';
 
 
 function App() {
 
   return (
     <div>
-      
       <ResponsiveAppBar>
       </ResponsiveAppBar>
       <Routes>
@@ -24,6 +24,8 @@ function App() {
         <Route path="/Lag Annonse" element={<LagAnnonse />} />
         <Route path ="/Logg inn" element={<LoginUI />} />
         <Route path ="/Min Profil" element={<MyPage/>} />
+        <Route path ="/Ny bruker side" element={<RegisterNewUser/>} />
+
 
       </Routes>
 

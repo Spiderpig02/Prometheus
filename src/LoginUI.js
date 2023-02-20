@@ -31,7 +31,13 @@ function LoginUI() {
         })
     }
 
-    return (
+    const giveErrorMessage = (name) =>
+        name === errorMessages.name && (
+            <div className = "loginError">{errorMessages.message}</div>
+        );
+    
+
+    const giveForm = (
         <div className="loginForm">
             <form onSubmit={handleSubmit}>
                 <div className="inputText">
@@ -44,7 +50,11 @@ function LoginUI() {
                 </div>
                 <div className = "loginButton">
                     <input type="submit" />
-                    {/* <button onClick={NewUser}> Registrer deg </button> */}
+                </div>
+                <div className = "newUserLink">
+                    <Link style = {{color: "black"}} to={'/Ny Bruker Side'}>
+                        {"Opprett ny bruker!"}
+                    </Link>
                 </div>
                 <div>
                 {/* <button class="linkNewUser">
@@ -57,7 +67,16 @@ function LoginUI() {
         <div className = "logoutButton">
         <button type="button" onClick={handleLogout}>Logout</button>
         </div>
-        </div>  
+    );
+
+    return (
+        <div className="LoginUI">
+            <div className="loginForm">
+                {/* <div className = "title">Log In</div> */}
+                <h1>Logg Inn</h1>
+                {isSubmitted ? <div>You have successfully logged in! </div> : giveForm}
+            </div>
+        </div>
     );
 }
 

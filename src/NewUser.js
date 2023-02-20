@@ -34,6 +34,14 @@ function RegisterNewUser() {
                     <input type="text" placeholder="E-post" name="emailInput" required /> 
                 </div>
                 <div>
+                    <label htmlFor="brukernavn"> Brukernavn: </label>
+                    <input type="text" placeholder="Brukernavn" required /> 
+                </div>
+                <div>
+                    <label htmlFor="telefon-nummer"> Telefon nummer: </label>
+                    <input type="text" placeholder="Telefon nummer" required /> 
+                </div>
+                <div>
                     <label htmlFor="passord"> Passord: </label>
                     <input type="text" placeholder="Passord" name="passwordInput" required /> 
                 </div>
