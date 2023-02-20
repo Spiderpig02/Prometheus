@@ -27,6 +27,11 @@ export const AllListings = (props) => {
             <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                 Alle Annonser
             </Typography>
+            <div>
+                <input type="text" placeholder="Søk etter annonse.." style={{
+                    width: "100px"
+                }}></input>
+            </div>
             <List>
                 {ads.map(ad => (
                     <Box sx={{
