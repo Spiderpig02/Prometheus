@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
-import LoginUI from "./LoginUI.css"
+import LoginUI from "./LoginUI.css";
+import {Link} from "react-router-dom";
 
 function UseLoginUI() {
     const[isSubmitted, setIsSubmitted] = useState(false);
@@ -59,6 +60,13 @@ function UseLoginUI() {
                 <div className = "loginButton">
                     <input type="submit" />
                     {/* <button onClick={NewUser}> Registrer deg </button> */}
+                </div>
+                <div>
+                <button class="linkNewUser">
+                    <Link to= {'/Ny Bruker Side'}>
+                        {"Opprett Ny Bruker!"}
+                    </Link>
+                </button>
                 </div>
             </form>
         </div>

@@ -4,7 +4,9 @@ import NewUser from "./NewUser.css"
 function RegisterNewUser() {
 
     return (
-       
+       // phone number
+       // email
+       // username
         <div className= "ny-bruker-form">
             <form>
                 <h1> Registrer ny bruker </h1>
@@ -22,4 +24,4 @@ function RegisterNewUser() {
     )
 }
 
-export default RegisterNewUser
+export default RegisterNewUser;
