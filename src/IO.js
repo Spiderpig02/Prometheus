@@ -1,4 +1,4 @@
-import { doc, setDoc,addDoc, collection, getDocs } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import { useEffect, useState } from 'react';
 import { query, where } from "firebase/firestore";
@@ -7,30 +7,30 @@ import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } f
 export function useInfoFromUser() {
   console.log("3");
 
-    const [users, setUsers] = useState([]);
-    const usersCollectionRef = collection(firestore, "User");
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(firestore, "User");
 
-    const getUsers = async () => {
-        await getDocs(usersCollectionRef).then((querySnapshot) => {
-          const usersData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-          setUsers(usersData);
-        });
-        console.log("4");
-    }
-
-    useEffect(() => {
-      getUsers();
-      console.log("5");
-    }, []);
-
-    return users;
+  const getUsers = async () => {
+    await getDocs(usersCollectionRef).then((querySnapshot) => {
+      const usersData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setUsers(usersData);
+    });
+    console.log("4");
   }
+
+  useEffect(() => {
+    getUsers();
+    console.log("5");
+  }, []);
+
+  return users;
+}
 
 export function useAllAds() {
   console.log("2");
 
-    const [ads, setAds] = useState([]);
-    const adsCollectionRef = collection(firestore, "Advertisement");
+  const [ads, setAds] = useState([]);
+  const adsCollectionRef = collection(firestore, "Advertisement");
 
   const getAds = async () => {
     await getDocs(adsCollectionRef).then((querySnapshot) => {
@@ -39,13 +39,13 @@ export function useAllAds() {
     });
     console.log("4");
   }
-  
+
   useEffect(() => {
     getAds();
     console.log("6");
   }, []);
 
-    return ads;
+  return ads;
 };
 
 // export function useAdsFromUser(userID) {
@@ -57,7 +57,7 @@ export function useAllAds() {
 //         const data = await getDocs(adsCollectionRef, where("userID", "==", userID));
 //         setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 //     }
-    
+
 //     useEffect(() => {
 //       getAds()
 //     }, []);
@@ -67,30 +67,30 @@ export function useAllAds() {
 
 export function useAddData() {
 
-    const [adds, setAdds] = useState([]);
-    const adsCollectionRef = collection(firestore, "Advertisement");
+  const [adds, setAdds] = useState([]);
+  const adsCollectionRef = collection(firestore, "Advertisement");
 
-    useEffect(() => {
-        const getAdds = async () => {
-            const adds = await getDocs(adsCollectionRef);
-            setAdds(adds.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        }
+  useEffect(() => {
+    const getAdds = async () => {
+      const adds = await getDocs(adsCollectionRef);
+      setAdds(adds.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
 
-        getAdds();
-    }, []);
+    getAdds();
+  }, []);
 
-    return adds;
+  return adds;
 };
 
 export async function addUser(Username, Password, Email, Phonenumber) {
-    const usersDocRef = doc(firestore, "User", Username);
-    await setDoc(usersDocRef, { Username: Username, Password: Password, Email: Email, Phonenumber: Number(Phonenumber) });
+  const usersDocRef = doc(firestore, "User", Username);
+  await setDoc(usersDocRef, { Username: Username, Password: Password, Email: Email, Phonenumber: Number(Phonenumber) });
 };
 
-export async function addAd(Title, Description, userID, Picture, Schedule) {
+export async function addAd(Title, Description, userID, Picture, Schedule, Phonenumber) {
 
-    const addsCollectinRef = collection(firestore, "Advertisement");
-    await addDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule });
+  const addsCollectinRef = collection(firestore, "Advertisement");
+  await addDoc(addsCollectinRef, { Title: Title, Description: Description, userID: userID, Picture: Picture, Schedule: Schedule, Phonenumber: Phonenumber });
 };
 
 // export function createUser(email, password) {
