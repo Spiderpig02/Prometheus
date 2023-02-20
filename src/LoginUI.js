@@ -58,6 +58,7 @@ function LoginUI() {
                 </div>
                 <div className = "loginButton">
                     <input type="submit" />
+                    {/* <button onClick={NewUser}> Registrer deg </button> */}
                 </div>
             </form>
         </div>
