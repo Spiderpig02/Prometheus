@@ -1,16 +1,25 @@
 import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
-import { useGetAllAds } from "./IO";
-const AllListings = (props) => {
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "./firebaseConfig.js";
+import React, { useEffect, useState } from 'react';
 
+export const AllListings = (props) => {
 
-  // Dette vil hentes i et json objekt fra firebase, trenger endepunkter
-  const currentUser = 4;
+  const [ads, setAds] = useState([]);
+  const adsCollectionRef = collection(firestore, "Advertisement");
 
-
- const listingItems = useGetAllAds();
-  // 
+  const getAds = async () => {
+    await getDocs(adsCollectionRef).then((querySnapshot) => {
+      const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setAds(adsData);
+    });
+  }
+  
+  useEffect(() => {
+    getAds();
+  }, []);
 
   return (
     <Container>
@@ -19,13 +28,15 @@ const AllListings = (props) => {
         Alle Annonser
       </Typography>
       <List>
-        {listingItems.map(ad => (
-          <Box sx={{
+        {ads.map(ad => (  
+        <Box sx={{
 
-            //justifyContent: "space-between",
-            margin: "30px",
-            mx: 'auto',
-            width: 700
+          //justifyContent: "space-between",
+          margin:"30px",
+          mx: 'auto',
+          width: 700
+          
+        }}> 
 
           }}>
 
