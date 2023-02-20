@@ -47,6 +47,13 @@ function LoginUI() {
                     <input type="submit" />
                     {/* <button onClick={NewUser}> Registrer deg </button> */}
                 </div>
+                <div>
+                <button class="linkNewUser">
+                    <Link to= {'/Ny Bruker Side'}>
+                        {"Opprett Ny Bruker!"}
+                    </Link>
+                </button>
+                </div>
             </form>
         <div className = "logoutButton">
         <button type="button" onClick={handleLogout}>Logout</button>

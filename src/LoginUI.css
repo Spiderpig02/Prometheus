@@ -46,16 +46,22 @@ h1{
     
 }
 
-/* .loginForm {
-    text-align: center;
-} */
-
-/* .loginButton {
+.loginForm {
     align-items: center;
-} */
+    text-align: center;
+}
+
 
 button {
     align-items: center;
+}
+
+button.linkNewUser { 
+    background:none;
+    border:none;
+    color: black;
+    text-align: center;
+    text-decoration: underline;
 }
 
 label {
