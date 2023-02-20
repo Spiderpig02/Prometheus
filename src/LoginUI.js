@@ -1,6 +1,8 @@
 import { useState } from "react";
 import React from "react";
 import './LoginUI.css';
+import {Link} from "react-router-dom";
+
 
 function LoginUI() {
     const[isSubmitted, setIsSubmitted] = useState(false);
@@ -43,6 +45,7 @@ function LoginUI() {
             <div className = "loginError">{errorMessages.message}</div>
         );
     
+
     const giveForm = (
         <div className="loginForm">
             <form onSubmit={handleSubmit}>
@@ -58,7 +61,13 @@ function LoginUI() {
                 </div>
                 <div className = "loginButton">
                     <input type="submit" />
-                    {/* <button onClick={NewUser}> Registrer deg </button> */}
+                </div>
+                <div>
+                    <button class="linkNewUser">
+                        <Link style = {{color: "white"}} to={'/Ny Bruker Side'}>
+                            {"Opprett ny bruker!"}
+                        </Link>
+                    </button>
                 </div>
             </form>
         </div>
@@ -68,7 +77,7 @@ function LoginUI() {
         <div className="LoginUI">
             <div className="loginForm">
                 {/* <div className = "title">Log In</div> */}
-                <h1>Log In</h1>
+                <h1>Logg Inn</h1>
                 {isSubmitted ? <div>You have successfully logged in! </div> : giveForm}
             </div>
         </div>
