@@ -38,8 +38,6 @@ export const AllListings = (props) => {
           
         }}> 
 
-          }}>
-
             <Paper elevation={3} style={{
               padding: 8,
               border: "1px solid black",
@@ -67,7 +65,6 @@ export const AllListings = (props) => {
 
       </List>
     </Container>
-
   );
 }
 
