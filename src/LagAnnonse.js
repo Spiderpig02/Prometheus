@@ -12,7 +12,7 @@ function LagAnnonse(){
         setSubmitting(true);
         addAd(title, description, null, null, null)
         .then(alert("Annonsen er laget")).catch(error => {
-            alert("En feil har oppstått")
+            alert("En feil har oppstått" + error)
         })
         setTitle("")
         setDescription("")
