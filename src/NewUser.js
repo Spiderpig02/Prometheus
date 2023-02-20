@@ -9,8 +9,16 @@ function RegisterNewUser() {
             <form>
                 <h1> Registrer ny bruker </h1>
                 <div>
-                    <label htmlFor="e-post"> E-post (ditt brukernavn): </label>
+                    <label htmlFor="e-post"> E-post: </label>
                     <input type="text" placeholder="E-post" required /> 
+                </div>
+                <div>
+                    <label htmlFor="brukernavn"> Brukernavn: </label>
+                    <input type="text" placeholder="Brukernavn" required /> 
+                </div>
+                <div>
+                    <label htmlFor="telefon-nummer"> Telefon nummer: </label>
+                    <input type="text" placeholder="Telefon nummer" required /> 
                 </div>
                 <div>
                     <label htmlFor="passord"> Passord: </label>

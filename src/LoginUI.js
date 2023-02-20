@@ -62,12 +62,10 @@ function LoginUI() {
                 <div className = "loginButton">
                     <input type="submit" />
                 </div>
-                <div>
-                    <button class="linkNewUser">
-                        <Link style = {{color: "white"}} to={'/Ny Bruker Side'}>
-                            {"Opprett ny bruker!"}
-                        </Link>
-                    </button>
+                <div className = "newUserLink">
+                    <Link style = {{color: "black"}} to={'/Ny Bruker Side'}>
+                        {"Opprett ny bruker!"}
+                    </Link>
                 </div>
             </form>
         </div>
