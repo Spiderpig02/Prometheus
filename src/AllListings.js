@@ -31,6 +31,7 @@ export const AllListings = (props) => {
             <div className="searchBar">
                 <input type="text" id="searchField" name="searchField" value="searchField"
                     placeholder="Søk etter annonse..."></input>
+                <button id="searchFieldButton">Søk</button>
             </div>
             <List>
                 {ads.map(ad => (
