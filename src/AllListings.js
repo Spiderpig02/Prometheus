@@ -29,7 +29,7 @@ export const AllListings = (props) => {
                 Alle Annonser
             </Typography>
             <div className="searchBar">
-                <input type="text" id="searchField" name="searchField" value="searchField"
+                <input type="text" id="searchField" name="searchField"
                     placeholder="Søk etter annonse..."></input>
                 <button id="searchFieldButton">Søk</button>
             </div>
