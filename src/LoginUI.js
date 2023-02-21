@@ -49,8 +49,9 @@ function LoginUI() {
                     <input type="submit" />
                 </div>
                 <div className="newUserLink">
+                    <p>Har du ikke bruker fra før?</p>
                     <Link style={{ color: "black" }} to={'/Ny Bruker Side'}>
-                        {"Opprett ny bruker!"}
+                        {"Opprett ny bruker her!"}
                     </Link>
                 </div>
             </form>
