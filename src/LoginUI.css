@@ -57,6 +57,7 @@ button.linkNewUser {
     color: black;
     text-align: center;
     text-decoration: underline;
+    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
 }
 
 label {
@@ -73,3 +74,8 @@ label {
     padding-top: 10%;
     font-size: 14px;
 }
+
+.shadow {
+    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0,0,0,.8);
+}
+
