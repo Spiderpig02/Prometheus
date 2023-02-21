@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, where, doc, deleteDoc, getDoc } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import { getAuth } from "firebase/auth";
+import './MyListings.css'
 
 export const MyListings = (props) => {
 
