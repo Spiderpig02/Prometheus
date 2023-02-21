@@ -36,10 +36,6 @@ input[type="submit"] {
     box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
 }
 
-input {
-    margin-bottom: 10%;
-}
-
 h1 {
     text-align: center;
 
@@ -51,7 +47,7 @@ h1 {
 }
 
 
-button {
+.loginButton button {
     align-items: center;
 }
 
