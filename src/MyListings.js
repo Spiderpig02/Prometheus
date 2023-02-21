@@ -8,93 +8,94 @@ import { getAuth } from "firebase/auth";
 
 export const MyListings = (props) => {
 
-  const auth = getAuth();
+    const auth = getAuth();
 
-  function checkIfUserLoggedIn() {
-    const user = auth.currentUser;
-    if (user !== null) {
-      console.log("a user logged in")
-      return true
+    function checkIfUserLoggedIn() {
+        const user = auth.currentUser;
+        if (user !== null) {
+            console.log("a user logged in")
+            return true
+        }
+        console.log("user not logged in")
+        return false
     }
-    console.log("user not logged in")
-    return false
-  }
-  
-  const user = auth.currentUser;
 
-  const [myAds, setAds] = useState([]);
-  const adsCollectionRef = collection(firestore, "Advertisement");
-  const q = query(adsCollectionRef, where("userID", "==", user.uid));
+    const user = auth.currentUser;
 
-  const getMyAds = async () => {
-    await getDocs(q).then((querySnapshot) => {
-      const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setAds(myAdsData);
-    });
-  }
-  
-  useEffect(() => {
-    getMyAds()
-  }, []);
+    const [myAds, setAds] = useState([]);
+    const adsCollectionRef = collection(firestore, "Advertisement");
+    const q = query(adsCollectionRef, where("userID", "==", user.uid));
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
-  return (
-      
-    <Container>
+    const getMyAds = async () => {
+        await getDocs(q).then((querySnapshot) => {
+            const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            setAds(myAdsData);
+        });
+    }
 
-      <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
-        Mine Annonser!
-      </Typography>
+    useEffect(() => {
+        getMyAds()
+    }, []);
 
-      <List>
-        {myAds.map(ad => ( 
-        <Box sx={{
-          
-          //justifyContent: "space-between",
-          margin:"30px",
-          mx: 'auto',
-          width: 700
-          
-        }}> 
+    function refreshPage() {
+        window.location.reload(false);
+    }
+    return (
 
-          <Paper elevation={3} style={{
-            padding: 8,
-            border: "1px solid black",
-            justifyContent:"center",
-            alignItems: "center",
-            textAlign: "center",
-            verticalAlign: "middle"
-          }}>
-            <h1>
-              Title: {ad.Title} 
-            </h1>
-            <h2>
-              Description: {ad.Description}
-            </h2>
-            <h2>
-              userID: {ad.userID}
-            </h2>
-            
-           
-          {/* <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?"></AlertDialog> */}
-            <button onClick={async () => {
-              const adDoc = doc(firestore, "Advertisement", ad.id);
-              await deleteDoc(adDoc);
-              refreshPage();
-            }}>Slett annonse</button>
-          </Paper>
-          
-        </Box>
-       
-          
-        ) ) }
-        
-      </List>
-    </Container>
+        <Container>
 
-  );
+            <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+                Mine Annonser!
+            </Typography>
+
+            <List>
+                {myAds.map(ad => (
+                    <Box sx={{
+
+                        //justifyContent: "space-between",
+                        margin: "30px",
+                        mx: 'auto',
+                        width: 700
+
+                    }}>
+
+                        <Paper elevation={3} style={{
+                            padding: 8,
+                            border: "1px solid black",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                            verticalAlign: "middle"
+                        }}>
+                            <h1>
+                                Title: {ad.Title}
+                            </h1>
+                            <h2>
+                                Description: {ad.Description}
+                            </h2>
+                            <h2>
+                                userID: {ad.userID}
+                            </h2>
+
+
+                            {/* <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?"></AlertDialog> */}
+                            <div>
+                                <button onClick={async () => {
+                                    alert("Ikke implementert riktig enda")
+                                }
+                                }>Oppdater annonse</button>
+                                <button onClick={async () => {
+                                    const adDoc = doc(firestore, "Advertisement", ad.id);
+                                    await deleteDoc(adDoc);
+                                    refreshPage();
+                                }}>Slett annonse</button>
+                            </div>
+                        </Paper>
+                    </Box>
+                ))}
+            </List>
+        </Container>
+    );
 }
 
 export default MyListings;
