@@ -29,7 +29,8 @@ export const AllListings = (props) => {
                 Alle Annonser
             </Typography>
             <div className="searchBar">
-                <input type="text" placeholder="Søk etter annonse.."></input>
+                <input type="text" id="searchField" name="searchField" value="searchField"
+                    placeholder="Søk etter annonse..."></input>
             </div>
             <List>
                 {ads.map(ad => (
