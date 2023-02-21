@@ -46,7 +46,7 @@ function LoginUI() {
                     <input placeholder="Passord" type="password" name="passwordInput" required />
                 </div>
                 <div className="loginButton">
-                    <input type="submit" />
+                    <input type="submit" value={"Logg inn"} />
                 </div>
                 <div className="newUserLink">
                     <p>Har du ikke bruker fra før?</p>
