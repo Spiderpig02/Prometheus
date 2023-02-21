@@ -23,6 +23,8 @@ function RegisterNewUser() {
             .catch((e) => {
                 console.log(e.message)
             })
+
+            window.alert("Gratulerer, du har nå opprettet en ny bruker!")
     }
 
     return (
@@ -42,7 +44,7 @@ function RegisterNewUser() {
                     <input type="text" placeholder="Telefon nummer" name="phonenumberInput" required />
                 </div>
                 <div>
-                    <label htmlFor="passord"> Passord: </label>
+                    <label htmlFor="passord"> Passord (minst 6 tegn): </label>
                     <input type="text" placeholder="Passord" name="passwordInput" required />
                 </div>
                 <button class="shadow"> Registrer deg! </button>

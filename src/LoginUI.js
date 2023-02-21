@@ -22,6 +22,8 @@ function LoginUI() {
             .catch((e) => {
                 console.log(e.message)
             })
+
+            window.alert("Du er nå logget inn!")
     }
 
     const handleLogout = (e) => {
@@ -32,13 +34,14 @@ function LoginUI() {
             .catch((error) => {
                 console.log(error.message)
             })
+        window.alert("Du er nå logget ut!")
     }
 
     return (
         <div className="loginForm">
             <form onSubmit={handleSubmit}>
                 <div className="inputText">
-                    <label htmlFor="title">Brukernavn: </label>
+                    <label htmlFor="title">E-post: </label>
                     <input placeholder="Brukernavn" type="text" name="usernameInput" required />
                 </div>
                 <div className="inputText">
@@ -56,9 +59,10 @@ function LoginUI() {
                 </div>
             </form>
             <div className="logoutButton">
-                <button type="button" onClick={handleLogout}>Logout</button>
+                <button class="shadow" type="button" onClick={handleLogout}>Logg ut</button>
             </div>
         </div>
+        
     );
 }
 
