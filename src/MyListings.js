@@ -79,7 +79,7 @@ export const MyListings = (props) => {
 
 
                             {/* <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?"></AlertDialog> */}
-                            <div>
+                            <div className="advertPaperButtons">
                                 <button onClick={async () => {
                                     alert("Ikke implementert riktig enda")
                                 }
