@@ -4,6 +4,7 @@ import AlertDialog from "./AlertDialog";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
+import './AllListings.css';
 
 export const AllListings = (props) => {
 
