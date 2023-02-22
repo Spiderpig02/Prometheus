@@ -19,21 +19,25 @@ function LagAnnonse() {
         setSubmitting(true);
         try {
             await addAd(title, description, userData.uid, null, null, await getPhone(), type, checked, Timestamp.now())
-            alert("Annonsen er laget");
-            
+            if (type == 'Annonse') {
+                alert("Annonsen er publisert");
+            } else if (type == 'Etterspørsel') {
+                alert("Etterspørselen er publisert");
+            }
+            formSubmitReset();
+
         } catch (error) {
             alert("En feil har oppstått. LOG INN" + error);
         }
-        
+
         setTitle("")
         setDescription("")
     }
 
-    async function  getPhone() {
+    async function getPhone() {
         const docRef = doc(firestore, "User", userData.uid);
         const noe = (await getDoc(docRef)).data().Phonenumber
         return noe
-        
     }
 
     const [checked, setChecked] = useState([]);
@@ -50,13 +54,32 @@ function LagAnnonse() {
         setChecked(updatedList);
     };
 
+    // Resets form after submit
+    const formSubmitReset = () => {
+        document.getElementById('advertForm').reset();
+    }
+
+    // Resets radio buttons on new click
+
+    const resetOtherRadio = (radioType) => {
+        if (radioType == 'Annonse') {
+            console.log('Unchecked etterspørsel')
+            document.getElementById("etterspørsel").checked = false;
+        } else if (radioType == 'Ettersporsel') {
+            console.log('Unchecked etterspørsel')
+            document.getElementById("annonse").checked = false;
+        }
+
+    }
+
     // Return classes based on whether item is checked
     var isChecked = (item) =>
         checked.includes(item) ? "checked-item" : "not-checked-item";
+
     return (
         <div className='form-content'>
             <h1>Lag annonse eller etterspørsel</h1>
-            <form onSubmit={submit}>
+            <form onSubmit={submit} id="advertForm">
                 <div className='tittelInputElementFlexboks'>
                     <label htmlFor="tittel">Tittel:</label>
                     <input className="testBox" placeholder='Skriv inn annonsens tittel' name='tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} required />
@@ -102,16 +125,16 @@ function LagAnnonse() {
                 <div className='annonseEttersporselInputElementFlexboks'>
                     <div className='annonseRadioWrap'>
                         <label htmlFor="annonse">Annonse</label>
-                        <input type="radio" value="Annonse" id='annonse' onClick={() => setType('Annonse')} />
+                        <input type="radio" value="Annonse" id='annonse' onClick={() => { setType('Annonse'); resetOtherRadio('Annonse'); }} />
                     </div>
                     <div className='ettersporselRadioWrap'>
                         <label htmlFor="etterspørsel">Etterspørsel</label>
-                        <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => setType('Etterspørsel')} />
+                        <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => { setType('Etterspørsel'); resetOtherRadio('Ettersporsel'); }} />
                     </div>
 
                 </div>
 
-                <button type='submit'>Lag annonse eller etterspørsel</button>
+                <button type='submit'>Publiser annonse eller etterspørsel</button>
             </form>
         </div>
     )
