@@ -1,0 +1,14 @@
+.advertPaperButtons {
+    margin: auto;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.advertPaperButtons button {
+    border-radius: 8px;
+    margin: 10px 5px 10px 5px;
+    width: 50%;
+    cursor: pointer;
+}
