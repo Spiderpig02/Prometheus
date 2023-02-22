@@ -41,9 +41,7 @@ export const AllListings = (props) => {
                         margin: "30px",
                         mx: 'auto',
                         width: 700
-
                     }}>
-
                         <Paper elevation={3} style={{
                             padding: 8,
                             border: "1px solid black",
@@ -66,12 +64,9 @@ export const AllListings = (props) => {
                             <h3>
                                 {ad.Description}
                             </h3>
-
                             <h2>
-                                For leie kontakt: {ad.Phonenumber}
+                                Kontakt: {ad.Phonenumber}
                             </h2>
-
-                            <AlertDialog buttonName="Book annonse" dialogueText="Vil du booke denne annonsen?" ></AlertDialog>
                         </Paper>
                     </Box>
                 ))}
