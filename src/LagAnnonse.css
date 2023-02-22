@@ -80,3 +80,7 @@ div.annonseEttersporselInputElementFlexboks {
 .annonseEttersporselInputElementFlexboks input[type=radio] {
     margin: 5px;
 }
+
+.form-content button {
+    cursor: pointer;
+}
