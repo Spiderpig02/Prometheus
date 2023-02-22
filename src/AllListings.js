@@ -4,8 +4,7 @@ import AlertDialog from "./AlertDialog";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
-import CheckboxSidebar from "./CheckboxSidebar";
-import './CheckboxSidebar.css'
+import './AllListings.css';
 
 export const AllListings = (props) => {
 
@@ -36,11 +35,17 @@ export const AllListings = (props) => {
                     {ads.map(ad => (
                         <Box sx={{
 
-                            //justifyContent: "space-between",
-                            margin: "30px",
-                            mx: 'auto',
-                            width: 700
-                            
+            <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+                Alle Annonser
+            </Typography>
+            <div className="searchBar">
+                <input type="text" id="searchField" name="searchField"
+                    placeholder="Søk etter annonse..."></input>
+                <button id="searchFieldButton">Søk</button>
+            </div>
+            <List>
+                {ads.map(ad => (
+                    <Box sx={{
 
                         }}>
 

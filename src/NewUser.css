@@ -21,6 +21,7 @@ h1{
 
 button {
     margin-top: 50px;
+    margin-bottom: 50px;
     cursor: auto;
     font-size: 16px;
     background: black;
@@ -28,8 +29,13 @@ button {
     color: whitesmoke;
     padding: 15px 15px;
     text-align: center;
+    
 }
 
 .shadow {
     box-shadow: 1.5px 1.5px 3px 1.5px rgba(0,0,0,.8);
+}
+
+.ny-bruker-form label {
+    width: auto;
 }
