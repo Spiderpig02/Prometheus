@@ -52,15 +52,17 @@ export const AllListings = (props) => {
                             textAlign: "center",
                             verticalAlign: "middle"
                         }}>
-                            <h4>
+                            <h4 className="addType">
                                 {ad.Type}
                             </h4>
-                            <h1>
-                                {ad.Title}
-                            </h1>
-                            <h4>
-                                Dato opprettet: {new Date(ad.Created * 1000).toString().slice(3, 10)} 2023
-                            </h4>
+                            <div className="paperTitleAndDate">
+                                <h1>
+                                    {ad.Title}
+                                </h1>
+                                <h4>
+                                    Dato opprettet: {new Date(ad.Created * 1000).toString().slice(3, 10)} 2023
+                                </h4>
+                            </div>
                             <h3>
                                 {ad.Description}
                             </h3>
