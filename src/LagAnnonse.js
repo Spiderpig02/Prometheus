@@ -92,7 +92,7 @@ function LagAnnonse() {
                             <label htmlFor="verktøyFritid">Fritidsverktøy</label>  
                     </div>   */}
                 </div>
-                <div className='annonsneEttersporselInputElementFlexboks'>
+                <div className='annonseEttersporselInputElementFlexboks'>
                     <label htmlFor="annonse">Annonse</label>
                     <input type="radio" value="Annonse" id='annonse' onClick={() => setType('Annonse')} />
 
