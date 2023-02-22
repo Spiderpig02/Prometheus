@@ -1,48 +1,82 @@
-.form-content{
+.form-content {
     margin-top: 100px;
 }
-.form-content form{
+
+.form-content form {
     display: flex;
     text-align: left;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: 25%;
+    margin-right: 25%;
 }
-.inputElement{
+
+.inputElement {
     display: block;
     text-align: left;
     align-items: center;
     width: 100%;
     padding: 2%;
 }
-.testBox{
+
+.testBox {
     width: 500px;
 }
-.flexboks{
+
+.flexboks {
     display: flex;
     flex-direction: column;
     align-items: left;
 }
-h1{
+
+h1 {
     text-align: center;
 }
 
-.tittel {
-    width: 400px;
+.tittelInputElementFlexboks label,
+.beskrivelseInputElementFlexboks label {
+    padding-bottom: 2%;
+    padding-top: 5%;
+    width: fit-content;
+}
+
+div.tittelInputElementFlexboks,
+div.beskrivelseInputElementFlexboks {
+    height: fit-content;
 }
 
 input#tittel {
     width: 500px;
     border-width: 1px;
+    text-align: left;
+    font-family: monospace;
 }
 
-.form-content label {
-    padding-bottom: 3%;
-    padding-right: 100%;
+.checkboxes label {
+    width: fit-content;
+    padding-bottom: 0;
 }
 
-.form-content {
-    
+div.annonseEttersporselInputElementFlexboks {
+    width: 100%;
+    padding-top: 8%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.annonseEttersporselInputElementFlexboks label {
+    padding-top: 0%;
+    padding-bottom: 1%;
+}
+
+.annonseEttersporselInputElementFlexboks div {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+}
+
+.annonseEttersporselInputElementFlexboks input[type=radio] {
+    margin: 5px;
 }
