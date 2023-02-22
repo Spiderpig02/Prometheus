@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import LagAnnonse from './LagAnnonse'
+import LagAnnonse from './LagAnnonse';
 
   describe("Test Lag Annonse", () => {
     it("should render LagAnnonse correctly", () => {
