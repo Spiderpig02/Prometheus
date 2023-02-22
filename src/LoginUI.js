@@ -19,13 +19,16 @@ function LoginUI() {
             .then((cred) => {
                 console.log("user logged in", cred.user)
 
-            })
+            }).then(() => { 
+                window.alert("Du er nå logget inn!")
+                navigate("/Min Profil")})
             .catch((e) => {
                 console.log(e.message)
             })
 
-        window.alert("Du er nå logget inn!")
-        navigate("/Min Profil")
+        
+       
+        
     }
 
     const handleLogout = (e) => {
