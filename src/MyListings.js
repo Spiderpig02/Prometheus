@@ -6,6 +6,7 @@ import { collection, getDocs, query, where, doc, deleteDoc, getDoc } from "fireb
 import { firestore } from "./firebaseConfig.js";
 import { getAuth } from "firebase/auth";
 import './MyListings.css'
+import { Navigate } from "react-router";
 
 export const MyListings = (props) => {
 
@@ -14,16 +15,18 @@ export const MyListings = (props) => {
     
   }, []);
 
- 
+  const auth = getAuth();
+  const user = auth.currentUser;
   const [myAds, setAds] = useState([]);
 
   const getMyAds = async () => {
     await getDocs(query(collection(firestore, "Advertisement"), where("userID", "==", getAuth().currentUser.uid))).then((querySnapshot) => {
       const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setAds(myAdsData);
-      console.log(getMyAds);
     });
   }
+  
+  if(user !== null){
     return (
 
         <Container>
@@ -80,6 +83,10 @@ export const MyListings = (props) => {
             </List>
         </Container>
     );
+    }
+    else{
+       return <Navigate replace to = "/Logg inn"></Navigate>
+    }
 }
 
 export default MyListings;

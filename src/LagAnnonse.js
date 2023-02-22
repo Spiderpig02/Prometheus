@@ -4,6 +4,7 @@ import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import React, { useState } from 'react'
 import { auth, firestore } from './firebaseConfig';
 import { addAd } from './IO'
+import { Navigate } from "react-router";
 import './LagAnnonse.css'
 
 function LagAnnonse() {
@@ -75,69 +76,73 @@ function LagAnnonse() {
     // Return classes based on whether item is checked
     var isChecked = (item) =>
         checked.includes(item) ? "checked-item" : "not-checked-item";
-
-    return (
-        <div className='form-content'>
-            <h1>Lag annonse eller etterspørsel</h1>
-            <form onSubmit={submit} id="advertForm">
-                <div className='tittelInputElementFlexboks'>
-                    <label htmlFor="tittel">Tittel:</label>
-                    <input className="testBox" placeholder='Skriv inn annonsens tittel' name='tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} required />
-                </div>
-
-                <div className='beskrivelseInputElementFlexboks'>
-                    <label htmlFor="beskrivelse">Beskrivelse:</label>
-                    <textarea className="testBox" placeholder='Skriv inn en detaljert beskrivelse av annonsen' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
-                </div>
-
-                <div className='checkboxes'>
-                    <label htmlFor="type"><h3>Velg ønskede kategorier</h3></label>
-                    <div className="list-container">
-                        {checkList.map((item, index) => (
-                            <div key={index}>
-                                <input value={item} type="checkbox" onChange={handleCheck} />
-                                <span className={isChecked(item)}>{item}</span>
-                            </div>
-                        ))}
-                    </div>
-                    {/* <h3>Velg ønskede kategorier</h3>
-                        <div className='sidebar-checkbox'>
-                            <input id="verktøyDiverse" type="checkbox" value={checked} onChange={onChange}/>
-                            <label htmlFor="verktøyDiverse">Diverse</label>         
-                        </div>
-                        <div className='sidebar-checkbox'>
-                            <input id="verktøyHage" type="checkbox" value={checked} onChange={onChange}/>
-                            <label htmlFor="verktøyHage">Hageverktøy</label>  
-                        </div>
-                        <div className='sidebar-checkbox'>
-                            <input id="verktøyMaling" type="checkbox" value={checked} onChange={onChange}/>
-                            <label htmlFor="verktøyMaling">Maleverktøy</label>  
-                        </div>
-                        <div className='sidebar-checkbox'>
-                            <input id="verktøySnekring" type="checkbox" value={checked} onChange={onChange}/>
-                            <label htmlFor="verktøySnekring">Snekring</label>  
-                        </div>
-                        <div className='sidebar-checkbox'>
-                            <input id="verktøyFritid" type="checkbox" value={checked} onChange={onChange}/>
-                            <label htmlFor="verktøyFritid">Fritidsverktøy</label>  
-                    </div>   */}
-                </div>
-                <div className='annonseEttersporselInputElementFlexboks'>
-                    <div className='annonseRadioWrap'>
-                        <label htmlFor="annonse">Annonse</label>
-                        <input type="radio" value="Annonse" id='annonse' onClick={() => { setType('Annonse'); resetOtherRadio('Annonse'); }} />
-                    </div>
-                    <div className='ettersporselRadioWrap'>
-                        <label htmlFor="etterspørsel">Etterspørsel</label>
-                        <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => { setType('Etterspørsel'); resetOtherRadio('Ettersporsel'); }} />
-                    </div>
-
-                </div>
-
-                <button type='submit'>Publiser annonse eller etterspørsel</button>
-            </form>
-        </div>
-    )
+ if (userData !== null) {
+     return (
+         <div className='form-content'>
+             <h1>Lag annonse eller etterspørsel</h1>
+             <form onSubmit={submit} id="advertForm">
+                 <div className='tittelInputElementFlexboks'>
+                     <label htmlFor="tittel">Tittel:</label>
+                     <input className="testBox" placeholder='Skriv inn annonsens tittel' name='tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} required />
+                 </div>
+ 
+                 <div className='beskrivelseInputElementFlexboks'>
+                     <label htmlFor="beskrivelse">Beskrivelse:</label>
+                     <textarea className="testBox" placeholder='Skriv inn en detaljert beskrivelse av annonsen' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
+                 </div>
+ 
+                 <div className='checkboxes'>
+                     <label htmlFor="type"><h3>Velg ønskede kategorier</h3></label>
+                     <div className="list-container">
+                         {checkList.map((item, index) => (
+                             <div key={index}>
+                                 <input value={item} type="checkbox" onChange={handleCheck} />
+                                 <span className={isChecked(item)}>{item}</span>
+                             </div>
+                         ))}
+                     </div>
+                     {/* <h3>Velg ønskede kategorier</h3>
+                         <div className='sidebar-checkbox'>
+                             <input id="verktøyDiverse" type="checkbox" value={checked} onChange={onChange}/>
+                             <label htmlFor="verktøyDiverse">Diverse</label>         
+                         </div>
+                         <div className='sidebar-checkbox'>
+                             <input id="verktøyHage" type="checkbox" value={checked} onChange={onChange}/>
+                             <label htmlFor="verktøyHage">Hageverktøy</label>  
+                         </div>
+                         <div className='sidebar-checkbox'>
+                             <input id="verktøyMaling" type="checkbox" value={checked} onChange={onChange}/>
+                             <label htmlFor="verktøyMaling">Maleverktøy</label>  
+                         </div>
+                         <div className='sidebar-checkbox'>
+                             <input id="verktøySnekring" type="checkbox" value={checked} onChange={onChange}/>
+                             <label htmlFor="verktøySnekring">Snekring</label>  
+                         </div>
+                         <div className='sidebar-checkbox'>
+                             <input id="verktøyFritid" type="checkbox" value={checked} onChange={onChange}/>
+                             <label htmlFor="verktøyFritid">Fritidsverktøy</label>  
+                     </div>   */}
+                 </div>
+                 <div className='annonseEttersporselInputElementFlexboks'>
+                     <div className='annonseRadioWrap'>
+                         <label htmlFor="annonse">Annonse</label>
+                         <input type="radio" value="Annonse" id='annonse' onClick={() => { setType('Annonse'); resetOtherRadio('Annonse'); }} />
+                     </div>
+                     <div className='ettersporselRadioWrap'>
+                         <label htmlFor="etterspørsel">Etterspørsel</label>
+                         <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => { setType('Etterspørsel'); resetOtherRadio('Ettersporsel'); }} />
+                     </div>
+ 
+                 </div>
+ 
+                 <button type='submit'>Publiser annonse eller etterspørsel</button>
+             </form>
+         </div>
+     )
+    
+ } else{
+    return <Navigate replace to = "/Logg inn"></Navigate>
+}
 }
 
 export default LagAnnonse
