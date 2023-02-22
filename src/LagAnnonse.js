@@ -60,10 +60,8 @@ function LagAnnonse() {
                     <textarea className="testBox" placeholder='Beskrivelse' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
                 </div>
 
-
-                <label htmlFor="type"> Type:</label>
                 <div className='checkboxes'>
-                    <h3>Velg ønskede kategorier</h3>
+                    <label htmlFor="type"><h3>Velg ønskede kategorier</h3></label>
                     <div className="list-container">
                         {checkList.map((item, index) => (
                             <div key={index}>
@@ -94,7 +92,7 @@ function LagAnnonse() {
                             <label htmlFor="verktøyFritid">Fritidsverktøy</label>  
                     </div>   */}
                 </div>
-                <div className='inputElement flexboks'>
+                <div className='annonsneEttersporselInputElementFlexboks'>
                     <label htmlFor="annonse">Annonse</label>
                     <input type="radio" value="Annonse" id='annonse' onClick={() => setType('Annonse')} />
 
