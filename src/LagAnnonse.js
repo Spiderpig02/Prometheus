@@ -116,7 +116,7 @@ function LagAnnonse() {
 
                 </div>
 
-                <button type='submit'>Lag annonse eller etterspørsel</button>
+                <button type='submit'>Publiser annonse eller etterspørsel</button>
             </form>
         </div>
     )
