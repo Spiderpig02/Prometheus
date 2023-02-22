@@ -93,13 +93,14 @@ function LagAnnonse() {
                     </div>   */}
                 </div>
                 <div className='annonseEttersporselInputElementFlexboks'>
-                    <label htmlFor="annonse">Annonse</label>
-                    <input type="radio" value="Annonse" id='annonse' onClick={() => setType('Annonse')} />
-
-
-                    <label htmlFor="etterspørsel">Etterspørsel</label>
-                    <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => setType('Etterspørsel')} />
-
+                    <div className='annonseRadioWrap'>
+                        <label htmlFor="annonse">Annonse</label>
+                        <input type="radio" value="Annonse" id='annonse' onClick={() => setType('Annonse')} />
+                    </div>
+                    <div className='ettersporselRadioWrap'>
+                        <label htmlFor="etterspørsel">Etterspørsel</label>
+                        <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => setType('Etterspørsel')} />
+                    </div>
 
                 </div>
 
