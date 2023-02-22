@@ -31,7 +31,6 @@ function LagAnnonse() {
 
     async function  getPhone() {
         const docRef = doc(firestore, "User", userData.uid);
-        console.log()
         const noe = (await getDoc(docRef)).data().Phonenumber
         return noe
         

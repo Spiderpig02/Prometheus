@@ -51,7 +51,7 @@ export const MyListings = (props) => {
 
             <List>
                 {myAds.map(ad => (
-                    <Box sx={{
+                    <Box key={ad.id} sx={{
 
                         //justifyContent: "space-between",
                         margin: "30px",
