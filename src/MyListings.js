@@ -27,7 +27,6 @@ export const MyListings = (props) => {
   }
   
   if(user !== null){
-    console.log("hei");
     return (
 
         <Container>
