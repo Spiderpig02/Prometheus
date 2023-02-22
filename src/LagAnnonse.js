@@ -1,7 +1,8 @@
+import { async } from '@firebase/util';
 import { Alert } from '@mui/material';
-import { Timestamp } from 'firebase/firestore';
+import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import React, { useState } from 'react'
-import { auth } from './firebaseConfig';
+import { auth, firestore } from './firebaseConfig';
 import { addAd } from './IO'
 import './LagAnnonse.css'
 
@@ -13,22 +14,28 @@ function LagAnnonse() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [type, setType] = useState('');
-    const submit = event => {
+    const submit = async event => {
         event.preventDefault();
         setSubmitting(true);
-        addAd(title, description, userData.uid, null, null, userData.phoneNumber, type, null, Timestamp.now())
-            .then(alert("Annonsen er laget")).catch(error => {
-                alert("En feil har oppstått" + error)
-            })
+        try {
+            await addAd(title, description, userData.uid, null, null, await getPhone(), type, checked, Timestamp.now())
+            alert("Annonsen er laget");
+            
+        } catch (error) {
+            alert("En feil har oppstått. LOG INN" + error);
+        }
+        
         setTitle("")
         setDescription("")
     }
-    /*
-    const [checked, setChecked] = useState(false);
-    const onChange = () => {
-        setChecked(!checked);
-    };
-    */
+
+    async function  getPhone() {
+        const docRef = doc(firestore, "User", userData.uid);
+        const noe = (await getDoc(docRef)).data().Phonenumber
+        return noe
+        
+    }
+
     const [checked, setChecked] = useState([]);
     const checkList = ["Diverse", "Hageverktøy", "Maleverktøy", "Snekring", "Fritidsverktøy"];
 

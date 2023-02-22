@@ -23,7 +23,7 @@ function LoginUI() {
                 console.log(e.message)
             })
 
-            window.alert("Du er nå logget inn!")
+        window.alert("Du er nå logget inn!")
     }
 
     const handleLogout = (e) => {
@@ -59,10 +59,10 @@ function LoginUI() {
                 </div>
             </form>
             <div className="logoutButton">
-                <button class="shadow" type="button" onClick={handleLogout}>Logg ut</button>
+                <button className="shadow" type="button" onClick={handleLogout}>Logg ut</button>
             </div>
         </div>
-        
+
     );
 }
 

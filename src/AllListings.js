@@ -1,18 +1,18 @@
-import { Box, Container, List, Paper } from "@mui/material";
+import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
 import './AllListings.css';
-import CheckboxSidebar from './CheckboxSidebar';
-import './CheckboxSidebar.css';
+import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
+import './CheckboxSidebar.css'
 
 export const AllListings = (props) => {
 
+    const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
-
     const getAds = async () => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -20,15 +20,33 @@ export const AllListings = (props) => {
         });
     }
 
+    const getQueryAds = async () => {
+        const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
+        await getDocs(querys).then((querySnapshot) => {
+            const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            setAds(adsData);
+        })
+    };
+
     useEffect(() => {
-        getAds();
-    }, []);
+        if (checkedList.length !== 0) {
+            console.log("inni query")
+            getQueryAds();
+        } else {
+            getAds();
+        }
+
+    }, [checkedList]);
+
+    const handleSetChecked = (cheList) => {
+        setCheckedList(cheList);
+    };
 
     return (
         <Container>
             <Container className="ListingsContainer" sx={{ justifyContent: 'center', display: 'flex', padding: 0, paddingLeft: 0 }}>
                 <Box className='sidebar-container'>
-                    <CheckboxSidebar className="sidebar" />
+                    <CheckboxSidebar className="sidebar" onChecked={handleSetChecked} />
                 </Box>
             </Container>
             <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
@@ -42,7 +60,7 @@ export const AllListings = (props) => {
 
             <List>
                 {ads.map(ad => (
-                    <Box sx={{
+                    <Box key={ad.id} sx={{
 
                         //justifyContent: "space-between",
                         margin: "30px",
@@ -77,7 +95,6 @@ export const AllListings = (props) => {
                         </Paper>
                     </Box>
                 ))}
-
             </List>
         </Container>
     );
