@@ -1,3 +1,4 @@
+import { Alert } from '@mui/material';
 import { Timestamp } from 'firebase/firestore';
 import React, { useState } from 'react'
 import { auth } from './firebaseConfig';
@@ -29,24 +30,24 @@ function LagAnnonse() {
             <form onSubmit={submit}>
                 <div className='tittel inputElement flexboks'>
                     <label htmlFor="tittel">Tittel:</label>
-                    <input className="testBox" placeholder='Tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
+                    <input className="testBox" placeholder='Tittel' name='tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} required />
                 </div>
 
                 <div className='beskrivelse inputElement flexboks'>
                     <label htmlFor="beskrivelse">Beskrivelse:</label>
-                    <textarea className="testBox" placeholder='Beskrivelse' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} ></textarea>
+                    <textarea className="testBox" placeholder='Beskrivelse' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
                 </div>
 
 
                 <label htmlFor="type"> Type:</label>
                 <div className='inputElement flexboks'>
-                    <label htmlFor="type">
-                        <input type="radio" value="Annonse" name="type" onClick={() => setType('Annonse')} /> Annonse
-                    </label>
+                    <label htmlFor="annonse">Annonse</label>
+                    <input type="radio" value="Annonse" id='annonse' onClick={() => setType('Annonse')} /> 
+                    
 
-                    <label htmlFor="">
-                        <input type="radio" value="Etterspørsel" name="type" onClick={() => setType('Etterspørsel')} /> Etterspørsel
-                    </label>
+                    <label htmlFor="etterspørsel">Etterspørsel</label>
+                    <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => setType('Etterspørsel')} />
+                    
 
                 </div>
 
