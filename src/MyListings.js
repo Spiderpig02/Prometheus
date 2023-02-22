@@ -9,38 +9,21 @@ import './MyListings.css'
 
 export const MyListings = (props) => {
 
-    const auth = getAuth();
+  useEffect(() => {
+    getMyAds()
+    
+  }, []);
 
-    function checkIfUserLoggedIn() {
-        const user = auth.currentUser;
-        if (user !== null) {
-            console.log("a user logged in")
-            return true
-        }
-        console.log("user not logged in")
-        return false
-    }
+ 
+  const [myAds, setAds] = useState([]);
 
-    const user = auth.currentUser;
-
-    const [myAds, setAds] = useState([]);
-    const adsCollectionRef = collection(firestore, "Advertisement");
-    const q = query(adsCollectionRef, where("userID", "==", user.uid));
-
-    const getMyAds = async () => {
-        await getDocs(q).then((querySnapshot) => {
-            const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setAds(myAdsData);
-        });
-    }
-
-    useEffect(() => {
-        getMyAds()
-    }, []);
-
-    function refreshPage() {
-        window.location.reload(false);
-    }
+  const getMyAds = async () => {
+    await getDocs(query(collection(firestore, "Advertisement"), where("userID", "==", getAuth().currentUser.uid))).then((querySnapshot) => {
+      const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setAds(myAdsData);
+      console.log(getMyAds);
+    });
+  }
     return (
 
         <Container>
@@ -88,7 +71,7 @@ export const MyListings = (props) => {
                                 <button onClick={async () => {
                                     const adDoc = doc(firestore, "Advertisement", ad.id);
                                     await deleteDoc(adDoc);
-                                    refreshPage();
+                                    getMyAds();
                                 }}>Slett annonse</button>
                             </div>
                         </Paper>
