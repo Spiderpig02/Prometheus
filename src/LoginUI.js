@@ -2,11 +2,12 @@ import './LoginUI.css';
 import './LagAnnonse.css';
 import React from "react";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function LoginUI() {
 
     const auth = getAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = (submit) => {
         submit.preventDefault()
@@ -23,7 +24,8 @@ function LoginUI() {
                 console.log(e.message)
             })
 
-            window.alert("Du er nå logget inn!")
+        window.alert("Du er nå logget inn!")
+        navigate("/Min Profil")
     }
 
     const handleLogout = (e) => {
