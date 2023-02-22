@@ -34,16 +34,16 @@ input[type="submit"] {
     padding: 15px 15px;
     text-align: center;
     box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
+    margin-left: 28%;
+}
+
+.loginForm input {
+    margin-bottom: 10%;
 }
 
 h1 {
     text-align: center;
 
-}
-
-.loginForm {
-    align-items: center;
-    text-align: center;
 }
 
 
@@ -78,4 +78,3 @@ label {
 .shadow {
     box-shadow: 1.5px 1.5px 3px 1.5px rgba(0,0,0,.8);
 }
-
