@@ -20,20 +20,20 @@ function LagAnnonse() {
         try {
             await addAd(title, description, userData.uid, null, null, await getPhone(), type, checked, Timestamp.now())
             alert("Annonsen er laget");
-            
+            formSubmitReset();
+
         } catch (error) {
             alert("En feil har oppstått. LOG INN" + error);
         }
-        
+
         setTitle("")
         setDescription("")
     }
 
-    async function  getPhone() {
+    async function getPhone() {
         const docRef = doc(firestore, "User", userData.uid);
         const noe = (await getDoc(docRef)).data().Phonenumber
         return noe
-        
     }
 
     const [checked, setChecked] = useState([]);
@@ -50,13 +50,18 @@ function LagAnnonse() {
         setChecked(updatedList);
     };
 
+    // Resets form after submit
+    const formSubmitReset = () => {
+        document.getElementById('advertForm').reset();
+    }
+
     // Return classes based on whether item is checked
     var isChecked = (item) =>
         checked.includes(item) ? "checked-item" : "not-checked-item";
     return (
         <div className='form-content'>
             <h1>Lag annonse eller etterspørsel</h1>
-            <form onSubmit={submit}>
+            <form onSubmit={submit} id="advertForm">
                 <div className='tittelInputElementFlexboks'>
                     <label htmlFor="tittel">Tittel:</label>
                     <input className="testBox" placeholder='Skriv inn annonsens tittel' name='tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} required />
