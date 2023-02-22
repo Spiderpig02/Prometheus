@@ -34,7 +34,6 @@ input[type="submit"] {
     padding: 15px 15px;
     text-align: center;
     box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
-    margin-left: 28%;
 }
 
 .loginForm input {
@@ -43,12 +42,17 @@ input[type="submit"] {
 
 h1 {
     text-align: center;
-
 }
 
 
 .loginButton button {
     align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logoutButton {
+    text-align: center;
 }
 
 button.linkNewUser {
@@ -76,5 +80,5 @@ label {
 }
 
 .shadow {
-    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0,0,0,.8);
+    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
 }
