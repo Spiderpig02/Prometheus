@@ -1,77 +1,68 @@
-import { useState } from "react";
-import React from "react";
 import './LoginUI.css';
+import './LagAnnonse.css';
+import React from "react";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { Link } from "react-router-dom"
 
 function LoginUI() {
-    const[isSubmitted, setIsSubmitted] = useState(false);
-    const[errorMessages, setErrorMessages] = useState({});
 
-    //login info
-    const database = [
-        {
-            usernameLogin: "userA",
-            passwordLogin: "test1"
-        },
-        {
-            usernameLogin: "userB",
-            passwordLogin: "test2"
-        }
-    ];
+    const auth = getAuth();
 
     const handleSubmit = (submit) => {
-        submit.preventDefault();
+        submit.preventDefault()
 
-        var {usernameLogin, passwordLogin} = document.forms[0];
+        const email = submit.target.usernameInput.value
+        const password = submit.target.passwordInput.value
 
-        //finding user info in database
-        const userData = database.find((user) => user.username == usernameLogin.value);
+        signInWithEmailAndPassword(auth, email, password)
+            .then((cred) => {
+                console.log("user logged in", cred.user)
 
-        //comparing user data to database info
-        if (userData) {
-            if (userData.password != passwordLogin.value) {
-                setErrorMessages({name: "passwordLogin", message: errorMessages.passwordLogin});
-            } else {
-                setIsSubmitted(true);
-            }
-        } else {
-            setErrorMessages({name: "usernameLogin", message: errorMessages.usernameLogin});
-        }
+            })
+            .catch((e) => {
+                console.log(e.message)
+            })
+
+            window.alert("Du er nå logget inn!")
     }
 
-    const giveErrorMessage = (name) =>
-        name === errorMessages.name && (
-            <div className = "loginError">{errorMessages.message}</div>
-        );
-    
-    const giveForm = (
+    const handleLogout = (e) => {
+        signOut(auth)
+            .then(() => {
+                console.log("User Logged out")
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+        window.alert("Du er nå logget ut!")
+    }
+
+    return (
         <div className="loginForm">
             <form onSubmit={handleSubmit}>
                 <div className="inputText">
-                    <label htmlFor = "title">Brukernavn: </label>
-                    <input placeholder = "Brukernavn" type="text" name = "usernameLogin" required />
-                    {giveErrorMessage("usernameLogin")}
+                    <label htmlFor="title">E-post: </label>
+                    <input placeholder="Brukernavn" type="text" name="usernameInput" required />
                 </div>
                 <div className="inputText">
                     <label>Passord: </label>
-                    <input placeholder = "Passord" type="password" name="passwordLogin" required/>
-                    {giveErrorMessage("passwordLogin")}
+                    <input placeholder="Passord" type="password" name="passwordInput" required />
                 </div>
-                <div className = "loginButton">
-                    <input type="submit" />
-                    {/* <button onClick={NewUser}> Registrer deg </button> */}
+                <div className="loginButton">
+                    <input type="submit" value={"Logg inn"} />
+                </div>
+                <div className="newUserLink">
+                    <p>Har du ikke bruker fra før?</p>
+                    <Link style={{ color: "black" }} to={'/Ny Bruker Side'}>
+                        {"Opprett ny bruker her!"}
+                    </Link>
                 </div>
             </form>
-        </div>
-    );
-
-    return (
-        <div className="LoginUI">
-            <div className="loginForm">
-                {/* <div className = "title">Log In</div> */}
-                <h1>Log In</h1>
-                {isSubmitted ? <div>You have successfully logged in! </div> : giveForm}
+            <div className="logoutButton">
+                <button class="shadow" type="button" onClick={handleLogout}>Logg ut</button>
             </div>
         </div>
+        
     );
 }
 

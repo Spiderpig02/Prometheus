@@ -2,15 +2,29 @@ import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, where, doc, deleteDoc, getDoc } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
-import { where } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 export const MyListings = (props) => {
 
+  const auth = getAuth();
+
+  function checkIfUserLoggedIn() {
+    const user = auth.currentUser;
+    if (user !== null) {
+      console.log("a user logged in")
+      return true
+    }
+    console.log("user not logged in")
+    return false
+  }
+  
+  const user = auth.currentUser;
+
   const [myAds, setAds] = useState([]);
   const adsCollectionRef = collection(firestore, "Advertisement");
-  const q = query(adsCollectionRef, where("userID", "==", "Askeladden"));
+  const q = query(adsCollectionRef, where("userID", "==", user.uid));
 
   const getMyAds = async () => {
     await getDocs(q).then((querySnapshot) => {
@@ -23,6 +37,9 @@ export const MyListings = (props) => {
     getMyAds()
   }, []);
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
   return (
       
     <Container>
@@ -32,7 +49,7 @@ export const MyListings = (props) => {
       </Typography>
 
       <List>
-        {myAds.map(ad => (  
+        {myAds.map(ad => ( 
         <Box sx={{
           
           //justifyContent: "space-between",
@@ -59,7 +76,14 @@ export const MyListings = (props) => {
             <h2>
               userID: {ad.userID}
             </h2>
-            <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?" ></AlertDialog>
+            
+           
+          {/* <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?"></AlertDialog> */}
+            <button onClick={async () => {
+              const adDoc = doc(firestore, "Advertisement", ad.id);
+              await deleteDoc(adDoc);
+              refreshPage();
+            }}>Slett annonse</button>
           </Paper>
           
         </Box>
