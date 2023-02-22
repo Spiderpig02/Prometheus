@@ -81,6 +81,8 @@ div.annonseEttersporselInputElementFlexboks {
     margin: 5px;
 }
 
-.form-content button {
+.form-content button,
+input[type='radio'],
+input[type='checkbox'] {
     cursor: pointer;
 }
