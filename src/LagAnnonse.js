@@ -19,7 +19,11 @@ function LagAnnonse() {
         setSubmitting(true);
         try {
             await addAd(title, description, userData.uid, null, null, await getPhone(), type, checked, Timestamp.now())
-            alert("Annonsen er laget");
+            if (type == 'Annonse') {
+                alert("Annonsen er publisert");
+            } else if (type == 'Etterspørsel') {
+                alert("Etterspørselen er publisert");
+            }
             formSubmitReset();
 
         } catch (error) {
