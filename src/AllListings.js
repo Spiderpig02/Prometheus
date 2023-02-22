@@ -47,32 +47,41 @@ export const AllListings = (props) => {
                 {ads.map(ad => (
                     <Box sx={{
 
+                        //justifyContent: "space-between",
+                        margin: "30px",
+                        mx: 'auto',
+                        width: 700
+                    }}>
+                        <Paper elevation={3} style={{
+                            padding: 8,
+                            border: "1px solid black",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                            verticalAlign: "middle"
                         }}>
-
-                            <Paper elevation={3} style={{
-                                padding: 8,
-                                border: "1px solid black",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                textAlign: "center",
-                                verticalAlign: "middle"
-                            }}>
+                            <h4 className="addType">
+                                {ad.Type}
+                            </h4>
+                            <div className="paperTitleAndDate">
                                 <h1>
-                                    Title: {ad.Title}
+                                    {ad.Title}
                                 </h1>
-                                <h2>
-                                    Description: {ad.Description}
-                                </h2>
-                                <h2>
-                                    userID: {ad.userID}
-                                </h2>
-                                <AlertDialog buttonName="Book annonse" dialogueText="Vil du booke denne annonsen?" ></AlertDialog>
-                            </Paper>
+                                <h4>
+                                    Dato opprettet: {new Date(ad.Created * 1000).toString().slice(3, 10)} 2023
+                                </h4>
+                            </div>
+                            <h3>
+                                {ad.Description}
+                            </h3>
+                            <h2>
+                                Kontakt: {ad.Phonenumber}
+                            </h2>
+                        </Paper>
+                    </Box>
+                ))}
 
-                        </Box>
-                    ))}
-                </List>
-            </Box>
+            </List>
         </Container>
     );
 }

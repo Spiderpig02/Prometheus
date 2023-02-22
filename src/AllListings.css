@@ -26,3 +26,13 @@ div.searchBar {
     margin-bottom: 0;
     color: black;
 }
+
+.paperTitleAndDate h1,
+h4 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+div.paperTitleAndDate {
+    margin-top: 10px;
+}
