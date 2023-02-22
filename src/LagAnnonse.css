@@ -18,7 +18,7 @@
     padding: 2%;
 }
 .testBox{
-    width: 100%;
+    width: 500px;
 }
 .flexboks{
     display: flex;
@@ -27,4 +27,22 @@
 }
 h1{
     text-align: center;
+}
+
+.tittel {
+    width: 400px;
+}
+
+input#tittel {
+    width: 500px;
+    border-width: 1px;
+}
+
+.form-content label {
+    padding-bottom: 3%;
+    padding-right: 100%;
+}
+
+.form-content {
+    
 }
