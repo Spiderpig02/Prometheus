@@ -5,9 +5,10 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    height: 80vh;
+    height: 68vh;
     font-family: Arial, Helvetica, sans-serif;
     background-color: whitesmoke;
+    margin-top: 69px;
 }
 
 input[type="text"] {
@@ -75,7 +76,6 @@ label {
 .newUserLink {
     color: black;
     text-align: center;
-    padding-top: 10%;
     font-size: 14px;
 }
 
