@@ -55,9 +55,23 @@ function LagAnnonse() {
         document.getElementById('advertForm').reset();
     }
 
+    // Resets radio buttons on new click
+
+    const resetOtherRadio = (radioType) => {
+        if (radioType == 'Annonse') {
+            console.log('Unchecked etterspørsel')
+            document.getElementById("etterspørsel").checked = false;
+        } else if (radioType == 'Ettersporsel') {
+            console.log('Unchecked etterspørsel')
+            document.getElementById("annonse").checked = false;
+        }
+
+    }
+
     // Return classes based on whether item is checked
     var isChecked = (item) =>
         checked.includes(item) ? "checked-item" : "not-checked-item";
+
     return (
         <div className='form-content'>
             <h1>Lag annonse eller etterspørsel</h1>
@@ -107,11 +121,11 @@ function LagAnnonse() {
                 <div className='annonseEttersporselInputElementFlexboks'>
                     <div className='annonseRadioWrap'>
                         <label htmlFor="annonse">Annonse</label>
-                        <input type="radio" value="Annonse" id='annonse' onClick={() => setType('Annonse')} />
+                        <input type="radio" value="Annonse" id='annonse' onClick={() => { setType('Annonse'); resetOtherRadio('Annonse'); }} />
                     </div>
                     <div className='ettersporselRadioWrap'>
                         <label htmlFor="etterspørsel">Etterspørsel</label>
-                        <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => setType('Etterspørsel')} />
+                        <input type="radio" value="Etterspørsel" id='etterspørsel' onClick={() => { setType('Etterspørsel'); resetOtherRadio('Ettersporsel'); }} />
                     </div>
 
                 </div>
