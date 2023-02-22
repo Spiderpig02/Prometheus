@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 const MyPage = () => {
     return ( 
     
-    <Container>
+    <Container style={{marginTop: '100px'}}>
         <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
         Min Side
             <Paper>

@@ -1,4 +1,4 @@
-import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
+import { Box, Container, List, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
 import { collection, getDocs } from "firebase/firestore";
@@ -23,7 +23,17 @@ export const AllListings = (props) => {
     }, []);
 
     return (
-        <Container>
+        <Container className="ListingsContainer" sx={{ justifyContent: 'center', display: 'flex', padding: 0, paddingLeft: 0 }}>
+            <Box className='sidebar-container'>
+                <CheckboxSidebar className="sidebar"/>            
+            </Box>
+            <Box className='mainContent'sx={{ maxWidth: 700, margin: "0 auto"}}>
+                <Typography variant='h3' sx={{ my: 4, textAlign: "center", color: "primary.main" }}>
+                    Alle Annonser
+                </Typography>
+                <List>
+                    {ads.map(ad => (
+                        <Box sx={{
 
             <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                 Alle Annonser
@@ -73,7 +83,6 @@ export const AllListings = (props) => {
 
             </List>
         </Container>
-
     );
 }
 
