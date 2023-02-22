@@ -25,7 +25,7 @@ export const MyListings = (props) => {
 
   return (
       
-    <Container>
+    <Container style={{marginTop: '100px'}}>
 
       <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
         Mine Annonser!

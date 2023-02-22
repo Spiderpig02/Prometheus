@@ -5,7 +5,7 @@ function RegisterNewUser() {
 
     return (
        
-        <div className= "ny-bruker-form">
+        <div className= "ny-bruker-form" style={{marginTop: '100px'}}>
             <form>
                 <h1> Registrer ny bruker </h1>
                 <div>
