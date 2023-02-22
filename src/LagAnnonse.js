@@ -52,12 +52,12 @@ function LagAnnonse() {
             <form onSubmit={submit}>
                 <div className='tittelInputElementFlexboks'>
                     <label htmlFor="tittel">Tittel:</label>
-                    <input className="testBox" placeholder='Tittel' name='tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} required />
+                    <input className="testBox" placeholder='Skriv inn annonsens tittel' name='tittel' id='tittel' type="text" value={title} onChange={(event) => setTitle(event.target.value)} required />
                 </div>
 
                 <div className='beskrivelseInputElementFlexboks'>
                     <label htmlFor="beskrivelse">Beskrivelse:</label>
-                    <textarea className="testBox" placeholder='Beskrivelse' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
+                    <textarea className="testBox" placeholder='Skriv inn en detaljert beskrivelse av annonsen' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
                 </div>
 
                 <div className='checkboxes'>
