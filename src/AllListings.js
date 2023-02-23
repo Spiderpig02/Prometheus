@@ -30,7 +30,6 @@ export const AllListings = (props) => {
 
     useEffect(() => {
         if (checkedList.length !== 0) {
-            console.log("inni query")
             getQueryAds();
         } else {
             getAds();
