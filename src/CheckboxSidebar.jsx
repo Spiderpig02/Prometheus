@@ -7,7 +7,6 @@ function CheckboxSidebar(props) {
   const checkList = ["Diverse", "Hageverktøy", "Maleverktøy", "Snekring", "Fritidsverktøy"];
 
   function getCategoryList() {
-    console.log(checked);
     props.onChecked(checked);
   };
 
@@ -20,12 +19,13 @@ function CheckboxSidebar(props) {
       updatedList.splice(checked.indexOf(event.target.value), 1);
     }
     setChecked(updatedList);
-    getCategoryList()
   };
 
   // Return classes based on whether item is checked
-  var isChecked = (item) =>
+  var isChecked = (item) => {
     checked.includes(item) ? "checked-item" : "not-checked-item";
+    getCategoryList();
+  };
 
   return (
     <div style={{ border: '1px solid black' }} className='sidebar-box'>
