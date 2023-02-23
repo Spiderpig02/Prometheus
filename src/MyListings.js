@@ -32,7 +32,7 @@ export const MyListings = (props) => {
             <div className="myAdvertsPaperContainer">
                 <Container>
                     <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
-                        Mine Annonser!
+                        Mine Annonser
                     </Typography>
 
                     <List>
