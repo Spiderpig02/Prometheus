@@ -29,63 +29,64 @@ export const MyListings = (props) => {
     if (user !== null) {
         return (
 
-            <Container>
+            <div className="myAdvertsPaperContainer">
+                <Container>
+                    <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+                        Mine Annonser!
+                    </Typography>
 
-                <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
-                    Mine Annonser!
-                </Typography>
+                    <List>
+                        {myAds.map(ad => (
+                            <Box key={ad.id} sx={{
 
-                <List>
-                    {myAds.map(ad => (
-                        <Box key={ad.id} sx={{
+                                //justifyContent: "space-between",
+                                margin: "30px",
+                                mx: 'auto',
+                                width: 700
 
-                            //justifyContent: "space-between",
-                            margin: "30px",
-                            mx: 'auto',
-                            width: 700
-
-                        }}>
-
-                            <Paper elevation={3} style={{
-                                padding: 8,
-                                border: "1px solid black",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                textAlign: "center",
-                                verticalAlign: "middle"
                             }}>
-                                <h4 className="addType">
-                                    {ad.Type}
-                                </h4>
-                                <div className="paperTitleAndDate">
-                                    <h1>
-                                        {ad.Title}
-                                    </h1>
-                                    <h4>
-                                        Dato opprettet: {new Date(ad.Created * 1000).toString().slice(3, 10)} 2023
-                                    </h4>
-                                </div>
-                                <h3>
-                                    {ad.Description}
-                                </h3>
 
-                                {/* <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?"></AlertDialog> */}
-                                <div className="advertPaperButtons">
-                                    <button onClick={async () => {
-                                        window.alert("Ikke implementert riktig enda")
-                                    }
-                                    }>Oppdater annonse</button>
-                                    <button onClick={async () => {
-                                        const adDoc = doc(firestore, "Advertisement", ad.id);
-                                        await deleteDoc(adDoc);
-                                        getMyAds();
-                                    }}>Slett annonse</button>
-                                </div>
-                            </Paper>
-                        </Box>
-                    ))}
-                </List>
-            </Container>
+                                <Paper elevation={3} style={{
+                                    padding: 8,
+                                    border: "1px solid black",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    textAlign: "center",
+                                    verticalAlign: "middle"
+                                }}>
+                                    <h4 className="addType">
+                                        {ad.Type}
+                                    </h4>
+                                    <div className="paperTitleAndDate">
+                                        <h1>
+                                            {ad.Title}
+                                        </h1>
+                                        <h4>
+                                            Dato opprettet: {new Date(ad.Created * 1000).toString().slice(3, 10)} 2023
+                                        </h4>
+                                    </div>
+                                    <h3>
+                                        {ad.Description}
+                                    </h3>
+
+                                    {/* <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?"></AlertDialog> */}
+                                    <div className="advertPaperButtons">
+                                        <button onClick={async () => {
+                                            window.alert("Ikke implementert riktig enda")
+                                        }
+                                        }>Oppdater annonse</button>
+                                        <button onClick={async () => {
+                                            const adDoc = doc(firestore, "Advertisement", ad.id);
+                                            await deleteDoc(adDoc);
+                                            getMyAds();
+                                        }}>Slett annonse</button>
+                                    </div>
+                                </Paper>
+                            </Box>
+                        ))}
+                    </List>
+                </Container>
+            </div>
         );
     }
     else {
