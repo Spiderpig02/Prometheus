@@ -38,8 +38,8 @@ export const AllListings = (props) => {
 
     }, [checkedList]);
 
-    const handleSetChecked = (cheList) => {
-        setCheckedList(cheList);
+    const handleSetChecked = (checked) => {
+        setCheckedList(checked);
     };
 
     return (
