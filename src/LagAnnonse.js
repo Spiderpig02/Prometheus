@@ -15,6 +15,7 @@ function LagAnnonse() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [type, setType] = useState('');
+    
     const submit = async event => {
         event.preventDefault();
         setSubmitting(true);
