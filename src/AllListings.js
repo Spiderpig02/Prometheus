@@ -88,6 +88,7 @@ export const AllListings = (props) => {
                             <h3>
                                 {ad.Description}
                             </h3>
+                            <a href={"https://www.google.com/maps/dir/?api=1&origin=&destination=" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+') + "&travelmode=driving target=_blank"}>Veibeskrivelse</a>
                             <h2>
                                 Kontakt: {ad.Phonenumber}
                             </h2>
