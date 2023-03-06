@@ -13,6 +13,9 @@ export const AllListings = (props) => {
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
+    const [search, setSearch] = useState("");
+    const [emptySearch, setEmptySearch] = useState("");
+
     const getAds = async () => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -35,10 +38,28 @@ export const AllListings = (props) => {
             getAds();
         }
 
-    }, [checkedList]);
+    }, [checkedList, emptySearch]);
 
     const handleSetChecked = (checked) => {
         setCheckedList(checked);
+    };
+
+    const filterBySearch = () => {
+        let searchText = document.getElementById("searchField").value
+        let adList = ads;
+        let newAdList = [];
+        for (let index = 0; index < adList.length; index++) {
+            if (adList[index].Title.toLowerCase().includes(searchText.toLowerCase())) {
+                newAdList.push(adList[index]);
+            };
+
+        };
+        console.log(searchText);
+        if (searchText.length === 0) {
+            setEmptySearch(emptySearch + "1");
+        } else {
+            setAds(newAdList);
+        };
     };
 
     return (
@@ -52,9 +73,11 @@ export const AllListings = (props) => {
                 Alle Annonser
             </Typography>
             <div className="searchBar">
-                <input type="text" id="searchField" name="searchField"
+                <input onChange={(event) => {
+                    filterBySearch();
+                }} type="text" id="searchField" name="searchField"
                     placeholder="Søk etter annonse..."></input>
-                <button id="searchFieldButton">Søk</button>
+                <button onClick={filterBySearch} id="searchFieldButton">Søk</button>
             </div>
 
             <List>
