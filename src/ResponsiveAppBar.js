@@ -44,13 +44,17 @@ function ResponsiveAppBar() {
             console.log("Jai")
             document.body.className = "darkMode";
             document.getElementById("pageWrapper").className = "App darkMode"
+            setLightModeType('Light Mode')
 
         } else if (document.body.classList.contains('darkMode')) {
             console.log("Nai")
             document.body.className = "lightMode";
             document.getElementById("pageWrapper").className = "App lightMode"
+            setLightModeType('Dark Mode')
         }
     };
+
+    const [lightModeType, setLightModeType] = useState('Dark Mode')
 
 
     return (
@@ -158,9 +162,10 @@ function ResponsiveAppBar() {
                         <Button onClick={handleViewModeSwitch}>
                             <p style={{
                                 color: "whitesmoke", border: "1px black solid",
-                                padding: "5px", borderRadius: "10px", backgroundColor: "gray"
+                                padding: "5px", borderRadius: "10px", backgroundColor: "gray",
+                                width: "90px"
                             }}>
-                                {"View Mode"}</p>
+                                {lightModeType}</p>
                         </Button>
 
 
