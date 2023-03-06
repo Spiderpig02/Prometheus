@@ -45,19 +45,20 @@ export const AllListings = (props) => {
     };
 
     const filterBySearch = () => {
-
+        let searchText = document.getElementById("searchField").value
         let adList = ads;
         let newAdList = [];
         for (let index = 0; index < adList.length; index++) {
-            if (adList[index].Title.toLowerCase().includes(search.toLowerCase())) {
+            if (adList[index].Title.toLowerCase().includes(searchText.toLowerCase())) {
                 newAdList.push(adList[index]);
             };
 
         };
-        if (search.length !== 0) {
-            setAds(newAdList);
-        } else {
+        console.log(searchText);
+        if (searchText.length === 0) {
             setEmptySearch(emptySearch + "1");
+        } else {
+            setAds(newAdList);
         };
     };
 
@@ -72,10 +73,8 @@ export const AllListings = (props) => {
                 Alle Annonser
             </Typography>
             <div className="searchBar">
-                <input value={search} onChange={(event) => {
-                    setSearch(event.target.value);
+                <input onChange={(event) => {
                     filterBySearch();
-                    console.log("on change");
                 }} type="text" id="searchField" name="searchField"
                     placeholder="Søk etter annonse..."></input>
                 <button onClick={filterBySearch} id="searchFieldButton">Søk</button>
