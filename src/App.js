@@ -13,7 +13,7 @@ import RegisterNewUser from './NewUser';
 
 function App() {
 
-    // For dark/light mode
+    //For dark/light mode
     const [themeMode, setThemeMode] = useState('lightMode');
     const toggleThemeMode = () => {
         if (themeMode === 'lightMode') {
@@ -22,24 +22,37 @@ function App() {
             setThemeMode('lightMode');
         }
     };
+
     useEffect(() => {
         document.body.className = themeMode;
     }, [themeMode]);
 
+
     return (
-        <div className={`App ${themeMode}`}>
+        <div>
             <ResponsiveAppBar>
             </ResponsiveAppBar>
-            <Routes>
-                <Route path="/" element={<AllListings />} />
-                <Route path="/Mine Annonser" element={<MyListings />} />
-                <Route path="/Alle Annonser" element={<AllListings />} />
-                <Route path="/Lag Annonse" element={<LagAnnonse />} />
-                <Route path="/Logg inn" element={<LoginUI />} />
-                <Route path="/Min Profil" element={<MyPage />} />
-                <Route path="/Ny bruker side" element={<RegisterNewUser />} />
-            </Routes>
+            <div id="pageWrapper" className={`App ${themeMode}`}>
+                <Routes>
+                    <Route path="/" element={<AllListings />} />
+                    <Route path="/Mine Annonser" element={<MyListings />} />
+                    <Route path="/Alle Annonser" element={<AllListings />} />
+                    <Route path="/Lag Annonse" element={<LagAnnonse />} />
+                    <Route path="/Logg inn" element={<LoginUI />} />
+                    <Route path="/Min Profil" element={<MyPage />} />
+                    <Route path="/Ny bruker side" element={<RegisterNewUser />} />
+                </Routes>
+
+                <button onClick={toggleThemeMode}>
+                    <p style={{
+                        color: "whitesmoke", border: "1px black solid",
+                        padding: "5px", borderRadius: "10px", backgroundColor: "salmon"
+                    }}>
+                        {"View Mode"}</p>
+                </button>
+            </div>
         </div>
+
     );
 }
 
