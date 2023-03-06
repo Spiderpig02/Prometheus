@@ -1,13 +1,55 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body.darkMode {
+    background-color: gray;
+    color: whitesmoke;
+}
+
+/* Input-felt, text-felt og paper-components */
+body.darkMode textarea,
+body.darkMode input,
+div.darkMode button,
+div.darkMode div.loginForm form,
+body.darkMode div.MuiPaper-root {
+    background-color: lightgray;
+}
+
+/* div.darkMode button {
+    background-color: lightgray;
+} */
+
+/* Knapper */
+div.darkMode form#advertForm button,
+div.darkMode div.loginForm form div.loginButton input {
+    background-color: black;
+    color: whitesmoke;
+}
+
+/* Bakgrunn på login-form */
+div.darkMode div.loginForm form {
+    background-color: gray;
+}
+
+/* Knapp på Mine annonser paper-component */
+body.darkMode div.MuiPaper-root button {
+    background-color: rgb(149, 149, 149);
+    border-color: black;
+}
+
+/* Sidebar */
+div.sidebar-box {
+    color: black;
+    text-align: left;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
