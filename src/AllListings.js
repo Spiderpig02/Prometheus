@@ -48,7 +48,7 @@ export const AllListings = (props) => {
                     <CheckboxSidebar className="sidebar" onChecked={handleSetChecked} />
                 </Box>
             </Container>
-            <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+            <Typography variant='h2' sx={{ my: 4, textAlign: 'center', color: "primary.main" }} className="pageHeading">
                 Alle Annonser
             </Typography>
             <div className="searchBar">
