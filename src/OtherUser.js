@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 
 const OtherUser = (props) => {
 
-
+    const userID = props.getuser;
 
 
     return ( 
