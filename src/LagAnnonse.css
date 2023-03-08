@@ -30,7 +30,7 @@
     align-items: left;
 }
 
-h2 {
+h2.pageHeading {
     font-size: 1.75rem;
     color: #013e87;
 }
