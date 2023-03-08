@@ -7,18 +7,28 @@ import React, { useEffect, useState } from 'react';
 import './AllListings.css';
 import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
+import { Link, Route, Routes } from "react-router-dom";
+import OtherUser from "./OtherUser";
 
 export const AllListings = (props) => {
+
+
+   
 
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
+    const [search, setSearch] = useState("");
+    const [emptySearch, setEmptySearch] = useState("");
+
     const getAds = async () => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             setAds(adsData);
         });
     }
+  
+    
 
     const getQueryAds = async () => {
         const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
@@ -35,13 +45,34 @@ export const AllListings = (props) => {
             getAds();
         }
 
-    }, [checkedList]);
+    }, [checkedList, emptySearch]);
 
     const handleSetChecked = (checked) => {
         setCheckedList(checked);
     };
 
+    const filterBySearch = () => {
+        let searchText = document.getElementById("searchField").value
+        let adList = ads;
+        let newAdList = [];
+        for (let index = 0; index < adList.length; index++) {
+            if (adList[index].Title.toLowerCase().includes(searchText.toLowerCase())) {
+                newAdList.push(adList[index]);
+            };
+
+        };
+        console.log(searchText);
+        if (searchText.length === 0) {
+            setEmptySearch(emptySearch + "1");
+        } else {
+            setAds(newAdList);
+        };
+    };
+
     return (
+    <div>
+  
+        
         <Container>
             <Container className="ListingsContainer" sx={{ justifyContent: 'center', display: 'flex', padding: 0, paddingLeft: 0 }}>
                 <Box className='sidebar-container'>
@@ -52,15 +83,22 @@ export const AllListings = (props) => {
                 Alle Annonser
             </Typography>
             <div className="searchBar">
-                <input type="text" id="searchField" name="searchField"
+                <input onChange={(event) => {
+                    filterBySearch();
+                }} type="text" id="searchField" name="searchField"
                     placeholder="Søk etter annonse..."></input>
-                <button id="searchFieldButton">Søk</button>
+                <button onClick={filterBySearch} id="searchFieldButton">Søk</button>
             </div>
 
             <List>
+
+            
+                      
+                    
+
                 {ads.map(ad => (
                     <Box key={ad.id} sx={{
-
+                        
                         //justifyContent: "space-between",
                         margin: "30px",
                         mx: 'auto',
@@ -91,12 +129,25 @@ export const AllListings = (props) => {
                             <a href={"https://www.google.com/maps/dir/?api=1&origin=&destination=" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+') + "&travelmode=driving target=_blank"}>Veibeskrivelse</a>
                             <h2>
                                 Kontakt: {ad.Phonenumber}
+                                
                             </h2>
+
+                            <Link style={{ textDecoration:"none", color:"whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
+                            <Button  variant="outlined">
+                                Se bruker sin side
+                                {/* useLocation for props gjennom link, mulig async? vet ikke  */}
+                            </Button>
+                            </Link>
+                     
+
                         </Paper>
                     </Box>
                 ))}
+
             </List>
         </Container>
+
+    </div>  
     );
 }
 

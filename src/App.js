@@ -9,35 +9,39 @@ import ResponsiveAppBar from './ResponsiveAppBar';
 import LoginUI from './LoginUI';
 import MyPage from './MyPage';
 import RegisterNewUser from './NewUser';
-
+import OtherUser from './OtherUser';
 
 function App() {
 
-    const [themeMode, setThemeMode] = useState('lightMode');
+ /*  const pull_data = (data) => {
+    console.log(data); // LOGS DATA FROM CHILD (My name is Dean Winchester... &)
+  } */
 
-    useEffect(() => {
-        document.body.className = themeMode;
-    }, [themeMode]);
+  const [user, setUser] = useState("NullOtherUser");
+  
+  console.log(user);
 
 
-    return (
-        <div>
-            <ResponsiveAppBar>
-            </ResponsiveAppBar>
-            <div id="pageWrapper" className={`App ${themeMode}`}>
-                <Routes>
-                    <Route path="/" element={<AllListings />} />
-                    <Route path="/Mine Annonser" element={<MyListings />} />
-                    <Route path="/Alle Annonser" element={<AllListings />} />
-                    <Route path="/Lag Annonse" element={<LagAnnonse />} />
-                    <Route path="/Logg inn" element={<LoginUI />} />
-                    <Route path="/Min Profil" element={<MyPage />} />
-                    <Route path="/Ny bruker side" element={<RegisterNewUser />} />
-                </Routes>
-            </div>
-        </div>
 
-    );
+  return (
+    <div>
+      <ResponsiveAppBar>
+      </ResponsiveAppBar>
+      <Routes>
+        <Route path="/" element={<AllListings recieveUser = {user => setUser(user)}/>} />
+        <Route path="/Mine Annonser" element={<MyListings   />} />
+        <Route path="/Alle Annonser" element={<AllListings recieveUser = {user => setUser(user)}/>}/>
+        <Route path="/OtherUser" element={<OtherUser getuser={user} />} />
+        <Route path="/Lag Annonse" element={<LagAnnonse />} />
+        <Route path ="/Logg inn" element={<LoginUI />} />
+        <Route path ="/Min Profil" element={<MyPage/>} />
+        <Route path ="/Ny bruker side" element={<RegisterNewUser/>} />
+      </Routes>
+    </div>
+
+
+  );
+
 }
 
 export default App;
