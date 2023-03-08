@@ -21,7 +21,6 @@ body.darkMode div.MuiPaper-root {
     background-color: lightgray;
 }
 
-
 /* Knapper */
 div.darkMode form#advertForm button,
 div.darkMode div.loginForm form div.loginButton input {
@@ -44,6 +43,11 @@ body.darkMode div.MuiPaper-root button {
 div.sidebar-box {
     color: black;
     text-align: left;
+}
+
+/* h3 headings */
+div.darkMode h2.pageHeading {
+    color: whitesmoke;
 }
 
 code {
