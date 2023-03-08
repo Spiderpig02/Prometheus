@@ -30,8 +30,9 @@
     align-items: left;
 }
 
-h1 {
-    text-align: center;
+h2.pageHeading {
+    font-size: 1.75rem;
+    color: #013e87;
 }
 
 .tittelInputElementFlexboks label,
