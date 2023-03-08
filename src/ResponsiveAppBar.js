@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,13 +8,11 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import { Link } from "react-router-dom";
-import toggleThemeMode from "./App";
 
 const pages = ['Alle Annonser', 'Mine Annonser', "Lag Annonse", "Logg inn"];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -39,23 +37,18 @@ function ResponsiveAppBar() {
     };
 
     const handleViewModeSwitch = () => {
-
         if (document.body.classList.contains('lightMode')) {
-            console.log("Jai")
             document.body.className = "darkMode";
-            document.getElementById("pageWrapper").className = "App darkMode"
-            setLightModeType('Light Mode')
-
+            document.getElementById("pageWrapper").className = "App darkMode";
+            setLightModeType('Light Mode');
         } else if (document.body.classList.contains('darkMode')) {
-            console.log("Nai")
             document.body.className = "lightMode";
-            document.getElementById("pageWrapper").className = "App lightMode"
-            setLightModeType('Dark Mode')
+            document.getElementById("pageWrapper").className = "App lightMode";
+            setLightModeType('Dark Mode');
         }
     };
 
     const [lightModeType, setLightModeType] = useState('Dark Mode')
-
 
     return (
         <AppBar position="fixed">
@@ -152,13 +145,9 @@ function ResponsiveAppBar() {
                                 </Link>
                             </Button>
                         ))}
-
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-
-
-
                         <Button onClick={handleViewModeSwitch}>
                             <p style={{
                                 color: "whitesmoke", border: "1px black solid",
@@ -167,22 +156,13 @@ function ResponsiveAppBar() {
                             }}>
                                 {lightModeType}</p>
                         </Button>
-
-
-
                         <Tooltip title="Brukerinnstillinger">
-                            <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}
-
-                            >
+                            <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Link style={{ textDecoration: "none", color: "whitesmoke" }} to={`/Min Profil`} >
                                     {"Min Profil"}
                                 </Link>
-
-
-
                             </Button>
                         </Tooltip>
-
                     </Box>
                 </Toolbar>
             </Container>
