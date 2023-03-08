@@ -13,15 +13,7 @@ import RegisterNewUser from './NewUser';
 
 function App() {
 
-    //For dark/light mode
     const [themeMode, setThemeMode] = useState('lightMode');
-    // const toggleThemeMode = () => {
-    //     if (themeMode === 'lightMode') {
-    //         setThemeMode('darkMode');
-    //     } else {
-    //         setThemeMode('lightMode');
-    //     }
-    // };
 
     useEffect(() => {
         document.body.className = themeMode;
@@ -42,14 +34,6 @@ function App() {
                     <Route path="/Min Profil" element={<MyPage />} />
                     <Route path="/Ny bruker side" element={<RegisterNewUser />} />
                 </Routes>
-
-                {/* <button onClick={toggleThemeMode}>
-                    <p style={{
-                        color: "whitesmoke", border: "1px black solid",
-                        padding: "5px", borderRadius: "10px", backgroundColor: "salmon"
-                    }}>
-                        {"View Mode"}</p>
-                </button> */}
             </div>
         </div>
 
