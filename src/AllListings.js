@@ -7,8 +7,13 @@ import React, { useEffect, useState } from 'react';
 import './AllListings.css';
 import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
+import { Link, Route, Routes } from "react-router-dom";
+import OtherUser from "./OtherUser";
 
 export const AllListings = (props) => {
+
+
+   
 
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
@@ -19,6 +24,8 @@ export const AllListings = (props) => {
             setAds(adsData);
         });
     }
+  
+    
 
     const getQueryAds = async () => {
         const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
@@ -42,6 +49,9 @@ export const AllListings = (props) => {
     };
 
     return (
+    <div>
+  
+        
         <Container>
             <Container className="ListingsContainer" sx={{ justifyContent: 'center', display: 'flex', padding: 0, paddingLeft: 0 }}>
                 <Box className='sidebar-container'>
@@ -58,9 +68,14 @@ export const AllListings = (props) => {
             </div>
 
             <List>
+
+            
+                      
+                    
+
                 {ads.map(ad => (
                     <Box key={ad.id} sx={{
-
+                        
                         //justifyContent: "space-between",
                         margin: "30px",
                         mx: 'auto',
@@ -88,14 +103,28 @@ export const AllListings = (props) => {
                             <h3>
                                 {ad.Description}
                             </h3>
+
                             <h2>
                                 Kontakt: {ad.Phonenumber}
+                                
                             </h2>
+
+                            <Link style={{ textDecoration:"none", color:"whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
+                            <Button  variant="outlined">
+                                Se bruker sin side
+                                {/* useLocation for props gjennom link, mulig async? vet ikke  */}
+                            </Button>
+                            </Link>
+                     
+
                         </Paper>
                     </Box>
                 ))}
+
             </List>
         </Container>
+
+    </div>  
     );
 }
 

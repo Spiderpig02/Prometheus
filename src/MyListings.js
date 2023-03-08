@@ -19,6 +19,8 @@ export const MyListings = (props) => {
     const user = auth.currentUser;
     const [myAds, setAds] = useState([]);
 
+    
+
     const getMyAds = async () => {
         await getDocs(query(collection(firestore, "Advertisement"), where("userID", "==", getAuth().currentUser.uid))).then((querySnapshot) => {
             const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
