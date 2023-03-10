@@ -1,0 +1,79 @@
+
+.ratingInputElementFlexboks {
+    width: 100%;
+    padding-top: 8%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.ratingInputElementFlexboks input[type=radio] {
+    margin: auto;
+    padding-top: 10px;
+}
+
+.radioWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+
+.radioWrap label {
+    text-align: center;
+    width: 10px;
+}
+
+.input {
+    align-items: center;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.ratingComment {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    margin-top: 20px;
+    
+  }
+
+.commentLabel {
+    padding-top: 0x !important;
+    padding-bottom: 15px !important;
+    justify-content: left !important;
+}
+
+.rating-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.commentLabelWrapper {
+    margin-top: 30px;
+    align-items: left;
+}
+
+.rateTitle {
+    padding-top: 20px;
+    padding-right: 30px;
+}
+
+.radioContainer {
+    display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+

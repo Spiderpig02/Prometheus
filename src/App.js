@@ -10,6 +10,7 @@ import LoginUI from './LoginUI';
 import MyPage from './MyPage';
 import RegisterNewUser from './NewUser';
 import OtherUser from './OtherUser';
+import LagRating from './LagRating';
 
 function App() {
 
