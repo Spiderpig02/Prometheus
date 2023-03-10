@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router';
 import AllListings from './AllListings';
 import './App.css';
@@ -14,36 +14,35 @@ import LagRating from './LagRating';
 
 function App() {
 
- /*  const pull_data = (data) => {
-    console.log(data); // LOGS DATA FROM CHILD (My name is Dean Winchester... &)
-  } */
+    /*  const pull_data = (data) => {
+       console.log(data); // LOGS DATA FROM CHILD (My name is Dean Winchester... &)
+     } */
 
-  const [user, setUser] = useState("NullOtherUser");
-  
-  console.log(user);
+    const [user, setUser] = useState("NullOtherUser");
+    const [themeMode, setThemeMode] = useState('lightMode');
 
+    useEffect(() => {
+        document.body.className = themeMode;
+    }, [themeMode]);
 
-
-  return (
-    <div>
-      <ResponsiveAppBar>
-      </ResponsiveAppBar>
-      <Routes>
-        <Route path="/" element={<AllListings recieveUser = {user => setUser(user)}/>} />
-        <Route path="/Mine Annonser" element={<MyListings   />} />
-        <Route path="/Alle Annonser" element={<AllListings recieveUser = {user => setUser(user)}/>}/>
-        <Route path="/OtherUser" element={<OtherUser getuser={user} />} />
-        <Route path="/Lag Annonse" element={<LagAnnonse />} />
-        <Route path ="/Logg inn" element={<LoginUI />} />
-        <Route path ="/Min Profil" element={<MyPage/>} />
-        <Route path ="/Ny bruker side" element={<RegisterNewUser/>} />
-        <Route path="/Lag Rating" element={<LagRating/>} />
-      </Routes>
-    </div>
-
-
-  );
-
+    return (
+        <div>
+            <ResponsiveAppBar>
+            </ResponsiveAppBar>
+            <div id="pageWrapper" className={`App ${themeMode}`}>
+                <Routes>
+                    <Route path="/" element={<AllListings recieveUser={user => setUser(user)} />} />
+                    <Route path="/Mine Annonser" element={<MyListings />} />
+                    <Route path="/Alle Annonser" element={<AllListings recieveUser={user => setUser(user)} />} />
+                    <Route path="/OtherUser" element={<OtherUser getuser={user} />} />
+                    <Route path="/Lag Annonse" element={<LagAnnonse />} />
+                    <Route path="/Logg inn" element={<LoginUI />} />
+                    <Route path="/Min Profil" element={<MyPage />} />
+                    <Route path="/Ny bruker side" element={<RegisterNewUser />} />
+                </Routes>
+            </div>
+        </div>
+    );
 }
 
 export default App;

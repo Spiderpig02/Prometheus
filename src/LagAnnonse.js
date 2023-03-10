@@ -15,7 +15,7 @@ function LagAnnonse() {
     const [type, setType] = useState('');
     const [streetName, setStreetName] = useState('');
     const [city, setCity] = useState('');
-    
+
     const submit = async event => {
         event.preventDefault();
         setSubmitting(true);
@@ -82,7 +82,7 @@ function LagAnnonse() {
     if (userData !== null) {
         return (
             <div className='form-content'>
-                <h1>Lag annonse eller etterspørsel</h1>
+                <h2 className='pageHeading'>Lag annonse eller etterspørsel</h2>
                 <form onSubmit={submit} id="advertForm">
                     <div className='tittelInputElementFlexboks'>
                         <label htmlFor="tittel">Tittel:</label>
