@@ -10,6 +10,7 @@ import LoginUI from './LoginUI';
 import MyPage from './MyPage';
 import RegisterNewUser from './NewUser';
 import OtherUser from './OtherUser';
+import LagRating from './LagRating';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         <Route path ="/Logg inn" element={<LoginUI />} />
         <Route path ="/Min Profil" element={<MyPage/>} />
         <Route path ="/Ny bruker side" element={<RegisterNewUser/>} />
+        <Route path="/Lag Rating" element={<LagRating/>} />
       </Routes>
     </div>
 
