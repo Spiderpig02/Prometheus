@@ -3,8 +3,7 @@ import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, where, doc, deleteDoc, getDoc } from "firebase/firestore";
-import { firestore } from "./firebaseConfig.js";
-import { getAuth } from "firebase/auth";
+import { auth, firestore } from "./firebaseConfig.js";
 import './MyListings.css'
 import { Navigate } from "react-router";
 import MineAnnonserSidebar, { listCategory } from './MineAnnonserSidebar.jsx';
@@ -12,67 +11,53 @@ import './MineAnnonserSidebar.css'
 
 export const MyListings = (props) => {
 
-    const auth = getAuth();
     const user = auth.currentUser;
     const [myAds, setAds] = useState([]);
     const [statusList, setStatusList] = useState([]);
     const [myFilteredAds, setMyFilteredAds] = useState([]);
     
     useEffect(() => {
+        //if (statusList.length === 0) {
+        //if (myFilteredAds.length === 0) {
         if (myAds.length === 0) {
             getMyAds()
         }
         filter();
-
-    }, [statusList]);
-
+        console.log("Inni useEffect");
+    }, []);
+    
     const handleSetStatus = (checked) => {
-    setStatusList(checked);
-    getMyAds(checked);
+    setStatusList(checked);//kaller ikke getMyAds
+    getMyAds(checked); 
+    console.log("den blir satt fra stastus");
     };
     
     const getMyAds = async () => {
-        await getDocs(query(collection(firestore, "Advertisement"), where("userID", "==", getAuth().currentUser.uid)))
+        await getDocs(query(collection(firestore, "Advertisement"), where("userID", "==", user.uid)))
         .then((querySnapshot) => {
         const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setAds(myAdsData);
+        console.log("den blir satt fra getMyAds");
         }); }
 
-        const filter = () => {
-            myFilteredAds.forEach(element => {
-                myFilteredAds.pop(element);
-            });
-            for (let index = 0; index < myAds.length; index++) {
-                if (statusList.length === 0 || statusList.length === 2) {
+    const filter = () => {
+        myFilteredAds.length = 0;
+        for (let index = 0; index < myAds.length; index++) {
+            if (statusList.length === 0 || statusList.length === 2) {
+                myFilteredAds.push(myAds[index])
+            }
+            else if (statusList.length === 1) {
+                if (statusList[0] === "Tilgjengelig" && myAds[index].Available === true) {
                     myFilteredAds.push(myAds[index])
                 }
-                else if (statusList.length === 1) {
-                    if (statusList[0] === "Tilgjengelig" && myAds[index].Available === true) {
-                        myFilteredAds.push(myAds[index])
-                    }
-                    if (statusList[0] === "Utlånt" && myAds[index].Available === false) {
-                        myFilteredAds.push(myAds[index])
-                    }
+                if (statusList[0] === "Utlånt" && myAds[index].Available === false) {
+                    myFilteredAds.push(myAds[index])
                 }
-
-
-
-                // if (myAds[index].Available === false) {
-                //     if (!(statusList.length === 1 && statusList[0] === "Tilgjengelig")) {
-                //         myFilteredAds.push(myAds[index])
-                //         console.log(myAds[index])
-                //     }
-                // }
-                // if (myAds[index].Available === true) {
-                //     if (!(statusList.length === 1 && statusList[0] === "Utlånt")) {
-                //         myFilteredAds.push(myAds[index])
-                //         console.log(myAds[index])
-                //     }
-                // }
-                
             }
-        };
-    
+        }
+        console.log("den blir satt fra filter");
+    };
+
     if (user !== null) {
 
         return (
@@ -150,39 +135,3 @@ export const MyListings = (props) => {
 }
 
 export default MyListings;
-
-
-
-
-
-
-
-
-
-
-
- // const adsCollectionRef = collection(firestore, "Advertisement");
-
-    
-    // const [checkedList, setCheckedList] = useState([]);
-
-    // const getMyQueryAds = async () => {
-    //     const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
-    //     await getDocs(querys).then((querySnapshot) => {
-    //         const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    //         setAds(adsData);
-    //     })
-    // };
-
-    // useEffect(() => {
-    //     if (checkedList.length !== 0) {
-    //         getMyQueryAds();
-    //     } else {
-    //         getMyAds();
-    //     }
-
-    // }, [checkedList]);
-
-    // const handleSetChecked = (checked) => {
-    //     setCheckedList(checked);
-    // };
