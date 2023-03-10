@@ -16,20 +16,24 @@ export const MyListings = (props) => {
     const [statusList, setStatusList] = useState([]);
     const [myFilteredAds, setMyFilteredAds] = useState([]);
     
+    // useEffect(() => {
+    //     if (myAds.length === 0) {
+    //         getMyAds()
+    //     }
+    //     filter();
+    //     console.log("Inni useEffect");
+    // }, []);
     useEffect(() => {
-        //if (statusList.length === 0) {
-        //if (myFilteredAds.length === 0) {
         if (myAds.length === 0) {
-            getMyAds()
+            getMyAds();
         }
         filter();
-        console.log("Inni useEffect");
-    }, []);
+    }, [statusList, myAds]);
+    
     
     const handleSetStatus = (checked) => {
     setStatusList(checked);//kaller ikke getMyAds
-    getMyAds(checked); 
-    console.log("den blir satt fra stastus");
+    //getMyAds(checked); 
     };
     
     const getMyAds = async () => {
@@ -37,25 +41,24 @@ export const MyListings = (props) => {
         .then((querySnapshot) => {
         const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setAds(myAdsData);
-        console.log("den blir satt fra getMyAds");
         }); }
-
     const filter = () => {
-        myFilteredAds.length = 0;
+        setMyFilteredAds([]);
+        let dummyList = [];
         for (let index = 0; index < myAds.length; index++) {
             if (statusList.length === 0 || statusList.length === 2) {
-                myFilteredAds.push(myAds[index])
+                dummyList.push(myAds[index])
             }
             else if (statusList.length === 1) {
                 if (statusList[0] === "Tilgjengelig" && myAds[index].Available === true) {
-                    myFilteredAds.push(myAds[index])
+                    dummyList.push(myAds[index])
                 }
                 if (statusList[0] === "Utlånt" && myAds[index].Available === false) {
-                    myFilteredAds.push(myAds[index])
+                    dummyList.push(myAds[index])
                 }
             }
         }
-        console.log("den blir satt fra filter");
+        setMyFilteredAds(dummyList);
     };
 
     if (user !== null) {
