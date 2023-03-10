@@ -1,4 +1,4 @@
-import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
+import { Box, Button, Container, Link, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
 import React, { useEffect, useState } from 'react';
@@ -7,8 +7,10 @@ import { firestore } from "./firebaseConfig.js";
 import { getAuth } from "firebase/auth";
 import './MyListings.css'
 import { Navigate } from "react-router";
+import { useNavigate } from "react-router-dom"
 
 export const MyListings = (props) => {
+    const navigate = useNavigate();
 
     useEffect(() => {
         getMyAds()
@@ -71,10 +73,14 @@ export const MyListings = (props) => {
 
                                     {/* <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?"></AlertDialog> */}
                                     <div className="advertPaperButtons">
+                                        
                                         <button onClick={async () => {
-                                            window.alert("Ikke implementert riktig enda")
+                                            navigate("/Oppdater Annonse");
+                                            props.recieveClickedAd(ad.id);
                                         }
-                                        }>Oppdater annonse</button>
+                                        }>Oppdater annonse
+                                        
+                                        </button>
                                         <button onClick={async () => {
                                             const adDoc = doc(firestore, "Advertisement", ad.id);
                                             await deleteDoc(adDoc);
