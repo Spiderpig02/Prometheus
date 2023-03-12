@@ -5,7 +5,7 @@ import { addAd, updateAd } from './IO'
 import { Navigate } from "react-router";
 import './LagAnnonse.css'
 
-function UpdateAd(props){
+function UpdateAd(props) {
     const userData = auth.currentUser;
 
     const [title, setTitle] = useState('');
@@ -16,8 +16,8 @@ function UpdateAd(props){
     const [city, setCity] = useState('');
     const [adData, setAdData] = useState([]);
 
-    
-   
+
+
 
     useEffect(() => {
         async function getData() {
@@ -25,21 +25,29 @@ function UpdateAd(props){
                 then(res => {
                     return res.data();
                 });
-                setAdData(adInfo);
-               
+            setAdData(adInfo);
+
         };
-        getData()
-        console.log(adData.Title);
+        getData();
+        console.log(props.getAd);
     }, []);
 
-    
-   
+    useEffect(() => {
+        setTitle(adData.Title);
+        setDescription(adData.Description);
+        setStreetName(adData.streetName);
+        setCity(adData.city);
+        setType(adData.Type)
+    }, [adData]);
+
+
+
     // useEffect(() => {
     //     console.log(adData);
     //     setTitle(adData.Title)
     //     setDescription(adData.Description)
     // }, []);
-    
+
     const submit = async event => {
         event.preventDefault();
         try {
@@ -98,16 +106,15 @@ function UpdateAd(props){
 
     }
 
-    
 
     // Return classes based on whether item is checked
     var isChecked = (item) =>
         checked.includes(item) ? "checked-item" : "not-checked-item";
-    
+
     if (userData !== null) {
         return (
             <div className='form-content'>
-            
+
                 <h1>Oppdater annonse eller etterspørsel</h1>
                 <form onSubmit={submit} id="advertForm">
                     <div className='tittelInputElementFlexboks'>
@@ -157,17 +164,19 @@ function UpdateAd(props){
                         <p>Er produktet utlånt?</p>
                         <div>
                             <label htmlFor="yes">Ja</label>
-                            <input type="radio" id="yes" value={false} onClick={() => { setAvailable(true); resetAvailableRadio('Ja');}} />
+                            <input type="radio" id="yes" value={false} onClick={() => { setAvailable(true); resetAvailableRadio('Ja'); }} />
                         </div>
 
                         <div>
                             <label htmlFor="no">Nei</label>
-                            <input type="radio" id="no" value={true} onClick={() => { setAvailable(false); resetAvailableRadio('Nei');}} />
+                            <input type="radio" id="no" value={true} onClick={() => { setAvailable(false); resetAvailableRadio('Nei'); }} />
                         </div>
                     </div>
 
                     <button type='submit'>Oppdater annonse eller etterspørsel</button>
                 </form>
             </div>
-)}}
+        )
+    }
+}
 export default UpdateAd
