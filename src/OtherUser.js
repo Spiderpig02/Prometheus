@@ -1,10 +1,15 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Button, Container, Paper, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { useParams } from "react-router";
-import ReportUser from "./ReportUser";
+import LeaveRating from "./LeaveRating";
 
 const OtherUser = (props) => {
 
     const userID = props.getuser;
+
+
+
+    
 
 
     return ( 
@@ -27,7 +32,13 @@ const OtherUser = (props) => {
 
                     </Paper>
                 </Typography>
+             
+                <Paper>
+                <LeaveRating></LeaveRating>
+                </Paper>
             </Container>
+         
+
 
      
         
