@@ -1,5 +1,6 @@
 import { Container, Paper, Typography } from "@mui/material";
 import { useParams } from "react-router";
+import ReportUser from "./ReportUser";
 
 const OtherUser = (props) => {
 
@@ -9,6 +10,7 @@ const OtherUser = (props) => {
     return ( 
 
         <Container style={{ marginTop: '100px' }}>
+            <ReportUser></ReportUser>
                 <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                     Annen bruker sin side
                     <Paper>
@@ -28,7 +30,7 @@ const OtherUser = (props) => {
             </Container>
 
      
-      
+        
 
         
      );
