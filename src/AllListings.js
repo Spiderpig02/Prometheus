@@ -24,7 +24,13 @@ export const AllListings = (props) => {
     const getAds = async () => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setAds(adsData);
+            let dummyList = [];
+            adsData.forEach(element => {
+                if (element.Available === true) {
+                    dummyList.push(element);
+                }
+            });
+            setAds(dummyList);
         });
     }
   
@@ -34,7 +40,13 @@ export const AllListings = (props) => {
         const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
         await getDocs(querys).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setAds(adsData);
+            let dummyList = [];
+            adsData.forEach(element => {
+                if (element.Available === true) {
+                    dummyList.push(element);
+                }
+            });
+            setAds(dummyList);
         })
     };
 
