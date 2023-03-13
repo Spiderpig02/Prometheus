@@ -15,6 +15,7 @@ const OtherUser = (props) => {
     return ( 
 
         <Container style={{ marginTop: '100px' }}>
+            <ReportUser></ReportUser>
                 <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                     Annen bruker sin side
                     <Paper>
@@ -40,7 +41,7 @@ const OtherUser = (props) => {
 
 
      
-      
+        
 
         
      );
