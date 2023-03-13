@@ -5,6 +5,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
 import './AllListings.css';
+import './MyListings.css';
 import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
 import { Link, Route, Routes } from "react-router-dom";
@@ -17,6 +18,7 @@ export const AllListings = (props) => {
     const adsCollectionRef = collection(firestore, "Advertisement");
     const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const getAds = async () => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
@@ -123,15 +125,18 @@ export const AllListings = (props) => {
 
                                 <h2>
                                     Kontakt: {ad.Phonenumber}
-
                                 </h2>
-
-                                <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
-                                    <Button variant="outlined">
-                                        Se bruker sin side
-                                        {/* useLocation for props gjennom link, mulig async? vet ikke  */}
-                                    </Button>
-                                </Link>
+                                <div>
+                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => setIsModalOpen(true)}>
+                                        <Button variant="outlined">Se Lokasjon</Button>
+                                    </Link>
+                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
+                                        <Button variant="outlined">
+                                            Se bruker sin side
+                                            {/* useLocation for props gjennom link, mulig async? vet ikke  */}
+                                        </Button>
+                                    </Link>
+                                </div>
                             </Paper>
                         </Box>
                     ))}
