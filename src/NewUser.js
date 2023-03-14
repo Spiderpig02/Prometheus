@@ -23,7 +23,6 @@ function RegisterNewUser() {
             .catch((e) => {
                 console.log(e.message)
             })
-
             window.alert("Gratulerer, du har nå opprettet en ny bruker!")
     }
 
