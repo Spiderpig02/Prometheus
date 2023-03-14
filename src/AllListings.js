@@ -33,8 +33,9 @@ export const AllListings = (props) => {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: "50vw",
-            height: "30vw"
+            width: "698px",
+            height: "35vw",
+            padding: "0"
         },
         overlay: {
             backgroundColor: 'rgba(0,0,0,0.1)'
@@ -173,9 +174,13 @@ export const AllListings = (props) => {
                                     contentLabel="Example Modal"
                                     parentSelector={() => document.body}
                                 >
-                                    <h3 style={{ margin: "auto", textAlign: "center", paddingBottom: "1vw" }}>{modalStreetName}, {modalCityName}</h3>
+                                    <div id="modalTopBar">
+                                        <h3>{modalStreetName}, {modalCityName}</h3>
+                                        <span>&times;</span>
+                                    </div>
+
                                     <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w&q=" + modalStreetName.replace(/\s/g, '+') + "+" + modalCityName.replace(/\s/g, '+')}
-                                        style={{ width: "100%", height: "85%" }}></iframe>
+                                    ></iframe>
                                 </Modal>
                                 <h2>
                                     Kontakt: {ad.Phonenumber}
