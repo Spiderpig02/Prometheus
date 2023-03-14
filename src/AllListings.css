@@ -50,7 +50,6 @@ div#modalTopBar {
 div#modalTopBar h3 {
     margin: auto;
     margin-top: 1.5vw;
-    margin-left: 16vw;
     text-align: center;
 }
 
@@ -59,4 +58,11 @@ div#modalTopBar span {
     font-size: 45px;
     padding-right: 1vw;
     padding-bottom: 0.5vw;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+div#modalTopBar span:hover {
+    opacity: 0.7;
+
 }
