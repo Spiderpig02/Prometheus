@@ -176,7 +176,7 @@ export const AllListings = (props) => {
                                 >
                                     <div id="modalTopBar">
                                         <h3>{modalStreetName}, {modalCityName}</h3>
-                                        <span>&times;</span>
+                                        <span onClick={closeModal}>&times;</span>
                                     </div>
 
                                     <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w&q=" + modalStreetName.replace(/\s/g, '+') + "+" + modalCityName.replace(/\s/g, '+')}
