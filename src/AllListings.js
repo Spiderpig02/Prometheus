@@ -109,10 +109,7 @@ export const AllListings = (props) => {
     };
 
     return (
-
-
         <div>
-
             <Container>
                 <Container className="ListingsContainer" sx={{ justifyContent: 'center', display: 'flex', padding: 0, paddingLeft: 0 }}>
                     <Box className='sidebar-container'>
@@ -161,11 +158,6 @@ export const AllListings = (props) => {
                                 <h3>
                                     {ad.Description}
                                 </h3>
-                                {/* <a href={"https://www.google.com/maps/dir/?api=1&origin=&destination=" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+') + "&travelmode=driving"} target="_blank">Veibeskrivelse</a> */}
-                                {/* <iframe src="https://www.google.com/maps/embed/v1/view?zoom=16&center=63.4225%2C10.3949&key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w"></iframe> */}
-
-                                {/* <iframe src={"https://www.google.com/maps/embed/v1/directions?key=AIzaSyBMIxuzPyyfMavt9PrCfjP_FGCNQL6OB9k&origin=&" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+')} ></iframe> */}
-                                {/* <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w&q=" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+')} ></iframe> */}
                                 <Modal
                                     isOpen={modalIsOpen}
                                     onAfterOpen={afterOpenModal}
