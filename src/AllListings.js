@@ -10,6 +10,7 @@ import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
 import { Link, Route, Routes } from "react-router-dom";
 import OtherUser from "./OtherUser";
+import Modal from 'react-modal';
 
 export const AllListings = (props) => {
 
@@ -18,7 +19,49 @@ export const AllListings = (props) => {
     const adsCollectionRef = collection(firestore, "Advertisement");
     const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalStreetName, setModalStreetName] = useState("Ferjemamnnsveien 10");
+    const [modalCityName, setModalCityName] = useState("Trondheim");
+
+    // Modal
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: "50vw",
+            height: "30vw"
+        },
+        overlay: {
+            backgroundColor: 'rgba(0,0,0,0.1)'
+        }
+    };
+
+    Modal.setAppElement('#root');
+
+    const openModal = () => {
+        console.log("Open modal")
+        setIsOpen(true);
+    }
+
+    const afterOpenModal = () => {
+        console.log("Modal is open?");
+    }
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const setStreetAndCity = (street, city) => {
+        setModalStreetName(street);
+        setModalCityName(city);
+    }
+
+    // End modal
 
     const getAds = async () => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
@@ -121,14 +164,28 @@ export const AllListings = (props) => {
                                 {/* <iframe src="https://www.google.com/maps/embed/v1/view?zoom=16&center=63.4225%2C10.3949&key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w"></iframe> */}
 
                                 {/* <iframe src={"https://www.google.com/maps/embed/v1/directions?key=AIzaSyBMIxuzPyyfMavt9PrCfjP_FGCNQL6OB9k&origin=&" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+')} ></iframe> */}
-                                <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w&q=" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+')} ></iframe>
-
+                                {/* <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w&q=" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+')} ></iframe> */}
+                                <Modal
+                                    isOpen={modalIsOpen}
+                                    onAfterOpen={afterOpenModal}
+                                    onRequestClose={closeModal}
+                                    style={customStyles}
+                                    contentLabel="Example Modal"
+                                    parentSelector={() => document.body}
+                                >
+                                    <h3 style={{ margin: "auto", textAlign: "center", paddingBottom: "1vw" }}>{modalStreetName}, {modalCityName}</h3>
+                                    <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w&q=" + modalStreetName.replace(/\s/g, '+') + "+" + modalCityName.replace(/\s/g, '+')}
+                                        style={{ width: "100%", height: "85%" }}></iframe>
+                                </Modal>
                                 <h2>
                                     Kontakt: {ad.Phonenumber}
                                 </h2>
                                 <div>
-                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => setIsModalOpen(true)}>
-                                        <Button variant="outlined">Se Lokasjon</Button>
+                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => {
+                                        openModal();
+                                        setStreetAndCity(ad.streetName, ad.city);
+                                    }}>
+                                        <Button variant="outlined">Åpne kart</Button>
                                     </Link>
                                     <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
                                         <Button variant="outlined">
@@ -136,6 +193,7 @@ export const AllListings = (props) => {
                                             {/* useLocation for props gjennom link, mulig async? vet ikke  */}
                                         </Button>
                                     </Link>
+
                                 </div>
                             </Paper>
                         </Box>
