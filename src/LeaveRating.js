@@ -1,62 +1,69 @@
 import { Button, Rating } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect} from "react";
+import { doc, updateDoc, getDocs, query, collection, where, getDoc, setDoc, arrayUnion } from "firebase/firestore";
+import { firestore } from "./firebaseConfig";
+import { getAuth } from "firebase/auth";
+
 import './LeaveRating.css'
 
-function LeaveRating() {
+function LeaveRating(props) {
 
-    
-    const [value, setRatingValue] = useState('');
+    const otherUserUID = props.userID;
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
 
-   /*  const handleSubmit = (submit) => {
-        submit.preventDefault()
+    const currentUserDocRef = doc(firestore, "User", currentUser.uid)
+    const otherUserDocRef = doc(firestore, "User", otherUserUID)
 
-        const comment = submit.target.commentInput.value
+    const [rating, setRating] = useState('');
+    const [comment, setComment] = useState(''); 
+    const [username, setUsername] = useState('');
 
-        leaveRating(ratingValue, comment)
-            .then((cred) => {
-                addRating(ratingValue, comment, value);
+    async function getUsername() {
+        const un = (await getDoc(currentUserDocRef)).data().Username
+        setUsername(un)
+    }
+
+    useEffect(() => {
+        getUsername()
+    }, []);
+
+    const submit = async event => {
+        event.preventDefault();
+        try {
+            await updateDoc(otherUserDocRef, {
+                Rating: arrayUnion({
+                    "userUID": currentUser.uid,
+                    "username": username,
+                    "comment": comment,
+                    "rating": rating
+                })
             })
-            .catch((e) => {
-                console.log(e.message)
-            })
-
-            window.alert("Ratingen er lagret!")
-    } */
-
-    
+        } catch(error) {
+            alert("Feil: " + error)
+        }
+    }
 
     return (
-
-        
-
         <div className="rating-form" style={{marginTop: "100px"}}>
-
-            <h3>
-                {value}
-            </h3>
-
-            <form onSubmit={console.log("hei")}>  {/* {handleSubmit} */}
+            <form onSubmit={submit}>
                 <h1> Legg til en rating </h1>
                 <div className = "ratingComment">
                     <div className ="commentLabelWrapper">
                         <label className = "commentLabel" htmlFor="kommentar"> Kommentar: </label>
                     </div>
-                    <textarea placeholder="Skriv her..." name = "commentInput" rows = "8" cols = "60"></textarea>
+                    <textarea placeholder="Skriv her..." name = "commentInput" rows = "8" cols = "60" onChange={(event) => setComment(event.target.value)}></textarea>
                 </div>
                 
                 <Rating sx={{ marginLeft: 20 }}
                 name="simple-controlled"
                 onChange={(event, newValue) => {
-                setRatingValue(newValue);
-    
+                setRating(newValue);
                 }}
+
                 />    
-                        
-                
                 <div className = "buttonWrapper">
-                    <Button variant="outlined" onClick={() =>
-                        
-                         console.log("heisann")} > Submit </Button> {/* Lage onclick og submit + refresh */}
+                    <Button variant="outlined" type='submit'> Submit </Button>
                 </div>
                 
             </form>
