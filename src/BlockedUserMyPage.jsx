@@ -1,6 +1,7 @@
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, firestore } from "./firebaseConfig";
+import { addUser } from "./IO";
 
 function BlockedUserMyPage(props) {
 
@@ -15,26 +16,27 @@ function BlockedUserMyPage(props) {
         await getDocs(userRef).then((snapShot) => {
             const userData = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             const tmp = [];
-
             userData.map((user) => {
                 return (user.id === currentUser.uid ? true : tmp.push(user))
             });
             setUsers(tmp);
         });
-        console.log("get");
     };
 
     const getUser = async () => {
-        const quary = query(doc(firestore, "User"), where("userID", "==", currentUser.uid));
-        await getDoc(quary).then((snapShot) => {
-            setUserState(snapShot.doc.map((doc) => ({ ...doc.data(), id: doc.id })));
-        });
+        const userDoc = doc(firestore, "User", currentUser.uid)
+        const user = await getDoc(userDoc);
+        setUserState({ ...user.data(), id: user.id });
     };
 
     useEffect(() => {
         getUsers();
         getUser();
     }, []);
+
+    useEffect(() => {
+        setViewedUsers(users);
+    }, [users]);
 
     const filterBySearch = () => {
         let searchText = document.getElementById("searchField").value;
@@ -50,6 +52,24 @@ function BlockedUserMyPage(props) {
         setViewedUsers(filterdUsers);
     };
 
+    const banUser = (userID) => {
+        let userCopy = userState;
+        if (userState.Blocked.includes(userID)) {
+            let tmp = userCopy.Blocked.filter(e => e !== userID)
+            userCopy.Blocked = tmp;
+            // addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.ratedBy, userCopy.Blocked);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, null, null, null, userCopy.Blocked);
+            window.alert("Bruker er nå fjernet fra Blocked listen din");
+
+        } else {
+            userCopy.Blocked.push(userID);
+            setUserState(userCopy);
+            // addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.ratedBy, userCopy.Blocked);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, null, null, null, userCopy.Blocked);
+            window.alert("Bruker er nå lag inn i Blocked listen din");
+        };
+    };
+
     return (
         <div className="blockedUsers">
             <div className="searchBar">
@@ -61,7 +81,7 @@ function BlockedUserMyPage(props) {
             <ul className="users">
                 {viewedUsers.map((user) => (<li className="user" key={user.id}>
                     <p className="username"> {user.Username} </p>
-                    <button className="blokk/unblokk"> {currentUser ? "Blokk" : "Un blokk"} </button>
+                    <button className="blokk/unblokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Un blokk" : "Blokk"} </button>
                 </li>)
                 )}
             </ul>
