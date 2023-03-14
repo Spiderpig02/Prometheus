@@ -2,6 +2,7 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, firestore } from "./firebaseConfig";
 import { addUser } from "./IO";
+import './BlockedUserMyPage.css';
 
 function BlockedUserMyPage(props) {
 
@@ -33,6 +34,10 @@ function BlockedUserMyPage(props) {
         getUsers();
         getUser();
     }, []);
+
+    useEffect(() => {
+        getUser();
+    }, [userState]);
 
     useEffect(() => {
         setViewedUsers(users);
@@ -80,8 +85,8 @@ function BlockedUserMyPage(props) {
             </div>
             <ul className="users">
                 {viewedUsers.map((user) => (<li className="user" key={user.id}>
-                    <p className="username"> {user.Username} </p>
-                    <button className="blokk/unblokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Un blokk" : "Blokk"} </button>
+                    <h3 className="username"> {user.Username} </h3>
+                    <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Un blokk" : "Blokk"} </button>
                 </li>)
                 )}
             </ul>
