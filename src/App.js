@@ -10,7 +10,7 @@ import LoginUI from './LoginUI';
 import MyPage from './MyPage';
 import RegisterNewUser from './NewUser';
 import OtherUser from './OtherUser';
-import LagRating from './LagRating';
+import AdminPage from './AdminPage';
 
 function App() {
 
@@ -20,12 +20,34 @@ function App() {
 
     const [user, setUser] = useState("NullOtherUser");
     const [themeMode, setThemeMode] = useState('lightMode');
+    const [admin, setAdmin] = useState(false);
 
     useEffect(() => {
         document.body.className = themeMode;
     }, [themeMode]);
 
-    return (
+    if(admin) {
+      return (
+        <div>
+            <ResponsiveAppBar>
+            </ResponsiveAppBar>
+            <div id="pageWrapper" className={`App ${themeMode}`}>
+                <Routes>
+                    <Route path="/" element={<AllListings recieveUser={user => setUser(user)} />} />
+                    <Route path="/Mine Annonser" element={<MyListings />} />
+                    <Route path="/Alle Annonser" element={<AllListings recieveUser={user => setUser(user)} />} />
+                    <Route path="/OtherUser" element={<OtherUser getuser={user} />} />
+                    <Route path="/Lag Annonse" element={<LagAnnonse />} />
+                    <Route path="/Logg inn" element={<LoginUI />} />
+                    <Route path="/Min Profil" element={<MyPage />} />
+                    <Route path="/Ny bruker side" element={<RegisterNewUser />} />
+                    <Route path="/Admin Page" element={<AdminPage />} />
+                </Routes>
+            </div>
+        </div>
+    );
+    } else {
+      return (
         <div>
             <ResponsiveAppBar>
             </ResponsiveAppBar>
@@ -43,6 +65,7 @@ function App() {
             </div>
         </div>
     );
+    };
 }
 
 export default App;

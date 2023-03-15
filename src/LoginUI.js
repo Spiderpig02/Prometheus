@@ -25,10 +25,6 @@ function LoginUI() {
             .catch((e) => {
                 console.log(e.message)
             })
-
-        
-       
-        
     }
 
     const handleLogout = (e) => {
