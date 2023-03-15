@@ -18,7 +18,7 @@ function RegisterNewUser() {
         createUserWithEmailAndPassword(auth, email, password)
             .then((cred) => {
                 console.log("User created", cred.user)
-                addUser(cred.user.uid, username, password, email, phonenumber)
+                addUser(cred.user.uid, username, password, email, phonenumber, [], [], [], []);
             })
             .catch((e) => {
                 console.log(e.message)
@@ -27,7 +27,7 @@ function RegisterNewUser() {
     }
 
     return (
-        <div className="ny-bruker-form" style={{marginTop: "100px"}}>
+        <div className="ny-bruker-form" style={{ marginTop: "100px" }}>
             <form onSubmit={handleSubmit}>
                 <h1> Registrer ny bruker </h1>
                 <div>
