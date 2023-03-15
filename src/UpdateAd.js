@@ -14,6 +14,7 @@ function UpdateAd(props) {
     const [available, setAvailable] = useState(true);
     const [streetName, setStreetName] = useState('');
     const [city, setCity] = useState('');
+    const [checked, setChecked] = useState([]);
     const [adData, setAdData] = useState([]);
 
 
@@ -29,7 +30,6 @@ function UpdateAd(props) {
 
         };
         getData();
-        console.log(props.getAd);
     }, []);
 
     useEffect(() => {
@@ -38,15 +38,24 @@ function UpdateAd(props) {
         setStreetName(adData.streetName);
         setCity(adData.city);
         setType(adData.Type)
+        setAvailable(adData.Available)
+        if(adData.Type == "Annonse"){
+            document.getElementById("annonse").checked = true;
+        } else if(adData.Type == "Etterspørsel"){
+            document.getElementById("etterspørsel").checked = true;
+        }
+
+        if((adData.Categories !== undefined) && (adData.Categories !== null)){
+            setChecked(adData.Categories.slice())
+        }
+
+        if(adData.Available == true){
+            document.getElementById("no").checked = true;
+        } else if(adData.Available == false){
+            document.getElementById("yes").checked = true;
+        }
     }, [adData]);
 
-
-
-    // useEffect(() => {
-    //     console.log(adData);
-    //     setTitle(adData.Title)
-    //     setDescription(adData.Description)
-    // }, []);
 
     const submit = async event => {
         event.preventDefault();
@@ -69,7 +78,6 @@ function UpdateAd(props) {
         return noe
     }
 
-    const [checked, setChecked] = useState([]);
     const checkList = ["Diverse", "Hageverktøy", "Maleverktøy", "Snekring", "Fritidsverktøy"];
 
     // Add Remove checked item from list
@@ -97,10 +105,8 @@ function UpdateAd(props) {
 
     const resetAvailableRadio = (radioType) => {
         if (radioType === 'Ja') {
-            console.log(available);
             document.getElementById("no").checked = false;
         } else if (radioType === 'Nei') {
-            console.log(available);
             document.getElementById("yes").checked = false;
         }
 
@@ -108,8 +114,16 @@ function UpdateAd(props) {
 
 
     // Return classes based on whether item is checked
-    var isChecked = (item) =>
-        checked.includes(item) ? "checked-item" : "not-checked-item";
+
+    var isChecked = (item) => {
+        if((checked !== undefined) && (checked !== null)){
+            return checked.includes(item) ? true : false;
+        }
+        else{
+            return false
+        }
+        
+    }
 
     if (userData !== null) {
         return (
@@ -119,7 +133,7 @@ function UpdateAd(props) {
                 <form onSubmit={submit} id="advertForm">
                     <div className='tittelInputElementFlexboks'>
                         <label htmlFor="tittel">Tittel:</label>
-                        <input className="testBox" placeholder='Skriv inn annonsens tittel' name='tittel' id='tittel' type="text" value={title || ''} defaultValue={adData.Title} onChange={(event) => setTitle(event.target.value)} />
+                        <input className="testBox" placeholder='Skriv inn annonsens tittel' name='tittel' id='tittel' type="text" value={title || ''} onChange={(event) => setTitle(event.target.value)} />
                     </div>
 
                     <div className='beskrivelseInputElementFlexboks'>
@@ -143,8 +157,8 @@ function UpdateAd(props) {
                         <div className="list-container">
                             {checkList.map((item, index) => (
                                 <div key={index}>
-                                    <input value={item} type="checkbox" onChange={handleCheck} />
-                                    <span className={isChecked(item)}>{item}</span>
+                                    <input value={item} checked={isChecked(item)} type="checkbox" onChange={handleCheck} />
+                                    <span>{item}</span>
                                 </div>
                             ))}
                         </div>
@@ -164,12 +178,12 @@ function UpdateAd(props) {
                         <p>Er produktet utlånt?</p>
                         <div>
                             <label htmlFor="yes">Ja</label>
-                            <input type="radio" id="yes" value={false} onClick={() => { setAvailable(true); resetAvailableRadio('Ja'); }} />
+                            <input type="radio" id="yes" value={false} onClick={() => { setAvailable(false); resetAvailableRadio('Ja'); }} />
                         </div>
 
                         <div>
                             <label htmlFor="no">Nei</label>
-                            <input type="radio" id="no" value={true} onClick={() => { setAvailable(false); resetAvailableRadio('Nei'); }} />
+                            <input type="radio" id="no" value={true} onClick={() => { setAvailable(true); resetAvailableRadio('Nei'); }} />
                         </div>
                     </div>
 
