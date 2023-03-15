@@ -19,14 +19,21 @@ function LeaveRating(props) {
     const [rating, setRating] = useState('');
     const [comment, setComment] = useState(''); 
     const [username, setUsername] = useState('');
+    const [totalRating, setTotalRating] = useState();
 
     async function getUsername() {
         const un = (await getDoc(currentUserDocRef)).data().Username
         setUsername(un)
     }
 
+    async function getTotalRating() {
+        const tr = (await getDoc(otherUserDocRef)).data().totalRating
+        setTotalRating(tr)
+    }
+
     useEffect(() => {
         getUsername()
+        getTotalRating()
     }, []);
 
     const submit = async event => {
@@ -39,7 +46,7 @@ function LeaveRating(props) {
                     "comment": comment,
                     "rating": rating
                 }),
-                totalRating: FieldValue.increment(rating)
+                totalRating: totalRating + rating
             })
         } catch(error) {
             alert("Feil: " + error)

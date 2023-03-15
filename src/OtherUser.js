@@ -15,7 +15,7 @@ const OtherUser = (props) => {
     const [phonenumber, setPhonenumber] = useState('');
     const [email, setEmail] = useState('');
     const [rating, setRating] = useState([]);
-    const [avgRating, setAvgRating] = useState();
+    const [totalRating, setTotalRating] = useState();
 
     const getUserInfo = async () => {
         await getDoc(userDocRef).then((documentSnapshot) => {
@@ -23,9 +23,7 @@ const OtherUser = (props) => {
             setPhonenumber(documentSnapshot.data().Phonenumber)
             setEmail(documentSnapshot.data().Email)
             setRating(documentSnapshot.data().Rating)
-            if (rating > 0) {
-                setAvgRating(documentSnapshot.data().totalRating / rating.length)
-            }
+            setTotalRating(documentSnapshot.data().totalRating)
         })
     }
     
@@ -33,7 +31,7 @@ const OtherUser = (props) => {
         getUserInfo()
     }, []);
 
-    if (rating.length > 0) {
+    if (totalRating > 0) {
         return ( 
             <Container style={{ marginTop: '100px' }}>
                     <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
@@ -48,7 +46,7 @@ const OtherUser = (props) => {
                                 Telefonnr: {phonenumber}
                             </h4>
                             <h3>
-                                Rating: {avgRating}
+                                Rating: {Math.round(totalRating/rating.length * 10) / 10}
                             </h3>
                             <List>
                             {rating.map(rating => (
