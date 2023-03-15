@@ -114,27 +114,6 @@ function LagAnnonse() {
                                 </div>
                             ))}
                         </div>
-                        {/* <h3>Velg ønskede kategorier</h3>
-                         <div className='sidebar-checkbox'>
-                             <input id="verktøyDiverse" type="checkbox" value={checked} onChange={onChange}/>
-                             <label htmlFor="verktøyDiverse">Diverse</label>         
-                         </div>
-                         <div className='sidebar-checkbox'>
-                             <input id="verktøyHage" type="checkbox" value={checked} onChange={onChange}/>
-                             <label htmlFor="verktøyHage">Hageverktøy</label>  
-                         </div>
-                         <div className='sidebar-checkbox'>
-                             <input id="verktøyMaling" type="checkbox" value={checked} onChange={onChange}/>
-                             <label htmlFor="verktøyMaling">Maleverktøy</label>  
-                         </div>
-                         <div className='sidebar-checkbox'>
-                             <input id="verktøySnekring" type="checkbox" value={checked} onChange={onChange}/>
-                             <label htmlFor="verktøySnekring">Snekring</label>  
-                         </div>
-                         <div className='sidebar-checkbox'>
-                             <input id="verktøyFritid" type="checkbox" value={checked} onChange={onChange}/>
-                             <label htmlFor="verktøyFritid">Fritidsverktøy</label>  
-                     </div>   */}
                     </div>
                     <div className='annonseEttersporselInputElementFlexboks'>
                         <div className='annonseRadioWrap'>
