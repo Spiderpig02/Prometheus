@@ -49,16 +49,14 @@ function AdminPage() {
     // }
 
     const deleteAds = async (targetUserID) => {
-        await getDocs(query(adsCollectionRef), where("userID", "==", targetUserID)).then((querySnapshot) => {
-            const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setAds(adsData);
-            adsData.map(async ad => {
-                const adDoc = doc(firestore, "Advertisement", ad.id);
-                await deleteDoc(adDoc);
+        await getDocs(query(collection(firestore, "Advertisement"), where("userID", "==", targetUserID)))
+        .then((querySnapshot) => {
+            const targetAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            targetAdsData.map(async ad => {
+                await deleteDoc(doc(firestore, "Advertisement", ad.id));
             })
-        });
+        })
     }
-
 
     return (
         <div>
@@ -106,6 +104,7 @@ function AdminPage() {
                                 deleteAds(user.id);
                                 await deleteDoc(userDoc);
                                 getUsers();
+                                getAds();
                             }}>Slett bruker</button>
                         </div>
                     </Paper>
