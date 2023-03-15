@@ -20,13 +20,11 @@ function App() {
 
     const [user, setUser] = useState("NullOtherUser");
     const [themeMode, setThemeMode] = useState('lightMode');
-    const [admin, setAdmin] = useState(false);
 
     useEffect(() => {
         document.body.className = themeMode;
     }, [themeMode]);
 
-    if(admin) {
       return (
         <div>
             <ResponsiveAppBar>
@@ -46,26 +44,6 @@ function App() {
             </div>
         </div>
     );
-    } else {
-      return (
-        <div>
-            <ResponsiveAppBar>
-            </ResponsiveAppBar>
-            <div id="pageWrapper" className={`App ${themeMode}`}>
-                <Routes>
-                    <Route path="/" element={<AllListings recieveUser={user => setUser(user)} />} />
-                    <Route path="/Mine Annonser" element={<MyListings />} />
-                    <Route path="/Alle Annonser" element={<AllListings recieveUser={user => setUser(user)} />} />
-                    <Route path="/OtherUser" element={<OtherUser getuser={user} />} />
-                    <Route path="/Lag Annonse" element={<LagAnnonse />} />
-                    <Route path="/Logg inn" element={<LoginUI />} />
-                    <Route path="/Min Profil" element={<MyPage />} />
-                    <Route path="/Ny bruker side" element={<RegisterNewUser />} />
-                </Routes>
-            </div>
-        </div>
-    );
-    };
-}
-
+  
+  }
 export default App;

@@ -3,6 +3,7 @@ import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import { auth, firestore } from "./firebaseConfig.js";
 import { getDocs, collection, doc } from 'firebase/firestore';
 import { deleteDoc } from 'firebase/firestore';
+import { where, query } from 'firebase/firestore';
 import './AdminPage.css'
 
 
@@ -31,6 +32,33 @@ function AdminPage() {
         getAds();
         getUsers();
     }, []);
+
+    
+
+    // const deleteAds = async (targetUserID) => {
+    //     await getDocs(adsCollectionRef).then((querySnapshot) => {
+    //         const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    //         adsData.forEach(async element => {
+    //             console.log(element)
+    //             if(element.userID == targetUserID) {
+    //                 const adDoc = doc(firestore, "Advertisement", doc.id);
+    //                 await deleteDoc(adDoc);
+    //             }
+    //             });
+    //     });
+    // }
+
+    const deleteAds = async (targetUserID) => {
+        await getDocs(query(adsCollectionRef), where("userID", "==", targetUserID)).then((querySnapshot) => {
+            const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            setAds(adsData);
+            adsData.map(async ad => {
+                const adDoc = doc(firestore, "Advertisement", ad.id);
+                await deleteDoc(adDoc);
+            })
+        });
+    }
+
 
     return (
         <div>
@@ -75,6 +103,7 @@ function AdminPage() {
                         <div className="advertPaperButtons">
                             <button onClick={async () => {
                                 const userDoc = doc(firestore, "User", user.id);
+                                deleteAds(user.id);
                                 await deleteDoc(userDoc);
                                 getUsers();
                             }}>Slett bruker</button>
