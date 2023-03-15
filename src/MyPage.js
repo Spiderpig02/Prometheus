@@ -3,8 +3,9 @@ import { Navigate } from "react-router";
 import { useEffect, useState } from "react";
 import { auth, firestore } from './firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
+import BlockedUserMyPage from "./BlockedUserMyPage";
 
-const MyPage = () => {
+const MyPage = (props) => {
 
     const user = auth.currentUser;
     const [userData, setUserData] = useState([]);
@@ -38,6 +39,9 @@ const MyPage = () => {
 
                     </Paper>
                 </Typography>
+                <BlockedUserMyPage>
+
+                </BlockedUserMyPage>
             </Container>
 
         );

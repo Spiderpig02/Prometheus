@@ -13,12 +13,14 @@ function LagAnnonse() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [type, setType] = useState('');
-    
+    const [streetName, setStreetName] = useState('');
+    const [city, setCity] = useState('');
+
     const submit = async event => {
         event.preventDefault();
         setSubmitting(true);
         try {
-            await addAd(title, description, userData.uid, null, null, await getPhone(), type, checked, Timestamp.now())
+            await addAd(title, description, userData.uid, null, null, await getPhone(), type, checked, Timestamp.now(), streetName, city)
             if (type === 'Annonse') {
                 alert("Annonsen er publisert");
             } else if (type === 'Etterspørsel') {
@@ -30,9 +32,10 @@ function LagAnnonse() {
         } catch (error) {
             alert("En feil har oppstått. LOG INN" + error);
         }
-
         setTitle("")
         setDescription("")
+        setStreetName("")
+        setCity("")
     }
 
     async function getPhone() {
@@ -79,7 +82,7 @@ function LagAnnonse() {
     if (userData !== null) {
         return (
             <div className='form-content'>
-                <h1>Lag annonse eller etterspørsel</h1>
+                <h2 className='pageHeading'>Lag annonse eller etterspørsel</h2>
                 <form onSubmit={submit} id="advertForm">
                     <div className='tittelInputElementFlexboks'>
                         <label htmlFor="tittel">Tittel:</label>
@@ -89,6 +92,16 @@ function LagAnnonse() {
                     <div className='beskrivelseInputElementFlexboks'>
                         <label htmlFor="beskrivelse">Beskrivelse:</label>
                         <textarea className="testBox" placeholder='Skriv inn en detaljert beskrivelse av annonsen' id="beskrivelse" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} required></textarea>
+                    </div>
+
+                    <div className='streetNameInputElementFlexboks'>
+                        <label htmlFor="streetName">Gatenavn:</label>
+                        <textarea className="testBox" placeholder='Skriv inn gatenavn, eks: Slottsplassen 1' id="streetName" rows={5} value={streetName} onChange={(event) => setStreetName(event.target.value)} required></textarea>
+                    </div>
+
+                    <div className='cityInputElementFlexboks'>
+                        <label htmlFor="by">City:</label>
+                        <textarea className="testBox" placeholder='Skriv inn by, eks: Oslo' id="city" rows={5} value={city} onChange={(event) => setCity(event.target.value)} required></textarea>
                     </div>
 
                     <div className='checkboxes'>
