@@ -9,22 +9,24 @@ export async function addUser(Uid, Username, Password, Email, Phonenumber) {
   });
 };
 
-export async function addAd(Title, Description, userID, Phonenumber, Type, Categories, Created, Available) {
+export async function addAd(Title, Description, userID, Phonenumber, Type, Categories, Created) {
 
   const addsCollectinRef = collection(firestore, "Advertisement");
   await addDoc(addsCollectinRef,
     {
       Title: Title, Description: Description, userID: userID, Phonenumber: Phonenumber,
-      Type: Type, Categories: Categories, Created: Created, Available: true
+      Type: Type, Categories: Categories, Created: Created, Available: true, LoanedBy: null
     });
 };
 
-export async function updateAd(Title, Description, userID, Phonenumber, Type, Categories, Created, streetName, city, Available, id){
+
+export async function updateAd(Title, Description, userID, Phonenumber, Type, Categories, Created, streetName, city, Available, LoanedBy, id){
   const updateField = doc(firestore, "Advertisement", id)
   await updateDoc(updateField,
     {
       Title: Title, Description: Description, userID: userID,
       Phonenumber: Phonenumber,Type: Type, Categories: Categories, 
-      Created: Created, streetName: streetName, city: city, Available: Available
+      Created: Created, streetName: streetName, city: city, Available: Available,
+      LoanedBy: LoanedBy
     });
 }
