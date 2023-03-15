@@ -13,6 +13,7 @@ export const AllListings = (props) => {
     const currentUser = auth.currentUser;
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
+    const [likedAds, setLikedAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
     const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");

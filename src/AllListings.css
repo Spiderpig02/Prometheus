@@ -36,3 +36,27 @@ h4 {
 div.paperTitleAndDate {
     margin-top: 10px;
 }
+.HeartButtonEmpty {
+    background-image: url('./TomtHjerte.png');
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    border: none;
+    color: white; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+}
+.HeartButtonFull {
+  background-image: url('./FulltHjerte.png');
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  border: none;
+  color: white; 
+  padding: 10px 20px; 
+  font-size: 16px;
+  cursor: pointer;
+  float: left;
+  height: 30px;
+}
