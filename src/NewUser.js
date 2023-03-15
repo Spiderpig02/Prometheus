@@ -18,7 +18,7 @@ function RegisterNewUser() {
         createUserWithEmailAndPassword(auth, email, password)
             .then((cred) => {
                 console.log("User created", cred.user)
-                addUser(cred.user.uid, username, password, email, phonenumber, null, null, null, []);
+                addUser(cred.user.uid, username, password, email, phonenumber, [], [], [], []);
             })
             .catch((e) => {
                 console.log(e.message)

@@ -62,15 +62,13 @@ function BlockedUserMyPage(props) {
         if (userState.Blocked.includes(userID)) {
             let tmp = userCopy.Blocked.filter(e => e !== userID)
             userCopy.Blocked = tmp;
-            // addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.ratedBy, userCopy.Blocked);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, null, null, null, userCopy.Blocked);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
             window.alert("Bruker er nå fjernet fra Blocked listen din");
 
         } else {
             userCopy.Blocked.push(userID);
             setUserState(userCopy);
-            // addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.ratedBy, userCopy.Blocked);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, null, null, null, userCopy.Blocked);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
             window.alert("Bruker er nå lag inn i Blocked listen din");
         };
     };
