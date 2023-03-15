@@ -2,11 +2,11 @@ import { async } from "@firebase/util";
 import { doc, setDoc, addDoc, collection, updateDoc } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 
-export async function addUser(Uid, Username, Password, Email, Phonenumber, Rating, canRate, Blocked, Like) {
-    const usersDocRef = doc(firestore, "User", Uid);
-    await setDoc(usersDocRef, {
-        Username, Password, Email, Phonenumber: Number(Phonenumber), Rating, canRate, Blocked, Like
-    });
+export async function addUser(Uid, Username, Password, Email, Phonenumber, Rating, canRate, Blocked, Like, totalRating) {
+  const usersDocRef = doc(firestore, "User", Uid);
+  await setDoc(usersDocRef, {
+    Username, Password, Email, Phonenumber: Number(Phonenumber), Rating, canRate, Blocked, Like, totalRating
+  });
 };
 
 export async function addAd(Title, Description, userID, Phonenumber, Type, Categories, Created, streetName, city) {
