@@ -23,9 +23,9 @@ const OtherUser = (props) => {
             setPhonenumber(documentSnapshot.data().Phonenumber)
             setEmail(documentSnapshot.data().Email)
             setRating(documentSnapshot.data().Rating)
-            // if (rating > 0) {
-            //     setAvgRating(documentSnapshot.data().totalRating / rating.length)
-            // }
+            if (rating > 0) {
+                setAvgRating(documentSnapshot.data().totalRating / rating.length)
+            }
         })
     }
     
