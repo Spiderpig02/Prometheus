@@ -16,43 +16,24 @@ const OtherUser = (props) => {
     const [email, setEmail] = useState('');
     const [rating, setRating] = useState([]);
     const [avgRating, setAvgRating] = useState();
-    const noRatings = false;
 
     const getUserInfo = async () => {
         await getDoc(userDocRef).then((documentSnapshot) => {
             setUsername(documentSnapshot.data().Username)
             setPhonenumber(documentSnapshot.data().Phonenumber)
             setEmail(documentSnapshot.data().Email)
-            if (documentSnapshot.get('Rating') === undefined) {
-                noRatings = true
-            } else {
-                setRating(documentSnapshot.data().Rating)
-                calculateAvgRating()
-            }
+            setRating(documentSnapshot.data().Rating)
+            // if (rating > 0) {
+            //     setAvgRating(documentSnapshot.data().totalRating / rating.length)
+            // }
         })
     }
-
-    const calculateAvgRating = async () => {
-        var totalRating = 0
-        var timesRated = 0
-        rating.forEach(element => {
-            timesRated += 1
-            var i = 0
-            while (i < 6) {
-                if (Object.values(element).includes(i)) {
-                    totalRating += i
-                }
-                i += 1
-            }
-        })
-        setAvgRating(totalRating / timesRated)  
-    }
-
+    
     useEffect(() => {
         getUserInfo()
     }, []);
 
-    if (!noRatings) {
+    if (rating.length > 0) {
         return ( 
             <Container style={{ marginTop: '100px' }}>
                     <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>

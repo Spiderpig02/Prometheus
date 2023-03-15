@@ -3,6 +3,7 @@ import { useState, useEffect} from "react";
 import { doc, updateDoc, getDocs, query, collection, where, getDoc, setDoc, arrayUnion } from "firebase/firestore";
 import { firestore } from "./firebaseConfig";
 import { getAuth } from "firebase/auth";
+import { FieldValue } from "firebase/firestore";
 
 import './LeaveRating.css'
 
@@ -37,7 +38,8 @@ function LeaveRating(props) {
                     "username": username,
                     "comment": comment,
                     "rating": rating
-                })
+                }),
+                totalRating: FieldValue.increment(rating)
             })
         } catch(error) {
             alert("Feil: " + error)
