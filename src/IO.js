@@ -15,7 +15,7 @@ export async function addAd(Title, Description, userID, Phonenumber, Type, Categ
     await addDoc(addsCollectinRef,
         {
             Title: Title, Description: Description, userID: userID, Phonenumber: Phonenumber,
-            Type: Type, Categories: Categories, Created: Created, Available: true, LoanedBy: null
+            Type: Type, Categories: Categories, Created: Created, streetName: streetName, city: city, Available: true, LoanedBy: null
         });
 };
 

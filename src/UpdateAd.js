@@ -41,9 +41,9 @@ function UpdateAd(props) {
         setType(adData.Type)
         setAvailable(adData.Available)
         setLoanedBy(adData.LoanedBy)
-        if (adData.Type == "Annonse") {
+        if (adData.Type === "Annonse") {
             document.getElementById("annonse").checked = true;
-        } else if (adData.Type == "Etterspørsel") {
+        } else if (adData.Type === "Etterspørsel") {
             document.getElementById("etterspørsel").checked = true;
         }
 
@@ -51,10 +51,10 @@ function UpdateAd(props) {
             setChecked(adData.Categories.slice())
         }
 
-        if (adData.Available == true) {
+        if (adData.Available === true) {
             document.getElementById("no").checked = true;
             setLoanedBy('')
-        } else if (adData.Available == false) {
+        } else if (adData.Available === false) {
             document.getElementById("yes").checked = true;
         }
     }, [adData]);

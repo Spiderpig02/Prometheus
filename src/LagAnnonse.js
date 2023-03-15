@@ -20,7 +20,7 @@ function LagAnnonse() {
         event.preventDefault();
         setSubmitting(true);
         try {
-            await addAd(title, description, userData.uid, null, null, await getPhone(), type, checked, Timestamp.now(), streetName, city)
+            await addAd(title, description, userData.uid, await getPhone(), type, checked, Timestamp.now(), streetName, city)
             if (type === 'Annonse') {
                 alert("Annonsen er publisert");
             } else if (type === 'Etterspørsel') {
