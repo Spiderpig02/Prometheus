@@ -1,10 +1,10 @@
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 import { firestore } from "./firebaseConfig.js";
 
-export async function addUser(Uid, Username, Password, Email, Phonenumber) {
+export async function addUser(Uid, Username, Password, Email, Phonenumber, Rating, canRate, Blocked, Like) {
   const usersDocRef = doc(firestore, "User", Uid);
   await setDoc(usersDocRef, {
-    Username: Username, Password: Password, Email: Email, Phonenumber: Number(Phonenumber)
+    Username, Password, Email, Phonenumber: Number(Phonenumber), Rating, canRate, Blocked, Like
   });
 };
 
