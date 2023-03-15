@@ -9,14 +9,13 @@ export async function addUser(Uid, Username, Password, Email, Phonenumber) {
   });
 };
 
-export async function addAd(Title, Description, userID, Picture, Schedule, Phonenumber, Type, Categories, Created) {
+export async function addAd(Title, Description, userID, Phonenumber, Type, Categories, Created, Available) {
 
   const addsCollectinRef = collection(firestore, "Advertisement");
   await addDoc(addsCollectinRef,
     {
-      Title: Title, Description: Description, userID: userID,
-      Picture: Picture, Schedule: Schedule, Phonenumber: Phonenumber,
-      Type: Type, Categories: Categories, Created: Created
+      Title: Title, Description: Description, userID: userID, Phonenumber: Phonenumber,
+      Type: Type, Categories: Categories, Created: Created, Available: true
     });
 };
 
