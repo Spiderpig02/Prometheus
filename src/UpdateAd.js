@@ -15,8 +15,9 @@ function UpdateAd(props) {
     const [streetName, setStreetName] = useState('');
     const [city, setCity] = useState('');
     const [checked, setChecked] = useState([]);
+    const [loanedBy, setLoanedBy] = useState('');
     const [adData, setAdData] = useState([]);
-
+    const [inputBoxAvailable, setInputBoxAvailable] = useState("synligInput");
 
 
 
@@ -39,6 +40,7 @@ function UpdateAd(props) {
         setCity(adData.city);
         setType(adData.Type)
         setAvailable(adData.Available)
+        setLoanedBy(adData.LoanedBy)
         if(adData.Type == "Annonse"){
             document.getElementById("annonse").checked = true;
         } else if(adData.Type == "Etterspørsel"){
@@ -51,6 +53,7 @@ function UpdateAd(props) {
 
         if(adData.Available == true){
             document.getElementById("no").checked = true;
+            setLoanedBy('')
         } else if(adData.Available == false){
             document.getElementById("yes").checked = true;
         }
@@ -60,7 +63,7 @@ function UpdateAd(props) {
     const submit = async event => {
         event.preventDefault();
         try {
-            await updateAd(title, description, userData.uid, await getPhone(), type, checked, Timestamp.now(), streetName, city, available, props.getAd)
+            await updateAd(title, description, userData.uid, await getPhone(), type, checked, Timestamp.now(), streetName, city, available, loanedBy, props.getAd)
             if (type === 'Annonse') {
                 alert("Annonsen er oppdatert");
             } else if (type === 'Etterspørsel') {
@@ -106,8 +109,11 @@ function UpdateAd(props) {
     const resetAvailableRadio = (radioType) => {
         if (radioType === 'Ja') {
             document.getElementById("no").checked = false;
+            setInputBoxAvailable('synligInput')
         } else if (radioType === 'Nei') {
             document.getElementById("yes").checked = false;
+            setLoanedBy('')
+            setInputBoxAvailable('usynligInput');
         }
 
     }
@@ -176,14 +182,17 @@ function UpdateAd(props) {
 
                     <div>
                         <p>Er produktet utlånt?</p>
-                        <div>
+                        <div className='isRentedLabelWrapper'>
                             <label htmlFor="yes">Ja</label>
                             <input type="radio" id="yes" value={false} onClick={() => { setAvailable(false); resetAvailableRadio('Ja'); }} />
                         </div>
 
-                        <div>
+                        <div className='isRentedLabelWrapper'>
                             <label htmlFor="no">Nei</label>
                             <input type="radio" id="no" value={true} onClick={() => { setAvailable(true); resetAvailableRadio('Nei'); }} />
+                        </div>
+                        <div>
+                            <input className = {`${inputBoxAvailable}`} type="text" placeholder='Skriv inn epost på bruker produktet lånes ut til' id='loanedBy' value={loanedBy} onChange={(event) => setLoanedBy(event.target.value)}  />
                         </div>
                     </div>
 
