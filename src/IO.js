@@ -32,8 +32,8 @@ export async function updateAd(Title, Description, userID, Phonenumber, Type, Ca
             Categories: Categories,
             Created: Created,
             streetName: streetName,
-            city: city
-      Available: Available,
+            city: city,
+            Available: Available,
             LoanedBy: LoanedBy
         });
 };

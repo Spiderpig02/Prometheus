@@ -21,15 +21,12 @@ function App() {
 
     const [user, setUser] = useState("NullOtherUser");
     const [themeMode, setThemeMode] = useState('lightMode');
+    const [adID, setAdID] = useState("AdNULL");
 
     useEffect(() => {
         document.body.className = themeMode;
     }, [themeMode]);
 
-
-
-
-    const [adID, setAdID] = useState("AdNULL");
     return (
         <div>
             <ResponsiveAppBar>

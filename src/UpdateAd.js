@@ -17,7 +17,7 @@ function UpdateAd(props) {
     const [checked, setChecked] = useState([]);
     const [loanedBy, setLoanedBy] = useState('');
     const [adData, setAdData] = useState([]);
-    const [inputBoxAvailable, setInputBoxAvailable] = useState("synligInput");
+    const [inputBoxAvailable, setInputBoxAvailable] = useState("usynligInput");
 
 
 
@@ -41,20 +41,20 @@ function UpdateAd(props) {
         setType(adData.Type)
         setAvailable(adData.Available)
         setLoanedBy(adData.LoanedBy)
-        if(adData.Type == "Annonse"){
+        if (adData.Type == "Annonse") {
             document.getElementById("annonse").checked = true;
-        } else if(adData.Type == "Etterspørsel"){
+        } else if (adData.Type == "Etterspørsel") {
             document.getElementById("etterspørsel").checked = true;
         }
 
-        if((adData.Categories !== undefined) && (adData.Categories !== null)){
+        if ((adData.Categories !== undefined) && (adData.Categories !== null)) {
             setChecked(adData.Categories.slice())
         }
 
-        if(adData.Available == true){
+        if (adData.Available == true) {
             document.getElementById("no").checked = true;
             setLoanedBy('')
-        } else if(adData.Available == false){
+        } else if (adData.Available == false) {
             document.getElementById("yes").checked = true;
         }
     }, [adData]);
@@ -122,13 +122,13 @@ function UpdateAd(props) {
     // Return classes based on whether item is checked
 
     var isChecked = (item) => {
-        if((checked !== undefined) && (checked !== null)){
+        if ((checked !== undefined) && (checked !== null)) {
             return checked.includes(item) ? true : false;
         }
-        else{
+        else {
             return false
         }
-        
+
     }
 
     if (userData !== null) {
@@ -192,7 +192,7 @@ function UpdateAd(props) {
                             <input type="radio" id="no" value={true} onClick={() => { setAvailable(true); resetAvailableRadio('Nei'); }} />
                         </div>
                         <div>
-                            <input className = {`${inputBoxAvailable}`} type="text" placeholder='Skriv inn epost på bruker produktet lånes ut til' id='loanedBy' value={loanedBy} onChange={(event) => setLoanedBy(event.target.value)}  />
+                            <input className={`${inputBoxAvailable}`} type="text" placeholder='Skriv inn epost på bruker produktet lånes ut til' id='loanedBy' value={loanedBy} onChange={(event) => setLoanedBy(event.target.value)} />
                         </div>
                     </div>
 
