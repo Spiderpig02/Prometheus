@@ -1,37 +1,51 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Button, Container, Paper, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { useParams } from "react-router";
+import LeaveRating from "./LeaveRating";
+import ReportUser from "./ReportUser";
 
 const OtherUser = (props) => {
 
     const userID = props.getuser;
 
 
-    return ( 
+
+
+
+
+    return (
 
         <Container style={{ marginTop: '100px' }}>
-                <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
-                    Annen bruker sin side
-                    <Paper>
-                        <h3>
-                            Telefonnr: props.
-                        </h3>
-                        <h3>
-                            Min Rating:
-                        </h3>
-                        <h3>
-                            {/* {id} */}
-                            {props.getuser}
-                        </h3>
+            <ReportUser></ReportUser>
+            <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+                Annen bruker sin side
+                <Paper>
+                    <h3>
+                        Telefonnr: props.
+                    </h3>
+                    <h3>
+                        Min Rating:
+                    </h3>
+                    <h3>
+                        {/* {id} */}
+                        {props.getuser}
+                    </h3>
 
-                    </Paper>
-                </Typography>
-            </Container>
+                </Paper>
+            </Typography>
 
-     
-      
+            <Paper>
+                <LeaveRating></LeaveRating>
+            </Paper>
+        </Container>
 
-        
-     );
+
+
+
+
+
+
+    );
 }
- 
+
 export default OtherUser;

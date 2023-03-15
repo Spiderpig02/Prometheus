@@ -1,24 +1,24 @@
 import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import AlertDialog from "./AlertDialog";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "./firebaseConfig.js";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { auth, firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
 import './AllListings.css';
 import './MyListings.css';
 import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
-import { Link, Route, Routes } from "react-router-dom";
-import OtherUser from "./OtherUser";
+import { Link } from "react-router-dom";
 import Modal from 'react-modal';
 
 export const AllListings = (props) => {
 
+    const currentUser = auth.currentUser;
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
     const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
+    const [userState, setUserState] = useState([]);
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [modalStreetName, setModalStreetName] = useState("Ferjemamnnsveien 10");
     const [modalCityName, setModalCityName] = useState("Trondheim");
@@ -67,17 +67,40 @@ export const AllListings = (props) => {
     const getAds = async () => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setAds(adsData);
+            let dummyList = [];
+            adsData.forEach(element => {
+                if (element.Available === true && !userState.Blocked.includes(element.userID)) {
+                    dummyList.push(element);
+                }
+            });
+            setAds(dummyList);
         });
-    }
+    };
+
 
     const getQueryAds = async () => {
         const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
         await getDocs(querys).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setAds(adsData);
+            let dummyList = [];
+            adsData.forEach(element => {
+                if (element.Available === true && !userState.Blocked.includes(element.userID)) {
+                    dummyList.push(element);
+                }
+            });
+            setAds(dummyList);
         })
     };
+
+    const getUser = async () => {
+        const userDoc = doc(firestore, "User", currentUser.uid)
+        const user = await getDoc(userDoc);
+        setUserState({ ...user.data(), id: user.id });
+    };
+
+    useEffect(() => {
+        getUser();
+    }, []);
 
     useEffect(() => {
         if (checkedList.length !== 0) {
@@ -85,7 +108,9 @@ export const AllListings = (props) => {
         } else {
             getAds();
         }
-    }, [checkedList, emptySearch]);
+
+    }, [checkedList, emptySearch, userState]);
+
 
     const handleSetChecked = (checked) => {
         setCheckedList(checked);
