@@ -4,9 +4,11 @@ import { collection, doc, getDoc, getDocs, query, where } from "firebase/firesto
 import { auth, firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
 import './AllListings.css';
+import './MyListings.css';
 import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
 import { Link } from "react-router-dom";
+import Modal from 'react-modal';
 
 export const AllListings = (props) => {
 
@@ -17,7 +19,50 @@ export const AllListings = (props) => {
     const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
     const [userState, setUserState] = useState([]);
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalStreetName, setModalStreetName] = useState("Ferjemamnnsveien 10");
+    const [modalCityName, setModalCityName] = useState("Trondheim");
 
+    // Modal
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: "698px",
+            height: "35vw",
+            padding: "0"
+        },
+        overlay: {
+            backgroundColor: 'rgba(0,0,0,0.1)'
+        }
+    };
+
+    Modal.setAppElement('#root');
+
+    const openModal = () => {
+        console.log("Open modal")
+        setIsOpen(true);
+    }
+
+    const afterOpenModal = () => {
+        console.log("Modal is open?");
+    }
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const setStreetAndCity = (street, city) => {
+        setModalStreetName(street);
+        setModalCityName(city);
+    }
+
+    // End modal
 
     const getAds = async () => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
@@ -79,7 +124,6 @@ export const AllListings = (props) => {
             if (adList[index].Title.toLowerCase().includes(searchText.toLowerCase())) {
                 newAdList.push(adList[index]);
             };
-
         };
         console.log(searchText);
         if (searchText.length === 0) {
@@ -91,8 +135,6 @@ export const AllListings = (props) => {
 
     return (
         <div>
-
-
             <Container>
                 <Container className="ListingsContainer" sx={{ justifyContent: 'center', display: 'flex', padding: 0, paddingLeft: 0 }}>
                     <Box className='sidebar-container'>
@@ -111,11 +153,6 @@ export const AllListings = (props) => {
                 </div>
 
                 <List>
-
-
-
-
-
                     {ads.map(ad => (
                         <Box key={ad.id} sx={{
 
@@ -146,27 +183,45 @@ export const AllListings = (props) => {
                                 <h3>
                                     {ad.Description}
                                 </h3>
-                                <a href={"https://www.google.com/maps/dir/?api=1&origin=&destination=" + ad.streetName.replace(/\s/g, '+') + "+" + ad.city.replace(/\s/g, '+') + "&travelmode=driving target=_blank"}>Veibeskrivelse</a>
+                                <Modal
+                                    isOpen={modalIsOpen}
+                                    onAfterOpen={afterOpenModal}
+                                    onRequestClose={closeModal}
+                                    style={customStyles}
+                                    contentLabel="Example Modal"
+                                    parentSelector={() => document.body}
+                                >
+                                    <div id="modalTopBar">
+                                        <h3>{modalStreetName}, {modalCityName}</h3>
+                                        <span onClick={closeModal}>&times;</span>
+                                    </div>
+
+                                    <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyBzlvUEiaSm7RG_MEiCjLU0QpeTQyEXm5w&q=" + modalStreetName.replace(/\s/g, '+') + "+" + modalCityName.replace(/\s/g, '+')}
+                                    ></iframe>
+                                </Modal>
                                 <h2>
                                     Kontakt: {ad.Phonenumber}
-
                                 </h2>
+                                <div>
+                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => {
+                                        openModal();
+                                        setStreetAndCity(ad.streetName, ad.city);
+                                    }}>
+                                        <Button variant="outlined">Åpne kart</Button>
+                                    </Link>
+                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
+                                        <Button variant="outlined">
+                                            Se bruker sin side
+                                            {/* useLocation for props gjennom link, mulig async? vet ikke  */}
+                                        </Button>
+                                    </Link>
 
-                                <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
-                                    <Button variant="outlined">
-                                        Se bruker sin side
-                                        {/* useLocation for props gjennom link, mulig async? vet ikke  */}
-                                    </Button>
-                                </Link>
-
-
+                                </div>
                             </Paper>
                         </Box>
                     ))}
-
                 </List>
             </Container>
-
         </div>
     );
 }
