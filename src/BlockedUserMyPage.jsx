@@ -31,8 +31,8 @@ function BlockedUserMyPage(props) {
     };
 
     useEffect(() => {
-        getUsers();
         getUser();
+        getUsers();
     }, []);
 
     useEffect(() => {

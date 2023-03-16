@@ -68,11 +68,20 @@ export const AllListings = (props) => {
         await getDocs(adsCollectionRef).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             let dummyList = [];
-            adsData.forEach(element => {
-                if (element.Available === true && !userState.Blocked.includes(element.userID)) {
-                    dummyList.push(element);
-                }
-            });
+            if (userState.length !== 0) {
+                console.log(userState);
+                adsData.forEach(element => {
+                    if (element.Available === true && !userState.Blocked.includes(element.userID)) {
+                        dummyList.push(element);
+                    }
+                });
+            } else {
+                adsData.forEach(element => {
+                    if (element.Available === true) {
+                        dummyList.push(element);
+                    }
+                });
+            };
             setAds(dummyList);
         });
     };
@@ -83,11 +92,19 @@ export const AllListings = (props) => {
         await getDocs(querys).then((querySnapshot) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             let dummyList = [];
-            adsData.forEach(element => {
-                if (element.Available === true && !userState.Blocked.includes(element.userID)) {
-                    dummyList.push(element);
-                }
-            });
+            if (userState.length !== 0) {
+                adsData.forEach(element => {
+                    if (element.Available === true && !userState.Blocked.includes(element.userID)) {
+                        dummyList.push(element);
+                    }
+                });
+            } else {
+                adsData.forEach(element => {
+                    if (element.Available === true) {
+                        dummyList.push(element);
+                    }
+                });
+            };
             setAds(dummyList);
         })
     };
@@ -99,7 +116,9 @@ export const AllListings = (props) => {
     };
 
     useEffect(() => {
-        getUser();
+        if (currentUser) {
+            getUser();
+        }
     }, []);
 
     useEffect(() => {
