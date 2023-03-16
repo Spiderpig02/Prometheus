@@ -27,7 +27,7 @@ function App() {
         document.body.className = themeMode;
     }, [themeMode]);
 
-      return (
+    return (
         <div>
             <ResponsiveAppBar>
             </ResponsiveAppBar>
@@ -42,10 +42,11 @@ function App() {
                     <Route path="/Min Profil" element={<MyPage />} />
                     <Route path="/Ny bruker side" element={<RegisterNewUser />} />
                     <Route path="/Oppdater Annonse" element={<UpdateAd getAd={adID} />} />
+                    <Route path="/Admin Page" element={<AdminPage />} />
                 </Routes>
             </div>
         </div>
     );
-  
-  }
+
+}
 export default App;
