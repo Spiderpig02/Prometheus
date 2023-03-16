@@ -19,9 +19,10 @@ function LoginUI() {
             .then((cred) => {
                 console.log("user logged in", cred.user)
 
-            }).then(() => { 
+            }).then(() => {
                 window.alert("Du er nå logget inn!")
-                navigate("/Min Profil")})
+                navigate("/Min Profil")
+            })
             .catch((e) => {
                 console.log(e.message)
             })
@@ -58,10 +59,11 @@ function LoginUI() {
                         {"Opprett ny bruker her!"}
                     </Link>
                 </div>
+                {auth.currentUser && <div className="logoutButton"> <Link to={"/Alle Annonser"}>
+                    <button className="shadow" type="button" onClick={handleLogout}>Logg ut</button>
+                </Link>
+                </div>}
             </form>
-            <div className="logoutButton">
-                <button className="shadow" type="button" onClick={handleLogout}>Logg ut</button>
-            </div>
         </div>
 
     );

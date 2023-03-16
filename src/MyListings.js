@@ -1,4 +1,4 @@
-import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
+import { Box, Button, Container, Link, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./AlertDialog";
 import React, { useEffect, useState } from 'react';
@@ -8,14 +8,16 @@ import './MyListings.css'
 import { Navigate } from "react-router";
 import MineAnnonserSidebar, { listCategory } from './MineAnnonserSidebar.jsx';
 import './MineAnnonserSidebar.css'
+import { useNavigate } from "react-router-dom"
 
 export const MyListings = (props) => {
+    const navigate = useNavigate();
 
     const user = auth.currentUser;
     const [myAds, setAds] = useState([]);
     const [statusList, setStatusList] = useState([]);
     const [myFilteredAds, setMyFilteredAds] = useState([]);
-    
+
     // useEffect(() => {
     //     if (myAds.length === 0) {
     //         getMyAds()
@@ -29,19 +31,21 @@ export const MyListings = (props) => {
         }
         filter();
     }, [statusList, myAds]);
-    
-    
+
+
     const handleSetStatus = (checked) => {
-    setStatusList(checked);//kaller ikke getMyAds
-    //getMyAds(checked); 
+        setStatusList(checked);//kaller ikke getMyAds
+        //getMyAds(checked); 
     };
-    
+
     const getMyAds = async () => {
         await getDocs(query(collection(firestore, "Advertisement"), where("userID", "==", user.uid)))
-        .then((querySnapshot) => {
-        const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-        setAds(myAdsData);
-        }); }
+            .then((querySnapshot) => {
+                const myAdsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                setAds(myAdsData);
+            });
+    };
+
     const filter = () => {
         setMyFilteredAds([]);
         let dummyList = [];
@@ -70,7 +74,7 @@ export const MyListings = (props) => {
                     <Box className='sidebar-container'>
                         <MineAnnonserSidebar className="sidebar" onChecked={handleSetStatus} />
                     </Box>
-                    <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main"}}>
+                    <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                         Mine Annonser
                     </Typography>
 
@@ -113,10 +117,14 @@ export const MyListings = (props) => {
 
                                     {/* <AlertDialog buttonName="Slett annonse" dialogueText="Er du sikker på at du vil slette annonsen?"></AlertDialog> */}
                                     <div className="advertPaperButtons">
+
                                         <button onClick={async () => {
-                                            window.alert("Ikke implementert riktig enda")
+                                            navigate("/Oppdater Annonse");
+                                            props.recieveClickedAd(ad.id);
                                         }
-                                        }>Oppdater annonse</button>
+                                        }>Oppdater annonse
+
+                                        </button>
                                         <button onClick={async () => {
                                             const adDoc = doc(firestore, "Advertisement", ad.id);
                                             await deleteDoc(adDoc);
@@ -134,7 +142,7 @@ export const MyListings = (props) => {
     else {
         return <Navigate replace to="/Logg inn"></Navigate>
     }
-    
+
 }
 
 export default MyListings;
