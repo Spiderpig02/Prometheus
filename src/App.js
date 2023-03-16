@@ -11,7 +11,7 @@ import MyPage from './MyPage';
 import RegisterNewUser from './NewUser';
 import UpdateAd from './UpdateAd';
 import OtherUser from './OtherUser';
-
+import AdminPage from './AdminPage';
 
 function App() {
 
@@ -27,7 +27,7 @@ function App() {
         document.body.className = themeMode;
     }, [themeMode]);
 
-    return (
+      return (
         <div>
             <ResponsiveAppBar>
             </ResponsiveAppBar>
@@ -46,6 +46,6 @@ function App() {
             </div>
         </div>
     );
-}
-
+  
+  }
 export default App;
