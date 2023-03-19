@@ -7,6 +7,7 @@ import './AllListings.css';
 import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
 import { Link } from "react-router-dom";
+import { addUser } from "./IO";
 
 export const AllListings = (props) => {
 
@@ -71,6 +72,33 @@ export const AllListings = (props) => {
     const handleSetChecked = (checked) => {
         setCheckedList(checked);
     };
+    const likeAd = (adID) => {
+        let userCopy = userState;
+        if (userState.Like.includes(adID)) {
+            let tmp = userCopy.Like.filter(ad => ad !== adID)
+            userCopy.Like = tmp;
+            setUserState(userCopy);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+        }
+        else {
+            userCopy.Like.push(adID);
+             setUserState(userCopy);
+             addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+        };
+        //setUserStateLiked(dummyList)
+        // if (userState.Blocked.includes(userID)) {
+        //     let tmp = userCopy.Blocked.filter(e => e !== userID)
+        //     userCopy.Blocked = tmp;
+        //     addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+        //     window.alert("Bruker er nå fjernet fra Blocked listen din");
+
+        // } else {
+        //     userCopy.Blocked.push(userID);
+        //     setUserState(userCopy);
+        //     addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+        //     window.alert("Bruker er nå lag inn i Blocked listen din");
+        // };
+    };
 
     const filterBySearch = () => {
         let searchText = document.getElementById("searchField").value
@@ -133,6 +161,7 @@ export const AllListings = (props) => {
                                 textAlign: "center",
                                 verticalAlign: "middle"
                             }}>
+                                <button  onClick={() => { likeAd(ad.id) }} className={userState.Like.includes(ad.id)?"HeartButtonFull":"HeartButtonEmpty"}></button>
                                 <h4 className="addType">
                                     {ad.Type}
                                 </h4>
