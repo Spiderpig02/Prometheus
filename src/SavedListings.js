@@ -3,15 +3,11 @@ import Typography from "@mui/material/Typography";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { auth, firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
-import './AllListings.css';
-import './MyListings.css';
-import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
-import './CheckboxSidebar.css'
+import './SavedListings.css';
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
-import { addUser } from "./IO";
 
-export const SavedAds = (props) => {
+export const AllListings = (props) => {
 
     const currentUser = auth.currentUser;
     const [checkedList, setCheckedList] = useState([]);
@@ -70,24 +66,20 @@ export const SavedAds = (props) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             let dummyList = [];
             if (userState.length !== 0) {
-                if (userState.Like.length !== 0) { 
-                    if (userState.Blocked.length !== 0) {
-                        adsData.forEach(element => {
-                            if (userState.Like.includes(element.id) && !userState.Blocked.includes(element.userID)) {
-                                dummyList.push(element);
-                            }
-                        });
+                console.log(userState);
+                adsData.forEach(element => {
+                    if (userState.Like.includes(element.id)) {
+                        dummyList.push(element);
                     }
-                    else {
-                        adsData.forEach(element => {
-                            // if (userState.Like.includes(element.id)) {
-                            //     dummyList.push(element);
-                            // }
-                            dummyList.push(element);
-                        });
-                    }
-                }
+                });
             }
+            //else {
+            //     adsData.forEach(element => {
+            //         if (element.Available === true) {
+            //             dummyList.push(element);
+            //         }
+            //     });
+            // };
             setSavedAds(dummyList);
         });
     };
@@ -99,24 +91,12 @@ export const SavedAds = (props) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             let dummyList = [];
             if (userState.length !== 0) {
-                console.log("Userstate finnes")
-                if (userState.Like.length !== 0) { 
-                    if (userState.Blocked.length !== 0) {
-                        adsData.forEach(element => {
-                            if (userState.Like.includes(element.id) && !userState.Blocked.includes(element.userID)) {
-                                dummyList.push(element);
-                            }
-                        });
+                console.log(userState);
+                adsData.forEach(element => {
+                    if (userState.Like.includes(element.id)) {
+                        dummyList.push(element);
                     }
-                    else {
-                        adsData.forEach(element => {
-                            // if (userState.Like.includes(element.id)) {
-                            //     dummyList.push(element);
-                            // }
-                            dummyList.push(element);
-                        });
-                    }
-                }
+                });
             }
             setSavedAds(dummyList);
         })
@@ -130,7 +110,6 @@ export const SavedAds = (props) => {
 
     useEffect(() => {
         if (currentUser) {
-            console.log("Har user")
             getUser();
         }
     }, []);
@@ -142,33 +121,25 @@ export const SavedAds = (props) => {
             getAds();
         }
 
-    }, [checkedList, emptySearch, userState, savedAds]);
+    }, [checkedList, emptySearch, userState]);
 
 
-
-    const likeAd = (adID) => {
-        let userCopy = userState;
-        console.log(userState.Like)
-        if (userState.Like.includes(adID)) {
-            let tmp = userCopy.Like.filter(ad => ad !== adID)
-            userCopy.Like = tmp;
-            setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
-        }
-        else {
-            userCopy.Like.push(adID);
-            setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
-        };
+    const handleSetChecked = (checked) => {
+        setCheckedList(checked);
     };
+
+    
 
     return (
         <div>
             <Container>
                 <Container className="ListingsContainer" sx={{ justifyContent: 'center', display: 'flex', padding: 0, paddingLeft: 0 }}>
+                    <Box className='sidebar-container'>
+                        <CheckboxSidebar className="sidebar" onChecked={handleSetChecked} />
+                    </Box>
                 </Container>
                 <Typography variant='h2' sx={{ my: 4, textAlign: 'center', color: "primary.main" }} className="pageHeading">
-                    Lagrede Annonser
+                    Alle Annonser
                 </Typography>
                 <List>
                     {savedAds.map(ad => (
@@ -187,16 +158,9 @@ export const SavedAds = (props) => {
                                 textAlign: "center",
                                 verticalAlign: "middle"
                             }}>
-
-                                <div className="likedAndTypeWrapper">
-                                    {userState.length !== 0 ? <button onClick={() => { likeAd(ad.id); setEmptySearch(emptySearch + "1") }} className={
-                                        userState.Like.includes(ad.id) ? "HeartButtonFull" : "HeartButtonEmpty"
-                                    }></button> : <span className="HeartButtonFull"></span>}
-                                    <h4 className="addType">
-                                        {ad.Type}
-                                    </h4>
-                                </div>
-
+                                <h4 className="addType">
+                                    {ad.Type}
+                                </h4>
                                 <div className="paperTitleAndDate">
                                     <h1>
                                         {ad.Title}
@@ -251,4 +215,4 @@ export const SavedAds = (props) => {
     );
 }
 
-export default SavedAds;
+export default AllListings;
