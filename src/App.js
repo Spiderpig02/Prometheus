@@ -12,6 +12,7 @@ import RegisterNewUser from './NewUser';
 import UpdateAd from './UpdateAd';
 import OtherUser from './OtherUser';
 import AdminPage from './AdminPage';
+import SavedAds from './SavedAds';
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
                     <Route path="/Ny bruker side" element={<RegisterNewUser />} />
                     <Route path="/Oppdater Annonse" element={<UpdateAd getAd={adID} />} />
                     <Route path="/Admin Page" element={<AdminPage />} />
+                    <Route path="/Lagrede Annonser" element={<SavedAds />} />
                 </Routes>
             </div>
         </div>
