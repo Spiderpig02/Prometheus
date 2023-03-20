@@ -80,10 +80,9 @@ export const SavedAds = (props) => {
                     }
                     else {
                         adsData.forEach(element => {
-                            // if (userState.Like.includes(element.id)) {
-                            //     dummyList.push(element);
-                            // }
-                            dummyList.push(element);
+                            if (userState.Like.includes(element.id)) {
+                                dummyList.push(element);
+                            }
                         });
                     }
                 }
@@ -110,10 +109,9 @@ export const SavedAds = (props) => {
                     }
                     else {
                         adsData.forEach(element => {
-                            // if (userState.Like.includes(element.id)) {
-                            //     dummyList.push(element);
-                            // }
-                            dummyList.push(element);
+                            if (userState.Like.includes(element.id)) {
+                                dummyList.push(element);
+                            }
                         });
                     }
                 }
@@ -148,18 +146,18 @@ export const SavedAds = (props) => {
 
     const likeAd = (adID) => {
         let userCopy = userState;
-        console.log(userState.Like)
         if (userState.Like.includes(adID)) {
             let tmp = userCopy.Like.filter(ad => ad !== adID)
             userCopy.Like = tmp;
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         }
         else {
             userCopy.Like.push(adID);
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         };
+
     };
 
     return (
