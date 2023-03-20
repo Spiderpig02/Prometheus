@@ -71,7 +71,6 @@ export const AllListings = (props) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             let dummyList = [];
             if (userState.length !== 0) {
-                console.log(userState);
                 adsData.forEach(element => {
                     if (element.Available === true && !userState.Blocked.includes(element.userID)) {
                         dummyList.push(element);
@@ -119,7 +118,6 @@ export const AllListings = (props) => {
 
     useEffect(() => {
         if (currentUser) {
-            console.log("Har user")
             getUser();
         }
     }, []);
@@ -139,31 +137,18 @@ export const AllListings = (props) => {
     };
     const likeAd = (adID) => {
         let userCopy = userState;
-        console.log(userState.Like)
         if (userState.Like.includes(adID)) {
             let tmp = userCopy.Like.filter(ad => ad !== adID)
             userCopy.Like = tmp;
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         }
         else {
             userCopy.Like.push(adID);
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         };
-        //setUserStateLiked(dummyList)
-        // if (userState.Blocked.includes(userID)) {
-        //     let tmp = userCopy.Blocked.filter(e => e !== userID)
-        //     userCopy.Blocked = tmp;
-        //     addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
-        //     window.alert("Bruker er nå fjernet fra Blocked listen din");
 
-        // } else {
-        //     userCopy.Blocked.push(userID);
-        //     setUserState(userCopy);
-        //     addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
-        //     window.alert("Bruker er nå lag inn i Blocked listen din");
-        // };
     };
 
     const filterBySearch = () => {
@@ -205,8 +190,6 @@ export const AllListings = (props) => {
                 <List>
                     {ads.map(ad => (
                         <Box key={ad.id} sx={{
-
-                            //justifyContent: "space-between",
                             margin: "30px",
                             mx: 'auto',
                             width: 700
