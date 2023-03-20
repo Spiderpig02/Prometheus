@@ -18,7 +18,7 @@ function BlockedUserMyPage(props) {
             const userData = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             const tmp = [];
             userData.map((user) => {
-                return (user.id === currentUser.uid ? true : tmp.push(user))
+                return (user.id === currentUser.uid || user.id === "GyZ7hCTTXONKts4zlO0ECiLOzuA2" ? true : tmp.push(user))
             });
             setUsers(tmp);
         });

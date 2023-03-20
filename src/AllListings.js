@@ -9,12 +9,14 @@ import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
+import { addUser } from "./IO";
 
 export const AllListings = (props) => {
 
     const currentUser = auth.currentUser;
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
+    const [likedAds, setLikedAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
     const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
@@ -117,6 +119,7 @@ export const AllListings = (props) => {
 
     useEffect(() => {
         if (currentUser) {
+            console.log("Har user")
             getUser();
         }
     }, []);
@@ -133,6 +136,34 @@ export const AllListings = (props) => {
 
     const handleSetChecked = (checked) => {
         setCheckedList(checked);
+    };
+    const likeAd = (adID) => {
+        let userCopy = userState;
+        console.log(userState.Like)
+        if (userState.Like.includes(adID)) {
+            let tmp = userCopy.Like.filter(ad => ad !== adID)
+            userCopy.Like = tmp;
+            setUserState(userCopy);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+        }
+        else {
+            userCopy.Like.push(adID);
+            setUserState(userCopy);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+        };
+        //setUserStateLiked(dummyList)
+        // if (userState.Blocked.includes(userID)) {
+        //     let tmp = userCopy.Blocked.filter(e => e !== userID)
+        //     userCopy.Blocked = tmp;
+        //     addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+        //     window.alert("Bruker er nå fjernet fra Blocked listen din");
+
+        // } else {
+        //     userCopy.Blocked.push(userID);
+        //     setUserState(userCopy);
+        //     addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+        //     window.alert("Bruker er nå lag inn i Blocked listen din");
+        // };
     };
 
     const filterBySearch = () => {
@@ -188,9 +219,16 @@ export const AllListings = (props) => {
                                 textAlign: "center",
                                 verticalAlign: "middle"
                             }}>
-                                <h4 className="addType">
-                                    {ad.Type}
-                                </h4>
+
+                                <div className="likedAndTypeWrapper">
+                                    {userState.length !== 0 ? <button onClick={() => { likeAd(ad.id); setEmptySearch(emptySearch + "1") }} className={
+                                        userState.Like.includes(ad.id) ? "HeartButtonFull" : "HeartButtonEmpty"
+                                    }></button> : <span className="HeartButtonFull"></span>}
+                                    <h4 className="addType">
+                                        {ad.Type}
+                                    </h4>
+                                </div>
+
                                 <div className="paperTitleAndDate">
                                     <h1>
                                         {ad.Title}
