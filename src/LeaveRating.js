@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import { FieldValue } from "firebase/firestore";
 
 import './LeaveRating.css'
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 function LeaveRating(props) {
@@ -22,6 +22,7 @@ function LeaveRating(props) {
     const [comment, setComment] = useState('');
     const [username, setUsername] = useState('');
     const [totalRating, setTotalRating] = useState();
+    const navigation = useNavigate();
 
     async function getUsername() {
         const un = (await getDoc(currentUserDocRef)).data().Username
@@ -50,6 +51,7 @@ function LeaveRating(props) {
                 }),
                 totalRating: totalRating + rating
             })
+            navigation("/Alle Annonser"); 
         } catch (error) {
             alert("Feil: " + error)
         }
@@ -73,9 +75,8 @@ function LeaveRating(props) {
                     }}
 
                 />
-                <div className="buttonWrapper"> <Link to={"/Alle Annonser"}>
+                <div className="buttonWrapper">
                     <Button variant="outlined" type='submit'> Submit </Button>
-                </Link>
                 </div>
 
             </form>
