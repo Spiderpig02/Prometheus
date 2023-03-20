@@ -161,6 +161,7 @@ export const AllListings = (props) => {
                                 textAlign: "center",
                                 verticalAlign: "middle"
                             }}>
+                                
                                 <button  onClick={() => { likeAd(ad.id) }} className={userState.Like.includes(ad.id)?"HeartButtonFull":"HeartButtonEmpty"}></button>
                                 <h4 className="addType">
                                     {ad.Type}
