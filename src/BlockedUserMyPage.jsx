@@ -18,7 +18,7 @@ function BlockedUserMyPage(props) {
             const userData = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             const tmp = [];
             userData.map((user) => {
-                return (user.id === currentUser.uid ? true : tmp.push(user))
+                return ((user.id === currentUser.uid || user.Email === "admin@admin.com") ? true : tmp.push(user))
             });
             setUsers(tmp);
         });
@@ -69,7 +69,7 @@ function BlockedUserMyPage(props) {
             userCopy.Blocked.push(userID);
             setUserState(userCopy);
             addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
-            window.alert("Bruker er nå lag inn i Blocked listen din");
+            window.alert("Bruker er nå lagt inn i Blocked listen din");
         };
     };
 
@@ -79,7 +79,7 @@ function BlockedUserMyPage(props) {
                 <ul className="users">
                     {viewedUsers.map((user) => (<li className="user" key={user.id}>
                         <h3 className="username"> {user.Username} </h3>
-                        <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Un blokk" : "Blokk"} </button>
+                        <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Unblock" : "Block"} </button>
                     </li>)
                     )}
                 </ul>);
@@ -93,7 +93,7 @@ function BlockedUserMyPage(props) {
                 <input onChange={() => {
                     filterBySearch();
                 }} type="text" id="searchField" name="searchField"
-                    placeholder="Søk etter brukere via brukername, tlf eller e-post"></input>
+                    placeholder="Søk etter brukere via brukernavn, telefonnummer eller e-post"></input>
             </div>
             {showBlockedUsers()}
         </div>

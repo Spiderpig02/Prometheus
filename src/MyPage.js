@@ -53,7 +53,7 @@ const MyPage = (props) => {
                         <button onClick={async () =>
                             navigate("/Lagrede Annonser")
                         }
-                            class="savedAdsButton" >Lagrede annonser</button>
+                             >Lagrede annonser</button>
                         <h3>
                             Annen Statistikk:
                         </h3>

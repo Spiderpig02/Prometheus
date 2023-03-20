@@ -69,7 +69,6 @@ function UpdateAd(props) {
             } else if (type === 'Etterspørsel') {
                 alert("Etterspørselen er oppdatert");
             }
-
         } catch (error) {
             alert("En feil har oppstått" + error);
         }
