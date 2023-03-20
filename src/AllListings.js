@@ -145,13 +145,11 @@ export const AllListings = (props) => {
             userCopy.Like = tmp;
             setUserState(userCopy);
             addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
-            console.log(userCopy.Like)
         }
         else {
             userCopy.Like.push(adID);
             setUserState(userCopy);
             addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
-            console.log(userCopy.Like)
         };
         //setUserStateLiked(dummyList)
         // if (userState.Blocked.includes(userID)) {
@@ -221,12 +219,16 @@ export const AllListings = (props) => {
                                 textAlign: "center",
                                 verticalAlign: "middle"
                             }}>
-                                {userState.length !== 0 ? <button onClick={() => { likeAd(ad.id); setEmptySearch(emptySearch + "1") }} className={
-                                    userState.Like.includes(ad.id) ? "HeartButtonFull" : "HeartButtonEmpty"
-                                }></button> : <span></span>}
-                                <h4 className="addType">
-                                    {ad.Type}
-                                </h4>
+
+                                <div className="likedAndTypeWrapper">
+                                    {userState.length !== 0 ? <button onClick={() => { likeAd(ad.id); setEmptySearch(emptySearch + "1") }} className={
+                                        userState.Like.includes(ad.id) ? "HeartButtonFull" : "HeartButtonEmpty"
+                                    }></button> : <span className="HeartButtonFull"></span>}
+                                    <h4 className="addType">
+                                        {ad.Type}
+                                    </h4>
+                                </div>
+
                                 <div className="paperTitleAndDate">
                                     <h1>
                                         {ad.Title}
