@@ -1,6 +1,6 @@
 import { Container, Paper, Typography } from "@mui/material";
 import { Navigate } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { auth, firestore } from './firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
@@ -23,9 +23,24 @@ const MyPage = (props) => {
         getData();
     }, []);
 
+    const adminSide = () => {
+        console.log(userData.Email);
+        if (userData.Email === "admin@admin.com") {
+            return (<div>
+                <Link to={"/Admin Page"}>
+                    <button className="adminPageButton"> Admin Side</button>
+                </Link>
+            </div>
+            )
+        };
+    };
+
     if (user !== null) {
         return (
             <Container style={{ marginTop: '100px' }}>
+
+                {adminSide()}
+
                 <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                     Min Side
                     <Paper>
