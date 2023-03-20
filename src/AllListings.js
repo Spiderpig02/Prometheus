@@ -9,12 +9,14 @@ import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
+import { addUser } from "./IO";
 
 export const AllListings = (props) => {
 
     const currentUser = auth.currentUser;
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
+    const [likedAds, setLikedAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
     const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
@@ -69,7 +71,6 @@ export const AllListings = (props) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             let dummyList = [];
             if (userState.length !== 0) {
-                console.log(userState);
                 adsData.forEach(element => {
                     if (element.Available === true && !userState.Blocked.includes(element.userID)) {
                         dummyList.push(element);
@@ -134,6 +135,21 @@ export const AllListings = (props) => {
     const handleSetChecked = (checked) => {
         setCheckedList(checked);
     };
+    const likeAd = (adID) => {
+        let userCopy = userState;
+        if (userState.Like.includes(adID)) {
+            let tmp = userCopy.Like.filter(ad => ad !== adID)
+            userCopy.Like = tmp;
+            setUserState(userCopy);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+        }
+        else {
+            userCopy.Like.push(adID);
+            setUserState(userCopy);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+        };
+
+    };
 
     const filterBySearch = () => {
         let searchText = document.getElementById("searchField").value
@@ -174,8 +190,6 @@ export const AllListings = (props) => {
                 <List>
                     {ads.map(ad => (
                         <Box key={ad.id} sx={{
-
-                            //justifyContent: "space-between",
                             margin: "30px",
                             mx: 'auto',
                             width: 700
@@ -188,9 +202,16 @@ export const AllListings = (props) => {
                                 textAlign: "center",
                                 verticalAlign: "middle"
                             }}>
-                                <h4 className="addType">
-                                    {ad.Type}
-                                </h4>
+
+                                <div className="likedAndTypeWrapper">
+                                    {userState.length !== 0 ? <button onClick={() => { likeAd(ad.id); setEmptySearch(emptySearch + "1") }} className={
+                                        userState.Like.includes(ad.id) ? "HeartButtonFull" : "HeartButtonEmpty"
+                                    }></button> : <span className="HeartButtonFull"></span>}
+                                    <h4 className="addType">
+                                        {ad.Type}
+                                    </h4>
+                                </div>
+
                                 <div className="paperTitleAndDate">
                                     <h1>
                                         {ad.Title}
