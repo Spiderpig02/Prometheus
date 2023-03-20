@@ -2,7 +2,7 @@ import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { auth, firestore } from './firebaseConfig';
 import { addAd, updateAd } from './IO'
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import './LagAnnonse.css'
 
 function UpdateAd(props) {
@@ -18,6 +18,7 @@ function UpdateAd(props) {
     const [loanedBy, setLoanedBy] = useState('');
     const [adData, setAdData] = useState([]);
     const [inputBoxAvailable, setInputBoxAvailable] = useState("usynligInput");
+    const navigate = useNavigate();
 
 
 
@@ -69,11 +70,11 @@ function UpdateAd(props) {
             } else if (type === 'Etterspørsel') {
                 alert("Etterspørselen er oppdatert");
             }
-
         } catch (error) {
             alert("En feil har oppstått" + error);
         }
-    }
+        navigate("/Mine Annonser");
+    };
 
     async function getPhone() {
         const docRef = doc(firestore, "User", userData.uid);

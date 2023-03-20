@@ -1,11 +1,13 @@
 import { Button, Rating } from "@mui/material";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { doc, updateDoc, getDocs, query, collection, where, getDoc, setDoc, arrayUnion } from "firebase/firestore";
 import { firestore } from "./firebaseConfig";
 import { getAuth } from "firebase/auth";
 import { FieldValue } from "firebase/firestore";
 
 import './LeaveRating.css'
+import { Navigate } from "react-router";
+import { Link } from "react-router-dom";
 
 function LeaveRating(props) {
 
@@ -17,7 +19,7 @@ function LeaveRating(props) {
     const otherUserDocRef = doc(firestore, "User", otherUserUID)
 
     const [rating, setRating] = useState('');
-    const [comment, setComment] = useState(''); 
+    const [comment, setComment] = useState('');
     const [username, setUsername] = useState('');
     const [totalRating, setTotalRating] = useState();
 
@@ -48,36 +50,37 @@ function LeaveRating(props) {
                 }),
                 totalRating: totalRating + rating
             })
-        } catch(error) {
+        } catch (error) {
             alert("Feil: " + error)
         }
     }
 
     return (
-        <div className="rating-form" style={{marginTop: "100px"}}>
+        <div className="rating-form" style={{ marginTop: "100px" }}>
             <form onSubmit={submit}>
                 <h1> Legg til en rating </h1>
-                <div className = "ratingComment">
-                    <div className ="commentLabelWrapper">
-                        <label className = "commentLabel" htmlFor="kommentar"> Kommentar: </label>
+                <div className="ratingComment">
+                    <div className="commentLabelWrapper">
+                        <label className="commentLabel" htmlFor="kommentar"> Kommentar: </label>
                     </div>
-                    <textarea placeholder="Skriv her..." name = "commentInput" rows = "8" cols = "60" onChange={(event) => setComment(event.target.value)}></textarea>
+                    <textarea placeholder="Skriv her..." name="commentInput" rows="8" cols="60" onChange={(event) => setComment(event.target.value)}></textarea>
                 </div>
-                
-                <Rating sx={{ marginLeft: 20 }}
-                name="simple-controlled"
-                onChange={(event, newValue) => {
-                setRating(newValue);
-                }}
 
-                />    
-                <div className = "buttonWrapper">
+                <Rating sx={{ marginLeft: 20 }}
+                    name="simple-controlled"
+                    onChange={(event, newValue) => {
+                        setRating(newValue);
+                    }}
+
+                />
+                <div className="buttonWrapper"> <Link to={"/Alle Annonser"}>
                     <Button variant="outlined" type='submit'> Submit </Button>
+                </Link>
                 </div>
-                
+
             </form>
         </div>
-        
+
     )
 }
 

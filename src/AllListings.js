@@ -184,7 +184,7 @@ export const AllListings = (props) => {
                         filterBySearch();
                     }} type="text" id="searchField" name="searchField"
                         placeholder="Søk etter annonse..."></input>
-                    <button onClick={filterBySearch} id="searchFieldButton">Søk</button>
+                    {/* <button onClick={filterBySearch} id="searchFieldButton">Søk</button> */}
                 </div>
 
                 <List>

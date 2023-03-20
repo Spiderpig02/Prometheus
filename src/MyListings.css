@@ -16,3 +16,17 @@
      width: 50%;
      cursor: pointer;
  }
+
+ .myAdsTitle {
+    margin-top: 100px;
+    text-align: center;
+ }
+
+ div#pageWrapper {
+    margin-top: 76.5px;
+ }
+
+ h2.pageHeading {
+    margin-top: 76.5px;
+    margin-bottom: 32px;
+ }
