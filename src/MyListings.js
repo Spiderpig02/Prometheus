@@ -74,9 +74,10 @@ export const MyListings = (props) => {
                     <Box className='sidebar-container'>
                         <MineAnnonserSidebar className="sidebar" onChecked={handleSetStatus} />
                     </Box>
-                    <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+                    {/* <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                         Mine Annonser
-                    </Typography>
+                    </Typography> */}
+                    <h2 className = "pageHeading"> Mine Annonser </h2>
 
                     <List>
 
