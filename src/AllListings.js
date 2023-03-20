@@ -119,6 +119,7 @@ export const AllListings = (props) => {
 
     useEffect(() => {
         if (currentUser) {
+            console.log("Har user")
             getUser();
         }
     }, []);
@@ -138,16 +139,19 @@ export const AllListings = (props) => {
     };
     const likeAd = (adID) => {
         let userCopy = userState;
+        console.log(userState.Like)
         if (userState.Like.includes(adID)) {
             let tmp = userCopy.Like.filter(ad => ad !== adID)
             userCopy.Like = tmp;
             setUserState(userCopy);
             addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            console.log(userCopy.Like)
         }
         else {
             userCopy.Like.push(adID);
-             setUserState(userCopy);
-             addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            setUserState(userCopy);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            console.log(userCopy.Like)
         };
         //setUserStateLiked(dummyList)
         // if (userState.Blocked.includes(userID)) {
@@ -217,8 +221,9 @@ export const AllListings = (props) => {
                                 textAlign: "center",
                                 verticalAlign: "middle"
                             }}>
-                                
-                                <button  onClick={() => { likeAd(ad.id) }} className={userState.Like.includes(ad.id)?"HeartButtonFull":"HeartButtonEmpty"}></button>
+                                {userState.length !== 0 ? <button onClick={() => { likeAd(ad.id); setEmptySearch(emptySearch + "1") }} className={
+                                    userState.Like.includes(ad.id) ? "HeartButtonFull" : "HeartButtonEmpty"
+                                }></button> : <span></span>}
                                 <h4 className="addType">
                                     {ad.Type}
                                 </h4>
