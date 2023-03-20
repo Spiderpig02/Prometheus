@@ -31,8 +31,8 @@ function BlockedUserMyPage(props) {
     };
 
     useEffect(() => {
-        getUsers();
         getUser();
+        getUsers();
     }, []);
 
     useEffect(() => {
@@ -62,15 +62,29 @@ function BlockedUserMyPage(props) {
         if (userState.Blocked.includes(userID)) {
             let tmp = userCopy.Blocked.filter(e => e !== userID)
             userCopy.Blocked = tmp;
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
             window.alert("Bruker er nå fjernet fra Blocked listen din");
 
         } else {
             userCopy.Blocked.push(userID);
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
             window.alert("Bruker er nå lag inn i Blocked listen din");
         };
+    };
+
+    const showBlockedUsers = () => {
+        if (userState.length !== 0) {
+            return (
+                <ul className="users">
+                    {viewedUsers.map((user) => (<li className="user" key={user.id}>
+                        <h3 className="username"> {user.Username} </h3>
+                        <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Un blokk" : "Blokk"} </button>
+                    </li>)
+                    )}
+                </ul>);
+        };
+        return <h2> No users exist </h2>
     };
 
     return (
@@ -81,13 +95,7 @@ function BlockedUserMyPage(props) {
                 }} type="text" id="searchField" name="searchField"
                     placeholder="Søk etter brukere via brukername, tlf eller e-post"></input>
             </div>
-            <ul className="users">
-                {viewedUsers.map((user) => (<li className="user" key={user.id}>
-                    <h3 className="username"> {user.Username} </h3>
-                    <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Un blokk" : "Blokk"} </button>
-                </li>)
-                )}
-            </ul>
+            {showBlockedUsers()}
         </div>
     );
 };

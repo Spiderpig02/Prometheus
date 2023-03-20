@@ -87,3 +87,17 @@ input[type='radio'],
 input[type='checkbox'] {
     cursor: pointer;
 }
+input[type="text"].synligInput{
+    width: 400px;
+    text-align: left;
+}
+input[type="text"].usynligInput{
+    display: none;
+    width: 400px;
+    text-align: left;
+}
+
+.isRentedLabelWrapper label {
+    padding: 0;
+    width: 405px;
+}

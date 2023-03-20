@@ -1,5 +1,6 @@
 import { Container, Paper, Typography } from "@mui/material";
 import { Navigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { auth, firestore } from './firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
@@ -7,6 +8,7 @@ import BlockedUserMyPage from "./BlockedUserMyPage";
 
 const MyPage = (props) => {
 
+    const navigate = useNavigate();
     const user = auth.currentUser;
     const [userData, setUserData] = useState([]);
 
@@ -33,6 +35,10 @@ const MyPage = (props) => {
                         <h3>
                             Min Rating:
                         </h3>
+                        <button onClick={async () =>
+                            navigate("/Lagrede Annonser")
+                        }
+                            class="savedAdsButton" >Lagrede annonser</button>
                         <h3>
                             Annen Statistikk:
                         </h3>

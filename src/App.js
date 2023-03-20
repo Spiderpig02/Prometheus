@@ -9,8 +9,10 @@ import ResponsiveAppBar from './ResponsiveAppBar';
 import LoginUI from './LoginUI';
 import MyPage from './MyPage';
 import RegisterNewUser from './NewUser';
+import UpdateAd from './UpdateAd';
 import OtherUser from './OtherUser';
-
+import AdminPage from './AdminPage';
+import SavedAds from './SavedAds';
 
 function App() {
 
@@ -20,6 +22,7 @@ function App() {
 
     const [user, setUser] = useState("NullOtherUser");
     const [themeMode, setThemeMode] = useState('lightMode');
+    const [adID, setAdID] = useState("AdNULL");
 
     useEffect(() => {
         document.body.className = themeMode;
@@ -32,17 +35,20 @@ function App() {
             <div id="pageWrapper" className={`App ${themeMode}`}>
                 <Routes>
                     <Route path="/" element={<AllListings recieveUser={user => setUser(user)} />} />
-                    <Route path="/Mine Annonser" element={<MyListings />} />
+                    <Route path="/Mine Annonser" element={<MyListings recieveClickedAd={ad => setAdID(ad)} />} />
                     <Route path="/Alle Annonser" element={<AllListings recieveUser={user => setUser(user)} />} />
                     <Route path="/OtherUser" element={<OtherUser getuser={user} />} />
                     <Route path="/Lag Annonse" element={<LagAnnonse />} />
                     <Route path="/Logg inn" element={<LoginUI />} />
                     <Route path="/Min Profil" element={<MyPage />} />
                     <Route path="/Ny bruker side" element={<RegisterNewUser />} />
+                    <Route path="/Oppdater Annonse" element={<UpdateAd getAd={adID} />} />
+                    <Route path="/Admin Page" element={<AdminPage />} />
+                    <Route path="/Lagrede Annonser" element={<SavedAds />} />
                 </Routes>
             </div>
         </div>
     );
-}
 
+}
 export default App;

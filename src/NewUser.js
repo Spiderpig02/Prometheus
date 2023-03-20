@@ -18,12 +18,11 @@ function RegisterNewUser() {
         createUserWithEmailAndPassword(auth, email, password)
             .then((cred) => {
                 console.log("User created", cred.user)
-                addUser(cred.user.uid, username, password, email, phonenumber, [], [], [], []);
+                addUser(cred.user.uid, username, password, email, phonenumber, [], [], [], [], null);
             })
             .catch((e) => {
                 console.log(e.message)
             })
-
         window.alert("Gratulerer, du har nå opprettet en ny bruker!")
     }
 

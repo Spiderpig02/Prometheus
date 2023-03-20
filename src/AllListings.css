@@ -36,6 +36,38 @@ h4 {
 div.paperTitleAndDate {
     margin-top: 10px;
 }
+
+iframe {
+    width: 99%;
+    height: 86%;
+}
+
+div#modalTopBar {
+    display: flex;
+    height: min-content;
+}
+
+div#modalTopBar h3 {
+    margin: auto;
+    margin-top: 1.5vw;
+    text-align: center;
+    padding-left: 40px;
+}
+
+div#modalTopBar span {
+    font-weight: 800;
+    font-size: 45px;
+    padding-right: 1vw;
+    padding-bottom: 0.5vw;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+div#modalTopBar span:hover {
+    opacity: 0.7;
+
+}
+
 .HeartButtonEmpty {
     background-image: url('./TomtHjerte.png');
     background-size: contain; 

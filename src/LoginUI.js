@@ -26,10 +26,6 @@ function LoginUI() {
             .catch((e) => {
                 console.log(e.message)
             })
-
-
-
-
     }
 
     const handleLogout = (e) => {
@@ -43,13 +39,13 @@ function LoginUI() {
         window.alert("Du er nå logget ut!")
     }
 
-    return (
-        <div className="loginForm">
-            <form onSubmit={handleSubmit}>
-                <div className="inputText">
+    const logIn = () => {
+        if (auth.currentUser === null) {
+            return (<>
+                < div className="inputText" >
                     <label htmlFor="title">E-post: </label>
                     <input placeholder="Brukernavn" type="text" name="usernameInput" required />
-                </div>
+                </div >
                 <div className="inputText">
                     <label>Passord: </label>
                     <input placeholder="Passord" type="password" name="passwordInput" required />
@@ -63,6 +59,14 @@ function LoginUI() {
                         {"Opprett ny bruker her!"}
                     </Link>
                 </div>
+            </>)
+        }
+    };
+
+    return (
+        <div className="loginForm">
+            <form onSubmit={handleSubmit}>
+                {logIn()}
                 {auth.currentUser && <div className="logoutButton"> <Link to={"/Alle Annonser"}>
                     <button className="shadow" type="button" onClick={handleLogout}>Logg ut</button>
                 </Link>
