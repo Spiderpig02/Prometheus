@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { auth, firestore } from './firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import BlockedUserMyPage from "./BlockedUserMyPage";
+import "./MyPage.css";
 
 const MyPage = (props) => {
 
@@ -52,7 +53,7 @@ const MyPage = (props) => {
                         </h3>
                         <button onClick={async () =>
                             navigate("/Lagrede Annonser")
-                        }
+                        } className="NavigateToMyLiked"
                              >Lagrede annonser</button>
                         <h3>
                             Annen Statistikk:
