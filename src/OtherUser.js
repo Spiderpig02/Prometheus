@@ -76,7 +76,7 @@ const OtherUser = (props) => {
                                             </h1>
                                         </div>
                                         <h3>
-                                            {rating.rating}
+                                            Vurdering: {rating.rating}
                                         </h3>                                  
                                     </Paper>
                                 </Box>

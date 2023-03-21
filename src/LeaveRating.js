@@ -37,6 +37,7 @@ function LeaveRating(props) {
     useEffect(() => {
         getUsername()
         getTotalRating()
+        setRating(5)
     }, []);
 
     const submit = async event => {
@@ -49,7 +50,7 @@ function LeaveRating(props) {
                     "comment": comment,
                     "rating": rating
                 }),
-                totalRating: totalRating + rating
+                totalRating: Number(Number(totalRating) + Number(rating))
             })
             navigation("/Alle Annonser"); 
         } catch (error) {
@@ -65,15 +66,15 @@ function LeaveRating(props) {
                     <div className="commentLabelWrapper">
                         <label className="commentLabel" htmlFor="kommentar"> Kommentar: </label>
                     </div>
-                    <textarea placeholder="Skriv her..." name="commentInput" rows="8" cols="60" onChange={(event) => setComment(event.target.value)}></textarea>
+                    <textarea placeholder="Skriv her..." name="commentInput" rows="8" cols="60" onChange={(event) => setComment(event.target.value)} required></textarea>
                 </div>
 
                 <Rating sx={{ marginLeft: 20 }}
                     name="simple-controlled"
+                    defaultValue={5}
                     onChange={(event, newValue) => {
                         setRating(newValue);
                     }}
-
                 />
                 <div className="buttonWrapper">
                     <Button variant="outlined" type='submit'> Submit </Button>
