@@ -13,7 +13,7 @@ import { addUser } from "./IO";
 
 export const AllListings = (props) => {
 
-    
+
 
     let path = "/OtherUser"
 
@@ -21,11 +21,11 @@ export const AllListings = (props) => {
 
     let currentUser = auth.currentUser;
 
-    if(currentUser==null){
-        path= "/Logg Inn";
+    if (currentUser == null) {
+        path = "/Logg Inn";
     };
 
-    
+
 
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
@@ -187,7 +187,7 @@ export const AllListings = (props) => {
                         <CheckboxSidebar className="sidebar" onChecked={handleSetChecked} />
                     </Box>
                 </Container>
-                <Typography variant='h2' sx={{ my: 4, textAlign: 'center', color: "primary.main" }} className="pageHeading">
+                <Typography variant='h2' sx={{ my: 4, textAlign: 'center', color: "primary.main" }} className="pageHeading" id="allAdvertsHeading">
                     Alle Annonser
                 </Typography>
                 <div className="searchBar">
