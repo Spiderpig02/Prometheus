@@ -52,14 +52,14 @@ function LeaveRating(props) {
                 }),
                 totalRating: Number(Number(totalRating) + Number(rating))
             })
-            navigation("/Alle Annonser"); 
+            navigation("/Alle Annonser");
         } catch (error) {
             alert("Feil: " + error)
         }
     }
 
     return (
-        <div className="rating-form" style={{ marginTop: "100px" }}>
+        <div className="rating-form">
             <form onSubmit={submit}>
                 <h1> Legg til en rating </h1>
                 <div className="ratingComment">
