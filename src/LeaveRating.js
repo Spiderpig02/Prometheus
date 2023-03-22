@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { doc, updateDoc, getDocs, query, collection, where, getDoc, setDoc, arrayUnion } from "firebase/firestore";
 import { firestore } from "./firebaseConfig";
 import { getAuth } from "firebase/auth";
-import { FieldValue } from "firebase/firestore";
-
 import './LeaveRating.css'
 import { Navigate, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
@@ -14,17 +12,17 @@ function LeaveRating(props) {
     const otherUserUID = props.userID;
     const auth = getAuth();
     const currentUser = auth.currentUser;
-
-    const currentUserDocRef = doc(firestore, "User", currentUser.uid)
+    
     const otherUserDocRef = doc(firestore, "User", otherUserUID)
 
-    const [rating, setRating] = useState('');
+    const [rating, setRating] = useState();
     const [comment, setComment] = useState('');
     const [username, setUsername] = useState('');
     const [totalRating, setTotalRating] = useState();
     const navigation = useNavigate();
-
+    
     async function getUsername() {
+        const currentUserDocRef = doc(firestore, "User", currentUser.uid)
         const un = (await getDoc(currentUserDocRef)).data().Username
         setUsername(un)
     }
@@ -35,10 +33,12 @@ function LeaveRating(props) {
     }
 
     useEffect(() => {
-        getUsername()
-        getTotalRating()
-        setRating(5)
-    }, []);
+        if (currentUser) {
+            getUsername()
+            getTotalRating()
+            setRating(5)
+        }
+    }, [currentUser]);
 
     const submit = async event => {
         event.preventDefault();
