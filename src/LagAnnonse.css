@@ -82,16 +82,26 @@ div.annonseEttersporselInputElementFlexboks {
     margin: 5px;
 }
 
+div.streetNameInputElementFlexboks label,
+div.cityInputElementFlexboks label,
+div.tittelInputElementFlexboks label,
+div.beskrivelseInputElementFlexboks label {
+    padding-bottom: 2%;
+    padding-top: 5%
+}
+
 .form-content button,
 input[type='radio'],
 input[type='checkbox'] {
     cursor: pointer;
 }
-input[type="text"].synligInput{
+
+input[type="text"].synligInput {
     width: 400px;
     text-align: left;
 }
-input[type="text"].usynligInput{
+
+input[type="text"].usynligInput {
     display: none;
     width: 400px;
     text-align: left;
