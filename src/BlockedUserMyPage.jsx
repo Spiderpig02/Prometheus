@@ -99,13 +99,15 @@ function BlockedUserMyPage(props) {
     const showBlockedUsers = () => {
         if (userState.length !== 0) {
             return (
-                <ul className="users">
-                    {viewedUsers.map((user) => (<li className="user" key={user.id}>
-                        <h3 className="username"> {user.Username} </h3>
-                        <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Unblock" : "Block"} </button>
-                    </li>)
-                    )}
-                </ul>);
+                <div>
+                    <ul className="users">
+                        {viewedUsers.map((user) => (<li className="user" key={user.id}>
+                            <h3 className="username"> {user.Username} </h3>
+                            <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Unblock" : "Block"} </button>
+                        </li>)
+                        )}
+                    </ul>
+                </div>);
         };
         return <h2> No users exist </h2>
     };
@@ -114,18 +116,21 @@ function BlockedUserMyPage(props) {
         if (userState.Email !== "admin@admin.com") {
             if (userState.length !== 0) {
                 return (
-                    <ul className="users">
-                        {userState.Interactions.map((email) => (<li className="user" key={email}>
-                            <h3 className="username"> {email} </h3>
-                            <Button style={{ textDecoration: "none", color: "whitesmoke" }} variant="outlined" value={email} onClick={(event) => toOtherUserPage(event.target.value)}>
-                                Se bruker sin side
-                                {/* useLocation for props gjennom link, mulig async? vet ikke  */}
-                            </Button>
-                        </li>)
-                        )}
-                    </ul>);
+                    <div>
+                        <h2 style={{ marginBottom: "0px" }}>Brukere du har interagert med</h2>
+                        <ul className="users">
+                            {userState.Interactions.map((email) => (<li className="user" key={email}>
+                                <h3 className="username"> {email} </h3>
+                                <Button style={{ textDecoration: "none", color: "white", backgroundColor: "#bfc8d1", marginBottom: "3px" }} variant="outlined" value={email} onClick={(event) => toOtherUserPage(event.target.value)}>
+                                    Se bruker sin side
+                                    {/* useLocation for props gjennom link, mulig async? vet ikke  */}
+                                </Button>
+                            </li>)
+                            )}
+                        </ul>
+                    </div>);
             };
-            return <h2> No user interactions yet! </h2>
+            return <h2> Du har ikke interagert med noen brukere enda </h2>
         };
     }
 
