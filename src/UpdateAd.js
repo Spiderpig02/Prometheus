@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import { auth, firestore } from './firebaseConfig';
 import { addAd, updateAd, updateUser } from './IO'
-import { useNavigate } from "react-router";
 import './LagAnnonse.css'
 
 function UpdateAd(props) {
