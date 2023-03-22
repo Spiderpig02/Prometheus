@@ -6,11 +6,12 @@ import './MyListings.css'
 import { Navigate } from "react-router";
 import LeaveRating from "./LeaveRating.js";
 import { getAuth } from "firebase/auth";
+import { useLocation } from "react-router";
 
 const OtherUser = (props) => {
-    console.log(props.getuser)
+
+    const location = useLocation();
     const otherUserUID = props.getuser;
-    const userDocRef = doc(firestore, "User", otherUserUID)
 
     const [username, setUsername] = useState('');
     const [phonenumber, setPhonenumber] = useState('');
@@ -18,7 +19,8 @@ const OtherUser = (props) => {
     const [rating, setRating] = useState([]);
     const [totalRating, setTotalRating] = useState();
 
-    const getUserInfo = async () => {
+    const getUserInfo = async (uid) => {
+        const userDocRef = doc(firestore, "User", uid)
         await getDoc(userDocRef).then((documentSnapshot) => {
             setUsername(documentSnapshot.data().Username)
             setPhonenumber(documentSnapshot.data().Phonenumber)
@@ -29,7 +31,11 @@ const OtherUser = (props) => {
     }
     
     useEffect(() => {
-        getUserInfo()
+        if (location.state == null) {
+            getUserInfo(props.getuser)
+        } else {
+            getUserInfo(location.state.uid)
+        }
     }, []);
 
     if (totalRating > 0) {

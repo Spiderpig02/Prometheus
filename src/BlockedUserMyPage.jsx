@@ -5,8 +5,12 @@ import { addUser } from "./IO";
 import './BlockedUserMyPage.css';
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function BlockedUserMyPage(props) {
+
+    let path = "/OtherUser"
+    const navigation = useNavigate();
 
     const currentUser = auth.currentUser;
     const [users, setUsers] = useState([]);
@@ -39,7 +43,7 @@ function BlockedUserMyPage(props) {
 
     useEffect(() => {
         getUser();
-    }, [userState]);
+    }, []);
 
     useEffect(() => {
         setViewedUsers(users);
@@ -75,17 +79,16 @@ function BlockedUserMyPage(props) {
         };
     };
 
-    const getUserUdiFromEmail = async (email) => {
+    const toOtherUserPage = async (email) => {
         await getDocs(userRef).then((snapShot) => {
             const userData = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            console.log(userData)
             userData.map((user) => {
                 if (user.Email === email ) {
-                    console.log(user.Email)
                     console.log(user.id)
-                    return user.id
+                    navigation(path, {state:{uid:user.id}})
                 }
             });
+            return null
         });
     }
 
@@ -109,12 +112,10 @@ function BlockedUserMyPage(props) {
                 <ul className="users">
                     {userState.Interactions.map((email) => (<li className="user" key={email}>
                         <h3 className="username"> {email} </h3>
-
-                        <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(getUserUdiFromEmail(email))} to="/OtherUser"  >
-                            <Button variant="outlined">
+                            <Button  style={{ textDecoration: "none", color: "whitesmoke" }} variant="outlined" value={email} onClick={(event) => toOtherUserPage(event.target.value)}>
                                 Se bruker sin side
+                                {/* useLocation for props gjennom link, mulig async? vet ikke  */}
                             </Button>
-                        </Link>
                     </li>)
                     )}
                 </ul>);

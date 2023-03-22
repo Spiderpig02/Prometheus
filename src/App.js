@@ -13,6 +13,7 @@ import UpdateAd from './UpdateAd';
 import OtherUser from './OtherUser';
 import AdminPage from './AdminPage';
 import SavedAds from './SavedAds';
+import BlockedUserMyPage from './BlockedUserMyPage';
 
 function App() {
 
@@ -40,11 +41,12 @@ function App() {
                     <Route path="/OtherUser" element={<OtherUser getuser={user} />} />
                     <Route path="/Lag Annonse" element={<LagAnnonse />} />
                     <Route path="/Logg inn" element={<LoginUI />} />
-                    <Route path="/Min Profil" element={<MyPage />} />
+                    <Route path="/Min Profil" element={<MyPage recieveUser={user => setUser(user)}/>} />
                     <Route path="/Ny bruker side" element={<RegisterNewUser />} />
                     <Route path="/Oppdater Annonse" element={<UpdateAd getAd={adID} />} />
                     <Route path="/Admin Page" element={<AdminPage />} />
                     <Route path="/Lagrede Annonser" element={<SavedAds />} />
+                    <Route path="/BlockedUserMyPage" element={<BlockedUserMyPage recieveUser={user => setUser(user)}/>} />
                 </Routes>
             </div>
         </div>
