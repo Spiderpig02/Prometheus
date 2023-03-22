@@ -87,9 +87,9 @@ function BlockedUserMyPage(props) {
         await getDocs(userRef).then((snapShot) => {
             const userData = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             userData.map((user) => {
-                if (user.Email === email ) {
+                if (user.Email === email) {
                     console.log(user.id)
-                    navigation(path, {state:{uid:user.id}})
+                    navigation(path, { state: { uid: user.id } })
                 }
             });
             return null
@@ -111,21 +111,23 @@ function BlockedUserMyPage(props) {
     };
 
     const showInteractions = () => {
-        if (userState.length !== 0) {
-            return (
-                <ul className="users">
-                    {userState.Interactions.map((email) => (<li className="user" key={email}>
-                        <h3 className="username"> {email} </h3>
-                            <Button  style={{ textDecoration: "none", color: "whitesmoke" }} variant="outlined" value={email} onClick={(event) => toOtherUserPage(event.target.value)}>
+        if (userState.Email !== "admin@admin.com") {
+            if (userState.length !== 0) {
+                return (
+                    <ul className="users">
+                        {userState.Interactions.map((email) => (<li className="user" key={email}>
+                            <h3 className="username"> {email} </h3>
+                            <Button style={{ textDecoration: "none", color: "whitesmoke" }} variant="outlined" value={email} onClick={(event) => toOtherUserPage(event.target.value)}>
                                 Se bruker sin side
                                 {/* useLocation for props gjennom link, mulig async? vet ikke  */}
                             </Button>
-                    </li>)
-                    )}
-                </ul>);
+                        </li>)
+                        )}
+                    </ul>);
+            };
+            return <h2> No user interactions yet! </h2>
         };
-        return <h2> No user interactions yet! </h2>
-    };
+    }
 
     return (
         <div className="blockedUsers">
