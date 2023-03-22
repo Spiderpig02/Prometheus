@@ -273,6 +273,7 @@ export const AllListings = (props) => {
                     ))}
                 </List>
             </Container>
+            <div className="contactAdmin"><h4>Oppdaget noe upassende i en annonse? <br></br>Kontakt administrator på epost: admin@admin.com</h4></div>
         </div>
     );
 }
