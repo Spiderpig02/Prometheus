@@ -27,7 +27,7 @@ div.searchBar {
     color: black;
 } */
 
-.paperTitleAndDate h1,
+.paperTitleAndDate h2,
 h4 {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -100,4 +100,17 @@ div#modalTopBar span:hover {
 
 div.likedAndTypeWrapper {
     position: relative;
+}
+
+h2#allAdvertsHeading {
+    margin-top: 25px;
+}
+
+div.contactAdmin {
+    margin-bottom: 3%;
+}
+
+body.darkMode div.darkMode button.HeartButtonEmpty,
+body.darkMode div.darkMode button.HeartButtonFull {
+    background-color: transparent;
 }
