@@ -1,11 +1,11 @@
-import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
+import { Box, Button, Container, List, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { auth, firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
 import './AllListings.css';
 import './MyListings.css';
-import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
+import CheckboxSidebar from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
@@ -16,9 +16,7 @@ export const AllListings = (props) => {
     const currentUser = auth.currentUser;
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
-    const [likedAds, setLikedAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
-    const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
     const [userState, setUserState] = useState([]);
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -141,12 +139,12 @@ export const AllListings = (props) => {
             let tmp = userCopy.Like.filter(ad => ad !== adID)
             userCopy.Like = tmp;
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         }
         else {
             userCopy.Like.push(adID);
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         };
 
     };

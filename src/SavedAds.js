@@ -1,11 +1,10 @@
-import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
+import { Box, Button, Container, List, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { auth, firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
 import './AllListings.css';
 import './MyListings.css';
-import CheckboxSidebar, { listCategory } from './CheckboxSidebar.jsx';
 import './CheckboxSidebar.css'
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
@@ -14,10 +13,8 @@ import { addUser } from "./IO";
 export const SavedAds = (props) => {
 
     const currentUser = auth.currentUser;
-    const [checkedList, setCheckedList] = useState([]);
     const [savedAds, setSavedAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
-    const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
     const [userState, setUserState] = useState([]);
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -70,7 +67,7 @@ export const SavedAds = (props) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             let dummyList = [];
             if (userState.length !== 0) {
-                if (userState.Like.length !== 0) { 
+                if (userState.Like.length !== 0) {
                     if (userState.Blocked.length !== 0) {
                         adsData.forEach(element => {
                             if (userState.Like.includes(element.id) && !userState.Blocked.includes(element.userID)) {
@@ -92,34 +89,6 @@ export const SavedAds = (props) => {
     };
 
 
-    const getQueryAds = async () => {
-        const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
-        await getDocs(querys).then((querySnapshot) => {
-            const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            let dummyList = [];
-            if (userState.length !== 0) {
-                console.log("Userstate finnes")
-                if (userState.Like.length !== 0) { 
-                    if (userState.Blocked.length !== 0) {
-                        adsData.forEach(element => {
-                            if (userState.Like.includes(element.id) && !userState.Blocked.includes(element.userID)) {
-                                dummyList.push(element);
-                            }
-                        });
-                    }
-                    else {
-                        adsData.forEach(element => {
-                            if (userState.Like.includes(element.id)) {
-                                dummyList.push(element);
-                            }
-                        });
-                    }
-                }
-            }
-            setSavedAds(dummyList);
-        })
-    };
-
     const getUser = async () => {
         const userDoc = doc(firestore, "User", currentUser.uid)
         const user = await getDoc(userDoc);
@@ -134,13 +103,8 @@ export const SavedAds = (props) => {
     }, []);
 
     useEffect(() => {
-        if (checkedList.length !== 0) {
-            getQueryAds();
-        } else {
-            getAds();
-        }
-
-    }, [checkedList, emptySearch, userState, savedAds]);
+        getAds();
+    }, [emptySearch, userState, savedAds]);
 
 
 
@@ -150,12 +114,12 @@ export const SavedAds = (props) => {
             let tmp = userCopy.Like.filter(ad => ad !== adID)
             userCopy.Like = tmp;
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         }
         else {
             userCopy.Like.push(adID);
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         };
 
     };
