@@ -1,6 +1,4 @@
 import { Box, Button, Container, Link, List, ListItem, Paper } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import AlertDialog from "./AlertDialog";
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, where, doc, deleteDoc, getDoc } from "firebase/firestore";
 import { auth, firestore } from "./firebaseConfig.js";

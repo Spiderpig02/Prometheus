@@ -1,8 +1,8 @@
-import { doc, getDoc,getDocs, collection, Timestamp } from 'firebase/firestore';
+import { doc, getDoc, getDocs, collection, Timestamp } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
 import { auth, firestore } from './firebaseConfig';
-import { addAd, updateAd, updateUser } from './IO'
-import { Navigate } from "react-router";
+import { updateAd, updateUser } from './IO'
 import './LagAnnonse.css'
 
 function UpdateAd(props) {
@@ -38,12 +38,12 @@ function UpdateAd(props) {
             const listOfUsers = [];
             const querySnapshot = await getDocs(collection(firestore, "User"));
             querySnapshot.forEach((doc) => {
-                listOfUsers.push({...doc.data(), id: doc.id}) 
+                listOfUsers.push({ ...doc.data(), id: doc.id })
             });
 
             setUseData(listOfUsers)
         };
-       
+
         getUserData();
     }, []);
 
@@ -78,17 +78,17 @@ function UpdateAd(props) {
     const submit = async event => {
         event.preventDefault();
         try {
-            if(loanedBy !== undefined && loanedBy !== null){
+            if (loanedBy !== undefined && loanedBy !== null) {
                 for (let index = 0; index < useData.length; index++) {
-                    if(useData[index].Email == loanedBy){
+                    if (useData[index].Email == loanedBy) {
                         await updateUser(userData.email, useData[index].id)
                         await updateUser(useData[index].Email, userData.uid)
                         break;
-                    }  
+                    }
                 }
 
             }
-            
+
             // await updateUser(useData, userData.uid)
             await updateAd(title, description, userData.uid, await getPhone(), type, checked, Timestamp.now(), streetName, city, available, loanedBy, props.getAd)
             if (type === 'Annonse') {
