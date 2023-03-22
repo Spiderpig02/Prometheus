@@ -109,3 +109,8 @@ h2#allAdvertsHeading {
 div.contactAdmin {
     margin-bottom: 3%;
 }
+
+body.darkMode div.darkMode button.HeartButtonEmpty,
+body.darkMode div.darkMode button.HeartButtonFull {
+    background-color: transparent;
+}
