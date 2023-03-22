@@ -61,7 +61,7 @@ function LeaveRating(props) {
     return (
         <div className="rating-form">
             <form onSubmit={submit}>
-                <h1> Legg til en rating </h1>
+                <h2> Legg til en rating </h2>
                 <div className="ratingComment">
                     <div className="commentLabelWrapper">
                         <label className="commentLabel" htmlFor="kommentar"> Kommentar: </label>
