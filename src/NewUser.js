@@ -2,10 +2,12 @@ import React from "react"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { addUser } from './IO.js'
 import './NewUser.css';
+import { useNavigate } from "react-router";
 
 function RegisterNewUser() {
 
     const auth = getAuth()
+    const navigate = useNavigate();
 
     const handleSubmit = (submit) => {
         submit.preventDefault()
@@ -24,6 +26,7 @@ function RegisterNewUser() {
                 console.log(e.message)
             })
         window.alert("Gratulerer, du har nå opprettet en ny bruker!")
+            navigate("/Min Profil");
     }
 
     return (

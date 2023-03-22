@@ -1,8 +1,8 @@
 import { doc, getDoc, getDocs, collection, Timestamp } from 'firebase/firestore';
-import React, { useEffect, useState, useNavigate } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
 import { auth, firestore } from './firebaseConfig';
-import { addAd, updateAd, updateUser } from './IO'
-import { Navigate } from "react-router";
+import { updateAd, updateUser } from './IO'
 import './LagAnnonse.css'
 
 function UpdateAd(props) {

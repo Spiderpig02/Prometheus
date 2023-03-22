@@ -20,6 +20,7 @@ export const SavedAds = (props) => {
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [modalStreetName, setModalStreetName] = useState("Ferjemamnnsveien 10");
     const [modalCityName, setModalCityName] = useState("Trondheim");
+    const [loadedInn, setLoadedInn] = useState("false");
 
     // Modal
 
@@ -93,6 +94,7 @@ export const SavedAds = (props) => {
         const userDoc = doc(firestore, "User", currentUser.uid)
         const user = await getDoc(userDoc);
         setUserState({ ...user.data(), id: user.id });
+        setLoadedInn(loadedInn + "1");
     };
 
     useEffect(() => {
@@ -104,7 +106,7 @@ export const SavedAds = (props) => {
 
     useEffect(() => {
         getAds();
-    }, [emptySearch, userState, savedAds]);
+    }, [emptySearch, loadedInn]);
 
 
 
@@ -114,11 +116,13 @@ export const SavedAds = (props) => {
             let tmp = userCopy.Like.filter(ad => ad !== adID)
             userCopy.Like = tmp;
             setUserState(userCopy);
+            setLoadedInn(loadedInn + "1");
             addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         }
         else {
             userCopy.Like.push(adID);
             setUserState(userCopy);
+            setLoadedInn(loadedInn + "1");
             addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
         };
 

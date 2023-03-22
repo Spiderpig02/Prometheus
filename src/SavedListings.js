@@ -84,24 +84,6 @@ export const AllListings = (props) => {
         });
     };
 
-
-    const getQueryAds = async () => {
-        const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
-        await getDocs(querys).then((querySnapshot) => {
-            const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            let dummyList = [];
-            if (userState.length !== 0) {
-                console.log(userState);
-                adsData.forEach(element => {
-                    if (userState.Like.includes(element.id)) {
-                        dummyList.push(element);
-                    }
-                });
-            }
-            setSavedAds(dummyList);
-        })
-    };
-
     const getUser = async () => {
         const userDoc = doc(firestore, "User", currentUser.uid)
         const user = await getDoc(userDoc);
@@ -115,20 +97,16 @@ export const AllListings = (props) => {
     }, []);
 
     useEffect(() => {
-        if (checkedList.length !== 0) {
-            getQueryAds();
-        } else {
-            getAds();
-        }
+        getAds();
 
-    }, [checkedList, emptySearch, userState]);
+    }, [emptySearch, userState]);
 
 
     const handleSetChecked = (checked) => {
         setCheckedList(checked);
     };
 
-    
+
 
     return (
         <div>
