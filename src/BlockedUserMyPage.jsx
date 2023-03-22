@@ -18,7 +18,7 @@ function BlockedUserMyPage(props) {
             const userData = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             const tmp = [];
             userData.map((user) => {
-                return (user.id === currentUser.uid ? true : tmp.push(user))
+                return ((user.id === currentUser.uid || user.Email === "admin@admin.com") ? true : tmp.push(user))
             });
             setUsers(tmp);
         });
@@ -31,8 +31,8 @@ function BlockedUserMyPage(props) {
     };
 
     useEffect(() => {
-        getUsers();
         getUser();
+        getUsers();
     }, []);
 
     useEffect(() => {
@@ -62,15 +62,29 @@ function BlockedUserMyPage(props) {
         if (userState.Blocked.includes(userID)) {
             let tmp = userCopy.Blocked.filter(e => e !== userID)
             userCopy.Blocked = tmp;
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
             window.alert("Bruker er nå fjernet fra Blocked listen din");
 
         } else {
             userCopy.Blocked.push(userID);
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like);
-            window.alert("Bruker er nå lag inn i Blocked listen din");
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            window.alert("Bruker er nå lagt inn i Blocked listen din");
         };
+    };
+
+    const showBlockedUsers = () => {
+        if (userState.length !== 0) {
+            return (
+                <ul className="users">
+                    {viewedUsers.map((user) => (<li className="user" key={user.id}>
+                        <h3 className="username"> {user.Username} </h3>
+                        <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Unblock" : "Block"} </button>
+                    </li>)
+                    )}
+                </ul>);
+        };
+        return <h2> No users exist </h2>
     };
 
     return (
@@ -79,15 +93,9 @@ function BlockedUserMyPage(props) {
                 <input onChange={() => {
                     filterBySearch();
                 }} type="text" id="searchField" name="searchField"
-                    placeholder="Søk etter brukere via brukername, tlf eller e-post"></input>
+                    placeholder="Søk etter brukere via brukernavn, telefonnummer eller e-post"></input>
             </div>
-            <ul className="users">
-                {viewedUsers.map((user) => (<li className="user" key={user.id}>
-                    <h3 className="username"> {user.Username} </h3>
-                    <button className="blokk" onClick={() => { banUser(user.id) }}> {userState.Blocked.includes(user.id) ? "Un blokk" : "Blokk"} </button>
-                </li>)
-                )}
-            </ul>
+            {showBlockedUsers()}
         </div>
     );
 };

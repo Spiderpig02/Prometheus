@@ -26,15 +26,14 @@ input[type="password"] {
 }
 
 input[type="submit"] {
+    border-radius: 12px;
+    cursor: pointer;
     margin-top: 50px;
-    cursor: auto;
     font-size: 16px;
     background: black;
-    border: 0.5px solid;
     color: whitesmoke;
     padding: 15px 15px;
     text-align: center;
-    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
 }
 
 .loginForm input {
@@ -50,10 +49,14 @@ h1 {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 12px;
+    cursor: pointer;
 }
 
 .logoutButton {
     text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
 }
 
 button.linkNewUser {
@@ -62,7 +65,8 @@ button.linkNewUser {
     color: black;
     text-align: center;
     text-decoration: underline;
-    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
+    border-radius: 12px;
+    cursor: pointer;
 }
 
 label {
@@ -80,5 +84,7 @@ label {
 }
 
 .shadow {
-    box-shadow: 1.5px 1.5px 3px 1.5px rgba(0, 0, 0, .8);
+    
+    border-radius: 12px;
+    cursor: pointer;
 }

@@ -1,0 +1,26 @@
+.adminPageButton {
+    border-radius: 15px;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    font-family: arial, sans-serif;
+    outline: none;
+}
+
+.NavigateToMyLiked {
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    font-family: arial, sans-serif;
+}
+
+.adminPageButton:hover {
+    box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
+    transition: cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.NavigateToMyLiked:hover {
+    box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
+}

@@ -12,10 +12,10 @@ div.searchBar {
     border-radius: 8px;
     text-align: left;
     padding: 0px 4px 0px 4px;
-    width: 89%;
+    width: 100%;
 }
 
-.searchBar button {
+/* .searchBar button {
     height: 30px;
     width: 8%;
     border: 0.5px solid black;
@@ -25,7 +25,7 @@ div.searchBar {
     margin-top: 0;
     margin-bottom: 0;
     color: black;
-}
+} */
 
 .paperTitleAndDate h1,
 h4 {

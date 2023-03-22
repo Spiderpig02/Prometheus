@@ -19,6 +19,7 @@ function UpdateAd(props) {
     const [adData, setAdData] = useState([]);
     const [useData, setUseData] = useState([]);
     const [inputBoxAvailable, setInputBoxAvailable] = useState("usynligInput");
+    const navigate = useNavigate();
 
 
 
@@ -95,11 +96,11 @@ function UpdateAd(props) {
             } else if (type === 'Etterspørsel') {
                 alert("Etterspørselen er oppdatert");
             }
-
         } catch (error) {
             alert("En feil har oppstått" + error);
         }
-    }
+        navigate("/Mine Annonser");
+    };
 
     async function getPhone() {
         const docRef = doc(firestore, "User", userData.uid);

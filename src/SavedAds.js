@@ -10,7 +10,7 @@ import MineAnnonserSidebar, { listCategory } from './MineAnnonserSidebar.jsx';
 import './MineAnnonserSidebar.css'
 import { useNavigate } from "react-router-dom"
 
-export const MyListings = (props) => {
+export const SavedAds = (props) => {
     const navigate = useNavigate();
 
     const user = auth.currentUser;
@@ -71,13 +71,9 @@ export const MyListings = (props) => {
 
             <div className="myAdvertsPaperContainer" >
                 <Container>
-                    <Box className='sidebar-container'>
-                        <MineAnnonserSidebar className="sidebar" onChecked={handleSetStatus} />
-                    </Box>
-                    {/* <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+                    <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                         Mine Annonser
-                    </Typography> */}
-                    <h2 className = "pageHeading"> Mine Annonser </h2>
+                    </Typography>
 
                     <List>
 
@@ -146,4 +142,4 @@ export const MyListings = (props) => {
 
 }
 
-export default MyListings;
+export default SavedAds;
