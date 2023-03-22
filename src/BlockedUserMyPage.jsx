@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { auth, firestore } from "./firebaseConfig";
 import { addUser } from "./IO";
 import './BlockedUserMyPage.css';
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 function BlockedUserMyPage(props) {
 
@@ -11,9 +13,9 @@ function BlockedUserMyPage(props) {
     const [userState, setUserState] = useState([]);
     const [viewedUsers, setViewedUsers] = useState([]);
 
+    const userRef = collection(firestore, "User");
 
     const getUsers = async () => {
-        const userRef = collection(firestore, "User");
         await getDocs(userRef).then((snapShot) => {
             const userData = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             const tmp = [];
@@ -73,6 +75,20 @@ function BlockedUserMyPage(props) {
         };
     };
 
+    const getUserUdiFromEmail = async (email) => {
+        await getDocs(userRef).then((snapShot) => {
+            const userData = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            console.log(userData)
+            userData.map((user) => {
+                if (user.Email === email ) {
+                    console.log(user.Email)
+                    console.log(user.id)
+                    return user.id
+                }
+            });
+        });
+    }
+
     const showBlockedUsers = () => {
         if (userState.length !== 0) {
             return (
@@ -87,6 +103,25 @@ function BlockedUserMyPage(props) {
         return <h2> No users exist </h2>
     };
 
+    const showInteractions = () => {
+        if (userState.length !== 0) {
+            return (
+                <ul className="users">
+                    {userState.Interactions.map((email) => (<li className="user" key={email}>
+                        <h3 className="username"> {email} </h3>
+
+                        <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(getUserUdiFromEmail(email))} to="/OtherUser"  >
+                            <Button variant="outlined">
+                                Se bruker sin side
+                            </Button>
+                        </Link>
+                    </li>)
+                    )}
+                </ul>);
+        };
+        return <h2> No user interactions yet! </h2>
+    };
+
     return (
         <div className="blockedUsers">
             <div className="searchBar">
@@ -96,6 +131,7 @@ function BlockedUserMyPage(props) {
                     placeholder="Søk etter brukere via brukernavn, telefonnummer eller e-post"></input>
             </div>
             {showBlockedUsers()}
+            {showInteractions()}
         </div>
     );
 };

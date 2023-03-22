@@ -5,9 +5,10 @@ import { firestore } from "./firebaseConfig.js";
 import './MyListings.css'
 import { Navigate } from "react-router";
 import LeaveRating from "./LeaveRating.js";
+import { getAuth } from "firebase/auth";
 
 const OtherUser = (props) => {
-
+    console.log(props.getuser)
     const otherUserUID = props.getuser;
     const userDocRef = doc(firestore, "User", otherUserUID)
 
@@ -58,7 +59,6 @@ const OtherUser = (props) => {
                                     width: 700
     
                                 }}>
-    
                                     <Paper elevation={3} style={{
                                         padding: 8,
                                         border: "1px solid black",
