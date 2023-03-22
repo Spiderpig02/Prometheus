@@ -96,8 +96,8 @@ const OtherUser = (props) => {
         return (
             <Container style={{ marginTop: '100px' }}>
                 <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
-                    Annen bruker sin side
                     <div>
+                        <h2 className="pageHeading">Brukerside</h2>
                         <h4>
                             Brukernavn: {username}
                         </h4>
