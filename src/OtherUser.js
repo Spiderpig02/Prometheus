@@ -29,7 +29,7 @@ const OtherUser = (props) => {
             setTotalRating(documentSnapshot.data().totalRating)
         })
     }
-    
+
     useEffect(() => {
         if (location.state == null) {
             getUserInfo(props.getuser)
@@ -39,10 +39,11 @@ const OtherUser = (props) => {
     }, []);
 
     if (totalRating > 0) {
-        return ( 
+        return (
             <Container style={{ marginTop: '100px' }}>
-                    <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
-                        <div>
+                <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+                    <div>
+                        <div className="brukerInfo">
                             <h4>
                                 Brukernavn: {username}
                             </h4>
@@ -53,18 +54,20 @@ const OtherUser = (props) => {
                                 Telefonnr: {phonenumber}
                             </h4>
                             <h3>
-                                Rating: {Math.round(totalRating/rating.length * 10) / 10}
+                                Rating: {Math.round(totalRating / rating.length * 10) / 10}
                             </h3>
-                            <List>
+                        </div>
+                        <List>
                             {rating.map(rating => (
                                 <Box key={rating} sx={{
-    
+
                                     //justifyContent: "space-between",
                                     margin: "30px",
                                     mx: 'auto',
                                     width: 700
-    
+
                                 }}>
+
                                     <Paper elevation={3} style={{
                                         padding: 8,
                                         border: "1px solid black",
@@ -77,51 +80,52 @@ const OtherUser = (props) => {
                                             {rating.username}
                                         </h4>
                                         <div className="paperTitleAndDate">
-                                            <h1>
+                                            <h4>
                                                 {rating.comment}
-                                            </h1>
+                                            </h4>
+                                            <h3>
+                                                Vurdering: {rating.rating}
+                                            </h3>
                                         </div>
-                                        <h3>
-                                            Vurdering: {rating.rating}
-                                        </h3>                                  
+
                                     </Paper>
                                 </Box>
                             ))}
                         </List>
                         <LeaveRating userID={otherUserUID}></LeaveRating>
-    
-                        </div>
-                    </Typography>
-    
-                </Container>
-         );
+
+                    </div>
+                </Typography>
+
+            </Container>
+        );
     } else {
-        return ( 
+        return (
             <Container style={{ marginTop: '100px' }}>
-                    <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
-                        Annen bruker sin side
-                        <div>
-                            <h4>
-                                Brukernavn: {username}
-                            </h4>
-                            <h4>
-                                Email: {email}
-                            </h4>
-                            <h4>
-                                Telefonnr: {phonenumber}
-                            </h4>
-                            <h3>
-                                Rating: Ingen vurderinger
-                            </h3>
+                <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
+                    <div>
+                        <h2 className="pageHeading">Brukerside</h2>
+                        <h4>
+                            Brukernavn: {username}
+                        </h4>
+                        <h4>
+                            Email: {email}
+                        </h4>
+                        <h4>
+                            Telefonnr: {phonenumber}
+                        </h4>
+                        <h3>
+                            Rating: Ingen vurderinger
+                        </h3>
                         <LeaveRating userID={otherUserUID}></LeaveRating>
-    
-                        </div>
-                    </Typography>
-    
-                </Container>
-         );
+
+                    </div>
+                </Typography>
+
+            </Container>
+        );
     }
-    
+
 }
 
 export default OtherUser;

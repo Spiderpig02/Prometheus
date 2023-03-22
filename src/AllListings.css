@@ -27,7 +27,7 @@ div.searchBar {
     color: black;
 } */
 
-.paperTitleAndDate h1,
+.paperTitleAndDate h2,
 h4 {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -66,4 +66,51 @@ div#modalTopBar span {
 div#modalTopBar span:hover {
     opacity: 0.7;
 
+}
+
+.HeartButtonEmpty {
+    background-image: url('./TomtHjerte.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: white;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    height: 30px;
+    margin: 9px 0 0 0;
+    left: 1vw;
+}
+
+.HeartButtonFull {
+    background-image: url('./FulltHjerte.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: white;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    height: 30px;
+    margin: 9px 0 0 0;
+    left: 1vw;
+}
+
+div.likedAndTypeWrapper {
+    position: relative;
+}
+
+h2#allAdvertsHeading {
+    margin-top: 25px;
+}
+
+div.contactAdmin {
+    margin-bottom: 3%;
+}
+
+body.darkMode div.darkMode button.HeartButtonEmpty,
+body.darkMode div.darkMode button.HeartButtonFull {
+    background-color: transparent;
 }

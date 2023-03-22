@@ -1,35 +1,19 @@
-import { Box, Button, Container, List, Paper } from "@mui/material";
+import { Box, Button, Container, List, ListItem, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { auth, firestore } from "./firebaseConfig.js";
 import React, { useEffect, useState } from 'react';
-import './AllListings.css';
-import './MyListings.css';
-import CheckboxSidebar from './CheckboxSidebar.jsx';
-import './CheckboxSidebar.css'
+import './SavedListings.css';
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
-import { addUser } from "./IO";
 
 export const AllListings = (props) => {
 
-
-
-    let path = "/OtherUser"
-
-
-
-    let currentUser = auth.currentUser;
-
-    if (currentUser == null) {
-        path = "/Logg Inn";
-    };
-
-
-
+    const currentUser = auth.currentUser;
     const [checkedList, setCheckedList] = useState([]);
-    const [ads, setAds] = useState([]);
+    const [savedAds, setSavedAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
+    const [search, setSearch] = useState("");
     const [emptySearch, setEmptySearch] = useState("");
     const [userState, setUserState] = useState([]);
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -82,43 +66,22 @@ export const AllListings = (props) => {
             const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             let dummyList = [];
             if (userState.length !== 0) {
+                console.log(userState);
                 adsData.forEach(element => {
-                    if (element.Available === true && !userState.Blocked.includes(element.userID)) {
+                    if (userState.Like.includes(element.id)) {
                         dummyList.push(element);
                     }
                 });
-            } else {
-                adsData.forEach(element => {
-                    if (element.Available === true) {
-                        dummyList.push(element);
-                    }
-                });
-            };
-            setAds(dummyList);
+            }
+            //else {
+            //     adsData.forEach(element => {
+            //         if (element.Available === true) {
+            //             dummyList.push(element);
+            //         }
+            //     });
+            // };
+            setSavedAds(dummyList);
         });
-    };
-
-
-    const getQueryAds = async () => {
-        const querys = query(adsCollectionRef, where('Categories', 'array-contains-any', checkedList))
-        await getDocs(querys).then((querySnapshot) => {
-            const adsData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            let dummyList = [];
-            if (userState.length !== 0) {
-                adsData.forEach(element => {
-                    if (element.Available === true && !userState.Blocked.includes(element.userID)) {
-                        dummyList.push(element);
-                    }
-                });
-            } else {
-                adsData.forEach(element => {
-                    if (element.Available === true) {
-                        dummyList.push(element);
-                    }
-                });
-            };
-            setAds(dummyList);
-        })
     };
 
     const getUser = async () => {
@@ -134,50 +97,16 @@ export const AllListings = (props) => {
     }, []);
 
     useEffect(() => {
-        if (checkedList.length !== 0) {
-            getQueryAds();
-        } else {
-            getAds();
-        }
+        getAds();
 
-    }, [checkedList, emptySearch, userState]);
+    }, [emptySearch, userState]);
 
 
     const handleSetChecked = (checked) => {
         setCheckedList(checked);
     };
-    const likeAd = (adID) => {
-        let userCopy = userState;
-        if (userState.Like.includes(adID)) {
-            let tmp = userCopy.Like.filter(ad => ad !== adID)
-            userCopy.Like = tmp;
-            setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
-        }
-        else {
-            userCopy.Like.push(adID);
-            setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
-        };
 
-    };
 
-    const filterBySearch = () => {
-        let searchText = document.getElementById("searchField").value
-        let adList = ads;
-        let newAdList = [];
-        for (let index = 0; index < adList.length; index++) {
-            if (adList[index].Title.toLowerCase().includes(searchText.toLowerCase())) {
-                newAdList.push(adList[index]);
-            };
-        };
-        console.log(searchText);
-        if (searchText.length === 0) {
-            setEmptySearch(emptySearch + "1");
-        } else {
-            setAds(newAdList);
-        };
-    };
 
     return (
         <div>
@@ -187,20 +116,14 @@ export const AllListings = (props) => {
                         <CheckboxSidebar className="sidebar" onChecked={handleSetChecked} />
                     </Box>
                 </Container>
-                <Typography variant='h2' sx={{ my: 4, textAlign: 'center', color: "primary.main" }} className="pageHeading" id="allAdvertsHeading">
+                <Typography variant='h2' sx={{ my: 4, textAlign: 'center', color: "primary.main" }} className="pageHeading">
                     Alle Annonser
                 </Typography>
-                <div className="searchBar">
-                    <input onChange={(event) => {
-                        filterBySearch();
-                    }} type="text" id="searchField" name="searchField"
-                        placeholder="Søk etter annonse..."></input>
-                    {/* <button onClick={filterBySearch} id="searchFieldButton">Søk</button> */}
-                </div>
-
                 <List>
-                    {ads.map(ad => (
+                    {savedAds.map(ad => (
                         <Box key={ad.id} sx={{
+
+                            //justifyContent: "space-between",
                             margin: "30px",
                             mx: 'auto',
                             width: 700
@@ -213,16 +136,9 @@ export const AllListings = (props) => {
                                 textAlign: "center",
                                 verticalAlign: "middle"
                             }}>
-
-                                <div className="likedAndTypeWrapper">
-                                    {userState.length !== 0 ? <button onClick={() => { likeAd(ad.id); setEmptySearch(emptySearch + "1") }} className={
-                                        userState.Like.includes(ad.id) ? "HeartButtonFull" : "HeartButtonEmpty"
-                                    }></button> : <span className="HeartButtonFull"></span>}
-                                    <h4 className="addType">
-                                        {ad.Type}
-                                    </h4>
-                                </div>
-
+                                <h4 className="addType">
+                                    {ad.Type}
+                                </h4>
                                 <div className="paperTitleAndDate">
                                     <h1>
                                         {ad.Title}
@@ -260,7 +176,7 @@ export const AllListings = (props) => {
                                     }}>
                                         <Button variant="outlined">Åpne kart</Button>
                                     </Link>
-                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={path}  >
+                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
                                         <Button variant="outlined">
                                             Se bruker sin side
                                             {/* useLocation for props gjennom link, mulig async? vet ikke  */}
@@ -273,7 +189,6 @@ export const AllListings = (props) => {
                     ))}
                 </List>
             </Container>
-            <div className="contactAdmin"><h4>Oppdaget noe upassende i en annonse? <br></br>Kontakt administrator på epost: admin@admin.com</h4></div>
         </div>
     );
 }

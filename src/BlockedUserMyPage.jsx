@@ -16,6 +16,7 @@ function BlockedUserMyPage(props) {
     const [users, setUsers] = useState([]);
     const [userState, setUserState] = useState([]);
     const [viewedUsers, setViewedUsers] = useState([]);
+    const [loadedInn, setLoadedInn] = useState("false");
 
     const userRef = collection(firestore, "User");
 
@@ -28,6 +29,7 @@ function BlockedUserMyPage(props) {
             });
             setUsers(tmp);
         });
+        setLoadedInn(loadedInn + "1");
     };
 
     const getUser = async () => {
@@ -43,7 +45,7 @@ function BlockedUserMyPage(props) {
 
     useEffect(() => {
         getUser();
-    }, []);
+    }, [loadedInn]);
 
     useEffect(() => {
         setViewedUsers(users);
@@ -68,13 +70,15 @@ function BlockedUserMyPage(props) {
         if (userState.Blocked.includes(userID)) {
             let tmp = userCopy.Blocked.filter(e => e !== userID)
             userCopy.Blocked = tmp;
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            setLoadedInn(loadedInn + "1");
             window.alert("Bruker er nå fjernet fra Blocked listen din");
 
         } else {
             userCopy.Blocked.push(userID);
             setUserState(userCopy);
-            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.canRate, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            addUser(userCopy.id, userCopy.Username, userCopy.Password, userCopy.Email, userCopy.Phonenumber, userCopy.Rating, userCopy.Interactions, userCopy.Blocked, userCopy.Like, userCopy.totalRating);
+            setLoadedInn(loadedInn + "1");
             window.alert("Bruker er nå lagt inn i Blocked listen din");
         };
     };

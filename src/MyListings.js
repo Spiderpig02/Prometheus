@@ -1,6 +1,4 @@
 import { Box, Button, Container, Link, List, ListItem, Paper } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import AlertDialog from "./AlertDialog";
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, where, doc, deleteDoc, getDoc } from "firebase/firestore";
 import { auth, firestore } from "./firebaseConfig.js";
@@ -77,7 +75,7 @@ export const MyListings = (props) => {
                     {/* <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
                         Mine Annonser
                     </Typography> */}
-                    <h2 className = "pageHeading"> Mine Annonser </h2>
+                    <h2 className="pageHeading" id="myAdvertsHeading"> Mine Annonser </h2>
 
                     <List>
 
