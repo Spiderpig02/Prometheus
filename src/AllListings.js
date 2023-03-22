@@ -13,7 +13,20 @@ import { addUser } from "./IO";
 
 export const AllListings = (props) => {
 
-    const currentUser = auth.currentUser;
+    
+
+    let path = "/OtherUser"
+
+
+
+    let currentUser = auth.currentUser;
+
+    if(currentUser==null){
+        path= "/Logg Inn";
+    };
+
+    
+
     const [checkedList, setCheckedList] = useState([]);
     const [ads, setAds] = useState([]);
     const adsCollectionRef = collection(firestore, "Advertisement");
@@ -247,7 +260,7 @@ export const AllListings = (props) => {
                                     }}>
                                         <Button variant="outlined">Åpne kart</Button>
                                     </Link>
-                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={`/OtherUser`}  >
+                                    <Link style={{ textDecoration: "none", color: "whitesmoke" }} onClick={() => props.recieveUser(ad.userID)} to={path}  >
                                         <Button variant="outlined">
                                             Se bruker sin side
                                             {/* useLocation for props gjennom link, mulig async? vet ikke  */}
