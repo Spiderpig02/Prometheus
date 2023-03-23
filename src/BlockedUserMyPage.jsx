@@ -99,7 +99,7 @@ function BlockedUserMyPage(props) {
     const showBlockedUsers = () => {
         if (userState.length !== 0) {
             return (
-                <div>
+                <div className="userDivWrapper">
                     <ul className="users">
                         {viewedUsers.map((user) => (<li className="user" key={user.id}>
                             <h3 className="username"> {user.Username} </h3>
@@ -116,7 +116,7 @@ function BlockedUserMyPage(props) {
         if (userState.Email !== "admin@admin.com") {
             if (userState.length !== 0) {
                 return (
-                    <div>
+                    <div className="userDivWrapper">
                         <h2 style={{ marginBottom: "0px" }}>Brukere du har interagert med</h2>
                         <ul className="users">
                             {userState.Interactions.map((email) => (<li className="user" key={email}>
@@ -136,6 +136,7 @@ function BlockedUserMyPage(props) {
 
     return (
         <div className="blockedUsers">
+            <h2 style={{ marginBottom: "10px" }}>Alle brukere</h2>
             <div className="searchBar">
                 <input onChange={() => {
                     filterBySearch();

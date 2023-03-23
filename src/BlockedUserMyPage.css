@@ -6,6 +6,12 @@
     align-items: center;
     position: relative;
     width: auto;
+
+}
+
+.userDivWrapper {
+    overflow-y: auto;
+    height: 50vh;
 }
 
 .user {

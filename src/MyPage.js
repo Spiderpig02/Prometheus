@@ -20,7 +20,7 @@ const MyPage = (props) => {
         let userInfo = await getDoc(doc(firestore, "User", user.uid)).
             then((res) => {
                 if (res.data().Rating.length > 0) {
-                    setRating(Math.round(res.data().totalRating/res.data().Rating.length * 10) / 10)
+                    setRating(Math.round(res.data().totalRating / res.data().Rating.length * 10) / 10)
                     setComments(res.data().Rating)
                 } else {
                     setRating("Ingen vurderinger")
@@ -64,42 +64,43 @@ const MyPage = (props) => {
                         <button onClick={async () =>
                             navigate("/Lagrede Annonser")
                         } className="NavigateToMyLiked"
-                             >Lagrede annonser</button>
+                        >Lagrede annonser</button>
 
                     </Paper>
                 </Typography>
-                <List>
+                <h2>Vurderinger av deg</h2>
+                <List className="userDivWrapper">
                     {comments.map(rating => (
                         <Box key={rating} sx={{
-                         //justifyContent: "space-between",
-                         margin: "30px",
-                         mx: 'auto',
-                         width: 700
+                            //justifyContent: "space-between",
+                            margin: "30px",
+                            mx: 'auto',
+                            width: 700
 
-                     }}>
-                    
-                         <Paper elevation={3} style={{
-                             padding: 8,
-                             border: "1px solid black",
-                             justifyContent: "center",
-                             alignItems: "center",
-                             textAlign: "center",
-                             verticalAlign: "middle"
-                         }}>
-                             <h4 className="addType">
-                                 {rating.username}
-                             </h4>
-                             <div className="paperTitleAndDate">
-                                 <h1>
-                                     {rating.comment}
-                                 </h1>
-                             </div>
-                             <h3>
-                                 Vurdering: {rating.rating}
-                             </h3>                                  
-                         </Paper>
-                     </Box>
-                 ))}
+                        }}>
+
+                            <Paper elevation={3} style={{
+                                padding: 8,
+                                border: "1px solid black",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                textAlign: "center",
+                                verticalAlign: "middle"
+                            }}>
+                                <h4 className="addType">
+                                    {rating.username}
+                                </h4>
+                                <div className="paperTitleAndDate">
+                                    <h1>
+                                        {rating.comment}
+                                    </h1>
+                                </div>
+                                <h3>
+                                    Vurdering: {rating.rating}
+                                </h3>
+                            </Paper>
+                        </Box>
+                    ))}
                 </List>
                 <BlockedUserMyPage>
 
