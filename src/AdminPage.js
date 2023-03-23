@@ -67,8 +67,7 @@ function AdminPage() {
                         <List className="left-list" style={{ flex: "1" }}>
                             <h2 className="listTitle">Brukere</h2>
 
-                            {users.map(user => (
-
+                            {users.filter((u) => u.Email !== "admin@admin.com").map(user => (
                                 <Box key={user.id} sx={{
 
                                     //justifyContent: "space-between",
