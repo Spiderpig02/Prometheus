@@ -18,6 +18,7 @@ const OtherUser = (props) => {
     const [email, setEmail] = useState('');
     const [rating, setRating] = useState([]);
     const [totalRating, setTotalRating] = useState();
+    const [otherUser, setOtherUser] = useState("");
 
     const getUserInfo = async (uid) => {
         const userDocRef = doc(firestore, "User", uid)
@@ -27,18 +28,19 @@ const OtherUser = (props) => {
             setEmail(documentSnapshot.data().Email)
             setRating(documentSnapshot.data().Rating)
             setTotalRating(documentSnapshot.data().totalRating)
+            setOtherUser(uid)
         })
     }
 
     useEffect(() => {
-        if (location.state == null) {
-            getUserInfo(props.getuser)
-        } else {
+        if (location.state !== null) {
             getUserInfo(location.state.uid)
+        } else {
+            getUserInfo(props.getuser)
         }
     }, []);
 
-    if (totalRating > 0) {
+    if (totalRating > 0 && otherUser.length != "") {
         return (
             <Container style={{ marginTop: '100px' }}>
                 <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
@@ -92,14 +94,14 @@ const OtherUser = (props) => {
                                 </Box>
                             ))}
                         </List>
-                        <LeaveRating userID={otherUserUID}></LeaveRating>
+                        <LeaveRating userID={otherUser}></LeaveRating>
 
                     </div>
                 </Typography>
 
             </Container>
         );
-    } else {
+    } if (otherUser.length != "") {
         return (
             <Container style={{ marginTop: '100px' }}>
                 <Typography variant='h3' sx={{ my: 4, textAlign: 'center', color: "primary.main" }}>
@@ -117,7 +119,7 @@ const OtherUser = (props) => {
                         <h3>
                             Rating: Ingen vurderinger
                         </h3>
-                        <LeaveRating userID={otherUserUID}></LeaveRating>
+                        <LeaveRating userID={otherUser}></LeaveRating>
 
                     </div>
                 </Typography>
